@@ -1,3 +1,40 @@
-* {
-  background-color: #1976d2;
+.navbar{
+  margin: 0;
+  padding: 0;
+  background-color: #f1f1f1;
+  height: 65px;
+  display: flex;
+  align-items: center;
 }
+.spacer{
+  flex: 0 1 auto;
+  width: 70px;
+}
+.logo{
+  flex: 1 auto;
+}
+.logo_text{
+  font-family: "Inter", sans-serif;
+  color: #f5c451;
+  font-weight: bold;
+  font-size: 24px;
+}
+.logo_icon{
+  margin-right: 10px;
+  font-size: 24px;
+  color: #7D7D7D;
+}
+.buttons{
+  display: flex;
+  gap: 20px;
+  justify-content: space-around;
+  margin-right: 20px;
+}
+
+.login_button{
+  font-weight: bold;
+}
+.register_button{
+  color: white;
+}
+
