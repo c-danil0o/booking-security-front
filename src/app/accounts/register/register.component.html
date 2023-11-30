@@ -1,0 +1,28 @@
+<div class="login">
+
+  <div class="login_wrapper">
+    <span class="sign_in">Sign Up</span>
+    <div class="fields">
+      <input class="email_field" type="text" pInputText placeholder="First Name"/>
+      <input class="email_field" type="text" pInputText placeholder="Last Name"/>
+      <input class="email_field" type="tel" pInputText placeholder="Phone"/>
+      <input class="email_field" type="text" pInputText placeholder="Address"/>
+      <input class="email_field" type="email" pInputText placeholder="Email"/>
+      <p-password class="password_field" placeholder="Password" [toggleMask]="true"></p-password>
+      <p-password class="password_field" placeholder="Confirm password" [toggleMask]="true"></p-password>
+      <div class="acc_type">
+        <div class="acc_type_item">
+          <p-radioButton name="guest" value="Cheese" [(ngModel)]="account_type" inputId="type1"></p-radioButton>
+          <label  class="ml-2">Guest</label>
+        </div>
+
+        <div class="acc_type_item">
+          <p-radioButton name="pizza" value="Mushroom" [(ngModel)]="account_type" inputId="type2"></p-radioButton>
+          <label  class="ml-2">Host</label>
+        </div>
+      </div>
+    </div>
+    <button pButton type="button" label="Sign Up" class="p-button-secondary"></button>
+
+  </div>
+</div>
