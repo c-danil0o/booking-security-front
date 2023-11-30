@@ -1,0 +1,18 @@
+{
+    "id": 1,
+    "email": "guest1@example.com",
+    "password": {"value": "guest1password"},
+    "isBlocked": false,
+    "profilePictureUrl": "../../../../../assets/reviewer.jpg",
+    "firstName": "John",
+    "lastName": "Doe",
+    "phone": "123456789",
+    "timesCancelled": 2,
+    "address": {
+        "street": "Heritage Lane",
+        "city": "Subotica",
+        "number": "12"
+    },
+    "country": "United States"
+}
+  

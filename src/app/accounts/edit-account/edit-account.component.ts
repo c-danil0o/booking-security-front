@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import guestAccount from '../account-data.json'
+import { Guest } from '../guest';
 
 @Component({
   selector: 'app-edit-account',
@@ -6,6 +9,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./edit-account.component.css']
 })
 export class EditAccountComponent {
-  account_type: string | undefined;
-
+  account = guestAccount;
 }

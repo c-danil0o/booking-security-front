@@ -229,13 +229,11 @@
   margin-top: 32px;
   width: 364px;
   justify-content: center;
-  padding: 12px 11px;
   font: 400 16px/24px Inter, sans-serif;
 }
 @media (max-width: 991px) {
   .change-password {
     margin-left: 2px;
-    padding-right: 2px;
   }
 }
 

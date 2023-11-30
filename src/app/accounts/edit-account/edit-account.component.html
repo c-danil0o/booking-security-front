@@ -25,7 +25,7 @@
                 <li>First Name</li>
               </ul>
             </div>
-            <input type="text" class="info-input" placeholder="Marko" />
+            <input type="text" class="info-input" placeholder="{{ account.firstName }}" />
           </div>
 
           <div class="outer-info-segment">
@@ -34,7 +34,7 @@
                 <li>Last Name</li>
               </ul>
             </div>
-            <input type="text" class="info-input" placeholder="Markovic" />
+            <input type="text" class="info-input" placeholder="{{ account.lastName }}" />
           </div>
 
           <div class="outer-info-segment">
@@ -46,7 +46,7 @@
             <input
               type="email"
               class="info-input"
-              placeholder="markovic@gmail.com"
+              placeholder="{{ account.email }}"
             />
           </div>
 
@@ -59,7 +59,7 @@
             <input
               type="text"
               class="info-input"
-              placeholder="12th Street, New YOrk"
+              placeholder="{{ account.address.street }} {{ account.address.number }}, {{ account.address.city }}"
             />
           </div>
 
@@ -69,7 +69,7 @@
                 <li>Country</li>
               </ul>
             </div>
-            <input type="text" class="info-input" placeholder="United States" />
+            <input type="text" class="info-input" placeholder="{{ account.country }}" />
           </div>
 
           <div class="outer-info-segment">
@@ -78,29 +78,22 @@
                 <li>Phone</li>
               </ul>
             </div>
-            <input type="text" class="info-input" placeholder="382623123" />
+            <input type="text" class="info-input" placeholder="{{ account.phone }}" />
           </div>
           <div class="button-actions">
-            <button class="apply-button">Apply changes</button>
-            <button class="cancel-button">Cancel</button>
-            <button class="delete-button">Delete account</button>
+            <button pButton type="button" class="apply-button">Apply changes</button>
+            <button pButton type="button" class="cancel-button">Cancel</button>
+            <button pButton type="button" class="delete-button">Delete account</button>
           </div>
         </div>
 
         <div class="outer-change-password-container">
           <div class="inner-change-password-container">
             <span class="change-pass-text">Change password:</span>
-            <input
-              type="password"
-              placeholder="Old password"
-              class="change-password"
-            />
-            <input
-              type="password"
-              placeholder="New password"
-              class="change-password"
-            />
-            <button class="change-pass-button">Change</button>
+
+            <p-password class="change-password" placeholder="Old password" [toggleMask]="true"></p-password>
+            <p-password class="change-password" placeholder="New password" [toggleMask]="true"></p-password>
+            <button pButton type="button" class="change-pass-button">Change</button>
           </div>
         </div>
       </div>
