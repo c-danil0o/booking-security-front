@@ -107,27 +107,19 @@
       margin-left: 10px;
     }
   }
-  .div-2 {
-    align-self: stretch;
-    margin-top: 16px;
-  }
-  @media (max-width: 991px) {
-    .div-2 {
-      max-width: 100%;
-    }
-  }
-  .div-3 {
+  
+  .filter-accommodation-container {
     gap: 20px;
     display: flex;
   }
   @media (max-width: 991px) {
-    .div-3 {
+    .filter-accommodation-container {
       flex-direction: column;
       align-items: stretch;
       gap: 0px;
     }
   }
-  .column {
+  .filters {
     display: flex;
     flex-direction: column;
     line-height: normal;
@@ -135,7 +127,7 @@
     margin-left: 0px;
   }
   @media (max-width: 991px) {
-    .column {
+    .filters {
       width: 100%;
     }
   }
@@ -263,16 +255,6 @@
     gap: 8px;
     margin-top: 5%;
   }
-  .img-16 {
-    aspect-ratio: 1;
-    object-fit: contain;
-    object-position: center;
-    width: 24px;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    max-width: 100%;
-  }
   .accommodation-data {
     color: #3a3d40;
     align-self: flex-start;
@@ -362,39 +344,37 @@
       width: 95%;
     }
   }
-  .column-5 {
-    display: flex;
-    flex-direction: column;
-    line-height: normal;
-    width: 76%;
-    margin-left: 0px;
-  }
-  @media (max-width: 991px) {
-    .column-5 {
-      width: 100%;
+  
+  .pagination {
+    display: inline-block;
+    align-self: center;
+
+    span {
+      margin: 0.5em 2em 0 0;
+      color: rgb(120, 120, 120)
     }
   }
-    .column-6 {
-    display: flex;
-    flex-direction: column;
-    line-height: normal;
-    width: 24%;
-    margin-left: 20px;
-  }
+
   @media (max-width: 991px) {
-    .column-6 {
-      width: 100%;
+    .pagination span {
+      display: no;
     }
   }
-  .img-25 {
-    aspect-ratio: 1.19;
-    object-fit: contain;
-    object-position: center;
-    width: 100%;
-    overflow: hidden;
+  
+  .pagination button {
+    color: rgb(120, 120, 120);
+    padding: 8px 16px;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    background-color: white;
   }
-  @media (max-width: 991px) {
-    .img-25 {
-      margin-top: 24px;
-    }
+  
+  .pagination button.active {
+    border: 1px solid rgb(79, 159, 245);
   }
+  
+  .pagination a:hover:not(.active) {
+    background-color: #ffffff;
+    border: none;
+  }
+  

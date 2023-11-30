@@ -8,8 +8,8 @@
 
       <div class="accommodations-filters">
         <span class="filter-text">Filters:</span>
-          <div class="div-3">
-            <div class="column">
+          <div class="filter-accommodation-container">
+            <div class="filters">
               
                 <div class="filtering-option">
                   <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/4b95ea95-4e5c-491a-8e19-3fcee82a4467?"/>
@@ -49,7 +49,7 @@
 
 
             <div class="accommodations" *ngIf="accommodations && accommodations.length > 0">
-              <div class="accommodation-outside-container" *ngFor="let accommodation of accommodations">
+              <div class="accommodation-outside-container" *ngFor="let accommodation of paginatedAccommodations">
                 <div class="accommodation-inner-container">
                   <div class="accommodation-info">
                     
@@ -73,60 +73,25 @@
                       </button>
 
                   </div>
-                  
-                  
-                  
-                  <div class="column-4">
+                
+                  <div class="accommodation-photo">
+                    <!-- get first picture from accommodation and show it to users -->
                     <img [src]="accommodation.photos[0]" class="accommodation-picture"/>
                   </div>
 
                 </div>
               </div>
-<!-- 
-              <div class="apartment-outside-container">
-                <div class="apartment-inner-container">
-                  <div class="column-3">
-                    
-                    <div class="apartman-prvi">
-                      <span class="appartment-title">Studentski dom Slobodan Bajic</span>
-                      <span class="appartment-description">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      </span>
-                      
-                      <div class="accommodation-data">
-                        <div class="apartment-city">
-                          <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/93208d1a-05f7-480b-b904-e76b1225d02f?"/>
-                          <span class="appartment-detail">Novi Sad</span>
-                        </div>
-                        <div class="apartment-guest-limit">
-                          <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/ff35a59a-fcad-4007-93c0-1697898ed546?" class="no-guests-icon"/>
-                          <span class="appartment-detail">3</span>
-                        </div>
 
-                        <div class="apartment-cancelation">
-                          <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/801eab51-5061-4a65-9f8b-88301ae65ae8?"/>
-                          <div class="apartment-detail">Free cancelation</div>
-                        </div>
-                      </div>
-                      
-                      <button class="more-about-apartman" pButton type="button" [routerLink]="['/accommodation-page']">
-                        <span class="apartment-details">Details</span>
-                        <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/214aa1d8-18cd-49cd-837a-318914bdd2cb?"/>
-                      </button>
+              <div class="pagination">
+                <span class="pagination-text"> Showing {{ (currentPage - 1) * itemsPerPage + 1}} to 
+                  {{ (currentPage === totalPages ? totalItems : currentPage * itemsPerPage) }} of  {{ totalItems }} entries </span>
 
-                    </div>
-                  </div>
-                  
-                  <div class="column-4">
-                    <img src="../../../assets/dom_slobodan_bajic.png" class="accommodation-picture"/>
-                  </div>
-
-                </div>
+                <button *ngIf="currentPage > 1" (click)="changePage(1)"> &laquo; </button>
+                <button *ngIf="currentPage > 1" (click)="changePage(currentPage - 1)"> &lsaquo; </button>
+                <button *ngFor="let page of totalPagesArray()" (click)="changePage(page)" [class.active]="isActive(page)"> {{ page }} </button>
+                <button *ngIf="currentPage < totalPages" (click)="changePage(currentPage + 1)"> &rsaquo; </button>
+                <button *ngIf="currentPage < totalPages" (click)="changePage(totalPages)"> &raquo; </button>
               </div>
-
-            </div> -->
-
-
           </div>
         </div>
     </div>

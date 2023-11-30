@@ -1,7 +1,7 @@
 [
     {
         "name": "Studentski dom Nikola Tesla",
-        "description": " dolores molestias ratione. Delectus, minus laborum possimus laudantium harum labore autem assumenda, beatae quisquam, cupiditate nihil praesentium. Voluptatum tempora aspernatur incidunt",
+        "description": "Studentski Dom Nikola Tesla is a vibrant and dynamic accommodation facility tailored to meet the diverse needs of students. Located in the heart of Novi Sad, Serbia, this student residence offers a comfortable and conducive living environment for academic success and personal growth.",
         "amenities": ["Wi-Fi", "washing machine", "fridge", "parking", "tv"],
         "maxGuests": 3,
         "minGuests": 1,
@@ -94,5 +94,229 @@
           "city": "Zlatibor",
           "number": "22"
         }
-    }      
+    },
+    {
+      "name": "Modern Loft in the Heart of Novi Sad",
+      "description": "Experience urban living in our modern loft. Conveniently located in the city center, this stylish accommodation is perfect for those seeking a blend of comfort and sophistication.",
+      "amenities": ["High-speed Wi-Fi", "Smart home features", "Balcony with city view", "Fitness center", "Reserved parking"],
+      "maxGuests": 2,
+      "minGuests": 1,
+      "photos": ["../../../../../assets/resort_pic.jpg", "../../../../../assets/accommodation-pic.jpg"],
+      "pricePerGuest": true,
+      "cancellationDeadline": 2,
+      "autoApproval": true,
+      "averageGrade": 4.6,
+      "roomNumber": 1,
+      "reviews": [
+          {
+              "grade": 5,
+              "comment": "Fantastic loft with a great view! Will definitely stay here again.",
+              "authorId": 7,
+              "approved": true
+          },
+          {
+              "grade": 4,
+              "comment": "Comfortable and well-designed space. Loved the amenities.",
+              "authorId": 8,
+              "approved": true
+          }
+      ],
+      "address": {
+          "street": "Bulevar Oslobođenja",
+          "city": "Novi Sad",
+          "number": "15"
+      }
+  },
+  {
+      "name": "Riverside Retreat in Belgrade",
+      "description": "Escape to a tranquil riverside retreat in Belgrade. Enjoy the serenity of nature while being close to the city's attractions. Perfect for a relaxing getaway.",
+      "amenities": ["Riverfront location", "Private garden", "Outdoor dining area", "Firepit", "Jacuzzi"],
+      "maxGuests": 4,
+      "minGuests": 1,
+      "photos": ["../../../../../assets/vila_pic.jpg", "../../../../../assets/accommodation-pic.jpg"],
+      "pricePerGuest": true,
+      "cancellationDeadline": 3,
+      "autoApproval": true,
+      "averageGrade": 4.9,
+      "roomNumber": 2,
+      "reviews": [
+          {
+              "grade": 5,
+              "comment": "A hidden gem by the river. Serene and beautiful.",
+              "authorId": 9,
+              "approved": true
+          },
+          {
+              "grade": 5,
+              "comment": "Wonderful retreat with excellent amenities. Highly recommended.",
+              "authorId": 10,
+              "approved": true
+          }
+      ],
+      "address": {
+          "street": "Dunavski kej",
+          "city": "Belgrade",
+          "number": "22"
+      }
+  },
+  {
+    "name": "Sunset Villa in Zlatibor",
+    "description": "Experience breathtaking sunsets from our cozy villa in Zlatibor. This peaceful retreat offers a perfect blend of nature and comfort for a memorable stay.",
+    "amenities": ["Panoramic views", "Private garden", "BBQ area", "Hot tub", "Free parking"],
+    "maxGuests": 6,
+    "minGuests": 2,
+    "photos": ["../../../../../assets/villa_sunset_pic.jpg", "../../../../../assets/accommodation-pic.jpg"],
+    "pricePerGuest": true,
+    "cancellationDeadline": 5,
+    "autoApproval": true,
+    "averageGrade": 4.7,
+    "roomNumber": 3,
+    "reviews": [
+      {
+        "grade": 5,
+        "comment": "A hidden gem with stunning views. Perfect for a family getaway.",
+        "authorId": 11,
+        "approved": true
+      },
+      {
+        "grade": 4,
+        "comment": "Lovely villa with all the amenities. Will come back for sure.",
+        "authorId": 12,
+        "approved": true
+      }
+    ],
+    "address": {
+      "street": "Sunset Lane",
+      "city": "Zlatibor",
+      "number": "10"
+    }
+  },
+  {
+    "name": "Luxury Penthouse in Belgrade",
+    "description": "Indulge in luxury at our spacious penthouse in the heart of Belgrade. Enjoy modern amenities, stunning views, and a stylish living experience.",
+    "amenities": ["Private terrace", "Jacuzzi", "Home theater system", "24/7 concierge", "Secure parking"],
+    "maxGuests": 4,
+    "minGuests": 1,
+    "photos": ["../../../../../assets/penthouse_belgrade_pic.jpg", "../../../../../assets/accommodation-pic.jpg"],
+    "pricePerGuest": true,
+    "cancellationDeadline": 3,
+    "autoApproval": false,
+    "averageGrade": 4.9,
+    "roomNumber": 2,
+    "reviews": [
+      {
+        "grade": 5,
+        "comment": "Incredible penthouse with top-notch amenities. Highly recommended.",
+        "authorId": 13,
+        "approved": true
+      },
+      {
+        "grade": 5,
+        "comment": "A luxurious stay with breathtaking views. Will return for sure.",
+        "authorId": 14,
+        "approved": true
+      }
+    ],
+    "address": {
+      "street": "Luxury Avenue",
+      "city": "Belgrade",
+      "number": "8"
+    }
+  },
+  {
+    "name": "Seaside Cottage in Budva",
+    "description": "Escape to a charming seaside cottage in Budva. Relax by the beach, enjoy coastal views, and experience the tranquility of the Adriatic coast.",
+    "amenities": ["Beachfront location", "Private patio", "Sea view", "Fully equipped kitchen", "Free Wi-Fi"],
+    "maxGuests": 2,
+    "minGuests": 1,
+    "photos": ["../../../../../assets/cottage_budva_pic.jpg", "../../../../../assets/accommodation-pic.jpg"],
+    "pricePerGuest": true,
+    "cancellationDeadline": 4,
+    "autoApproval": true,
+    "averageGrade": 4.6,
+    "roomNumber": 1,
+    "reviews": [
+      {
+        "grade": 4,
+        "comment": "Quaint cottage with a perfect view. Enjoyed every moment.",
+        "authorId": 15,
+        "approved": true
+      },
+      {
+        "grade": 5,
+        "comment": "Lovely escape by the sea. Will recommend to friends.",
+        "authorId": 16,
+        "approved": true
+      }
+    ],
+    "address": {
+      "street": "Seaside Drive",
+      "city": "Budva",
+      "number": "5"
+    }
+  },
+  {
+    "name": "Historic Mansion in Subotica",
+    "description": "Step back in time with a stay at our historic mansion in Subotica. Immerse yourself in the charm of the past while enjoying modern comforts.",
+    "amenities": ["Antique furnishings", "Garden terrace", "Library", "Catering available", "Free parking"],
+    "maxGuests": 8,
+    "minGuests": 4,
+    "photos": ["../../../../../assets/mansion_subotica_pic.jpg", "../../../../../assets/accommodation-pic.jpg"],
+    "pricePerGuest": true,
+    "cancellationDeadline": 6,
+    "autoApproval": true,
+    "averageGrade": 4.8,
+    "roomNumber": 4,
+    "reviews": [
+      {
+        "grade": 5,
+        "comment": "A truly unique experience. Loved the historic ambiance.",
+        "authorId": 17,
+        "approved": true
+      },
+      {
+        "grade": 4,
+        "comment": "Comfortable stay with a touch of history. Recommended for history enthusiasts.",
+        "authorId": 18,
+        "approved": true
+      }
+    ],
+    "address": {
+      "street": "Heritage Lane",
+      "city": "Subotica",
+      "number": "12"
+    }
+  },
+  {
+    "name": "Ski Chalet in Kopaonik",
+    "description": "Hit the slopes with a stay at our cozy ski chalet in Kopaonik. Experience winter magic, skiing, and a warm retreat after a day on the mountains.",
+    "amenities": ["Ski-in/ski-out access", "Fireplace", "Hot tub", "Sauna", "Mountain views"],
+    "maxGuests": 6,
+    "minGuests": 2,
+    "photos": ["../../../../../assets/chalet_kopaonik_pic.jpg", "../../../../../assets/accommodation-pic.jpg"],
+    "pricePerGuest": true,
+    "cancellationDeadline": 5,
+    "autoApproval": true,
+    "averageGrade": 4.7,
+    "roomNumber": 3,
+    "reviews": [
+      {
+        "grade": 5,
+        "comment": "Perfect chalet for a ski vacation. Loved the amenities and proximity to the slopes.",
+        "authorId": 19,
+        "approved": true
+      },
+      {
+        "grade": 4,
+        "comment": "Cozy and inviting. Great for a winter getaway.",
+        "authorId": 20,
+        "approved": true
+      }
+    ],
+    "address": {
+      "street": "Ski Trail Lane",
+      "city": "Kopaonik",
+      "number": "6"
+    }
+  }  
 ]
