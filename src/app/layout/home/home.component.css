@@ -256,6 +256,7 @@
       object-position: center;
       width: 100%;
       align-self: stretch;
+      height: 48%;
       border-radius: 5%;
     }
     .offer-item-title {

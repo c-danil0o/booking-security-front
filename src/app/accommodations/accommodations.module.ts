@@ -10,7 +10,7 @@ import { AccommodationPageComponent } from './accommodation-page/accommodation-p
 @NgModule({
   declarations: [
     AccommodationListComponent,
-    AccommodationPageComponent
+    AccommodationPageComponent,
   ],
   imports: [
     CommonModule, RouterModule

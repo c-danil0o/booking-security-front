@@ -1,15 +1,15 @@
-import { Guest } from "../accounts/guest";
+import { Account } from "../accounts/account";
 
 export class Review {
     grade: number;
     comment: string;
-    author: Guest;
+    authorId: number;
     approved: boolean;
     
-    constructor(grade: number, comment: string, author: Guest, approved: boolean) {
+    constructor(grade: number, comment: string, authorId: number, approved: boolean) {
         this.grade = grade;
         this.comment = comment;
-        this.author = author;
+        this.authorId = authorId;
         this.approved = approved;
     }
 }
