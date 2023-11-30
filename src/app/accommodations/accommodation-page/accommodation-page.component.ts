@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import accommodationData from './accommodation-sample-data.json';
+import accommodationData from '../accommodation-data.json';
 import { Accommodation } from '../accommodation';
 import { Address } from 'src/app/address';
 import { Review } from '../review';
@@ -11,21 +11,21 @@ import { Review } from '../review';
 })
 
 export class AccommodationPageComponent {
-  accommodation: Accommodation = accommodationData;
+  accommodation: Accommodation = accommodationData[0];
 
-  backgroundImageUrl: string = accommodationData.photos[0];
-  name: string = accommodationData.name;
-  address: Address = accommodationData.address;
-  minGuests: number = accommodationData.minGuests;
-  maxGuests: number = accommodationData.maxGuests;
-  roomNumber: number = accommodationData.roomNumber;
-  description: string = accommodationData.description;
-  numberOfReviews: number = accommodationData.reviews.length;
-  averageGrade: number = accommodationData.averageGrade;
+  accommodationPicture: string = this.accommodation.photos[1];
+  name: string = this.accommodation.name;
+  address: Address = this.accommodation.address;
+  minGuests: number = this.accommodation.minGuests;
+  maxGuests: number = this.accommodation.maxGuests;
+  roomNumber: number = this.accommodation.roomNumber;
+  description: string = this.accommodation.description;
+  numberOfReviews: number = this.accommodation.reviews.length;
+  averageGrade: number = this.accommodation.averageGrade;
   get stars() {
     return Array(Math.floor(this.averageGrade)).fill(0);
   }
   hostName: string = "John Smith";
-  amenities: string[] = accommodationData.amenities;
-  reviews: Array<Review> = accommodationData.reviews;
+  amenities: string[] = this.accommodation.amenities;
+  reviews: Array<Review> = this.accommodation.reviews;
 }

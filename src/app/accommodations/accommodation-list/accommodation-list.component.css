@@ -3,7 +3,7 @@
   width: 90%;
 }
 
-.clear-input-container {
+.search-container {
     position: relative;
     display: inline-block;
     position: relative;
@@ -60,6 +60,9 @@
     width: 100%;
     align-items: center;
     padding: 44px 80px 44px 50px;
+    background-image: url("https://cdn.builder.io/api/v1/image/assets/TEMP/560e2ff3-c5db-4e1b-a093-3b7f13ec74bb?");
+    background-repeat: no-repeat;
+    background-size: cover;
   }
   .background-image {
     position: absolute;
@@ -79,7 +82,7 @@
     overflow: hidden;
     background-color: transparent;
   }
-  .div-1 {
+  .accommodations-filters {
     position: relative;
     display: flex;
     width: 100%;
@@ -89,7 +92,7 @@
     margin: 6px 0 41px;
   }
   @media (max-width: 991px) {
-    .div-1 {
+    .accommodations-filters {
       max-width: 100%;
       margin-bottom: 40px;
     }
@@ -163,7 +166,7 @@
     }
   }
 
-  .column-2 {
+  .accommodations {
     display: flex;
     flex-direction: column;
     line-height: normal;
@@ -171,11 +174,11 @@
     margin-left: 20px;
   }
   @media (max-width: 991px) {
-    .column-2 {
+    .accommodations {
       width: 100%;
     }
   }
-  .apartment-outside-container {
+  .accommodation-outside-container {
     border-radius: 10.968px;
     background: linear-gradient(180deg, #fff 0%, rgba(255, 255, 255, 0) 100%);
     box-shadow: 0px 17.54878px 35.09756px 0px rgba(171, 190, 209, 0.3);
@@ -186,24 +189,24 @@
     margin-bottom: 2%;
   }
   @media (max-width: 991px) {
-    .apartment-outside-container {
+    .accommodation-outside-container {
       max-width: 100%;
       margin-top: 40px;
       padding: 0 20px;
     }
   }
-  .apartment-inner-container {
+  .accommodation-inner-container {
     gap: 20px;
     display: flex;
   }
   @media (max-width: 991px) {
-    .apartment-inner-container {
+    .accommodation-inner-container {
       flex-direction: column;
       align-items: stretch;
       gap: 0px;
     }
   }
-  .column-3 {
+  .accommodation-info {
     display: flex;
     flex-direction: column;
     line-height: normal;
@@ -211,7 +214,7 @@
     margin-left: 0px;
   }
   @media (max-width: 991px) {
-    .column-3 {
+    .accommodation-info {
       width: 100%;
     }
   }
@@ -227,26 +230,26 @@
       margin-top: 34px;
     }
   }
-  .appartment-title {
+  .accommodation-name {
     color: var(--Black, #000);
     font: 700 31px/39px Poppins, sans-serif;
   }
   @media (max-width: 991px) {
-    .appartment-title {
+    .accommodation-name {
       max-width: 100%;
     }
   }
-  .apartment-description {
+  .accommodation-description {
     color: var(--Black, #000);
     margin-top: 9px;
     font: 400 18px/26px Roboto, sans-serif;
   }
   @media (max-width: 991px) {
-    .apartment-description {
+    .accommodation-description {
       max-width: 100%;
     }
   }
-  .apartment-data {
+  .accommodation-data {
     align-self: flex-start;
     display: flex;
     width: 91px;
@@ -254,10 +257,11 @@
     flex-direction: column;
     margin: 20px 0 0 10px;
   }
-  .apartment-city {
+  .accommodation-detail {
     display: flex;
     justify-content: space-between;
     gap: 8px;
+    margin-top: 5%;
   }
   .img-16 {
     aspect-ratio: 1;
@@ -269,15 +273,15 @@
     overflow: hidden;
     max-width: 100%;
   }
-  .appartment-detail {
+  .accommodation-data {
     color: #3a3d40;
     align-self: flex-start;
     flex-grow: 1;
-    white-space: nowrap;
     font: 400 14px/26px Poppins, sans-serif;
+    margin-top: -1%;    
   }
   @media (max-width: 991px) {
-    .appartment-detail {
+    .accommodation-data {
       white-space: initial;
     }
   }
@@ -315,21 +319,20 @@
     width: 100%;
     gap: 9px;
   }
-  .more-about-apartman {
+  .more-about-accommodation {
     justify-content: center;
     border-radius: 5.484px;
     border: 2.194px solid #f5c451;
     background-color: #f5bd4f;
     align-self: flex-start;
     display: flex;
-    margin-top: 47px;
-    width: 136px;
+    margin-top: 3em;
+    width: 25em;
     max-width: 100%;
-    gap: 9px;
     padding: 9px 22px;
   }
   @media (max-width: 991px) {
-    .more-about-apartman {
+    .more-about-accommodation {
       margin-top: 40px;
       padding: 0 20px;
     }

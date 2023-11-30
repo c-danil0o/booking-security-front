@@ -1,0 +1,98 @@
+[
+    {
+        "name": "Studentski dom Nikola Tesla",
+        "description": " dolores molestias ratione. Delectus, minus laborum possimus laudantium harum labore autem assumenda, beatae quisquam, cupiditate nihil praesentium. Voluptatum tempora aspernatur incidunt",
+        "amenities": ["Wi-Fi", "washing machine", "fridge", "parking", "tv"],
+        "maxGuests": 3,
+        "minGuests": 1,
+        "photos": ["../../../../../assets/dom_nikola_tesla.jpg", "../../../../../assets/accommodation-pic.jpg"],
+        "pricePerGuest": true,
+        "cancellationDeadline": 2,
+        "autoApproval": true,
+        "averageGrade": 4.5,
+        "roomNumber": 2,
+        "reviews": [
+            {
+                "grade": 4,
+                "comment": "amet, consectetur adipisicing elit. Repellat ducimus est commodi itaque ullam doloribus dicta nisi in perspiciatis illo maxime doloremque suscipit incidunt officiis pariatur alias facere vel, dolores molestias ratione. Delectus, minus laborum possimus laudantium harum labore autem assumenda, beatae quisquam, cupiditate nihil praesentium. Voluptatum tempora aspernatur incidunt",
+                "authorId": 1,
+                "approved": true
+            },
+            {
+                "grade": 5,
+                "comment": "amet, consectetur adipisicing elit. Repellat ducimus est commodi itaque ullam doloribus dicta nisi in perspiciatis illo maxime doloremque suscipit incidunt officiis pariatur alias facere vel, dolores molestias ratione. Delectus, minus laborum possimus laudantium harum labore autem assumenda, beatae quisquam, cupiditate nihil praesentium. Voluptatum tempora aspernatur incidunt",
+                "authorId": 2,
+                "approved": true
+            }
+        ],
+        "address": {
+            "street": "Bulevar Despota Stefana",
+            "city": "Novi Sad",
+            "number": "7"
+        }
+    },
+    {
+        "name": "Cozy Apartment in the Heart of Belgrade",
+        "description": "Enjoy a comfortable stay in our centrally located apartment. Close to major attractions, this cozy space is perfect for both business and leisure travelers.",
+        "amenities": ["Wi-Fi", "fully equipped kitchen", "air conditioning", "TV", "parking"],
+        "maxGuests": 2,
+        "minGuests": 1,
+        "photos": ["../../../../../assets/dom_slobodan_bajic.png", "../../../../../assets/accommodation-pic.jpg"],
+        "pricePerGuest": true,
+        "cancellationDeadline": 3,
+        "autoApproval": false,
+        "averageGrade": 4.2,
+        "roomNumber": 1,
+        "reviews": [
+          {
+            "grade": 4,
+            "comment": "Great location and comfortable stay. Would recommend!",
+            "authorId": 3,
+            "approved": true
+          },
+          {
+            "grade": 5,
+            "comment": "Excellent service and amenities. Will definitely book again.",
+            "authorId": 4,
+            "approved": true
+          }
+        ],
+        "address": {
+          "street": "Kneza Mihaila",
+          "city": "Belgrade",
+          "number": "15"
+        }
+    },
+    {
+        "name": "Mountain Cabin Retreat",
+        "description": "Escape to the tranquility of nature with our mountain cabin. Unwind and enjoy breathtaking views, hiking trails, and a cozy atmosphere.",
+        "amenities": ["Wi-Fi", "fireplace", "mountain view", "BBQ", "pet-friendly"],
+        "maxGuests": 4,
+        "minGuests": 1,
+        "photos": ["../../../../../assets/hotel_pic.jpg", "../../../../../assets/accommodation-pic.jpg"],
+        "pricePerGuest": true,
+        "cancellationDeadline": 7,
+        "autoApproval": true,
+        "averageGrade": 4.8,
+        "roomNumber": 3,
+        "reviews": [
+          {
+            "grade": 5,
+            "comment": "A perfect getaway! The cabin is well-maintained and the surroundings are stunning.",
+            "authorId": 5,
+            "approved": true
+          },
+          {
+            "grade": 4,
+            "comment": "Lovely cabin with all the necessary amenities. Would come back again.",
+            "authorId": 6,
+            "approved": true
+          }
+        ],
+        "address": {
+          "street": "Mountain Ridge Road",
+          "city": "Zlatibor",
+          "number": "22"
+        }
+    }      
+]
