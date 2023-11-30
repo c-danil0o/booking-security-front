@@ -1,1 +1,113 @@
-<p>home works!</p>
+<div class="top-container">
+  <img src="../../../assets/landing_page_pic.jpg" alt="Landing page picture" class="landing_page_image"/>
+  <div class="header-container">
+     <div class="main-text">
+        <span style="color: rgba(45, 45, 45, 1)">Make your holiday</span>
+        <br>
+        <span style="color: rgba(245, 189, 79, 1)">memorable</span>
+     </div>
+     <div class="filtering-options">
+        <input for="location" class="location" placeholder="Where to?">
+        <div class="date-number-container">
+           <input type="date" for="dates" class="dates" value="Add dates">
+           <input type="number" for="guests" class="guest-number" placeholder="Guests" min="1" max="20">
+        </div>
+     </div>
+  </div>
+</div>
+<div class="mobile-app-container">
+  <div class="mobile-app-container-aux">
+     <p class="mobile-app-text">Get our mobile app! </p>
+     <div class="app-container">
+        <a href="#"> <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/5d96367e-8448-493b-9359-a18512cce75d?" alt="Google play application picture"/> </a>
+        <a href="#"> <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/52e5d204-002b-4ff4-9b02-5b1a7ef71d3f?" alt="F-Droid application picture"/> </a>
+     </div>
+  </div>
+</div>
+<div class="offer-container">
+  <p class="main-offer-text">Escape reality and go anywhere, anytime</p>
+  <p class="supplementary-offer-text"> With us you can escape reality and travel wherever your hearth wishes! </p>
+  <div class="outer-offer-container">
+     <div class="inner-offer-container">
+        <div class="offer-item">
+           <img src="../../../assets/apartment_pic.jpg" alt="Apartment picture" class="offer-item-pic"/>
+           <p class="offer-item-title">Apartments</p>
+           <p class="offer-item-description"> Check some of our best apartments available. </p>
+           <button class="see-more-container" pButton type="button" [routerLink]="['/accommodation-list']">
+              <span class="see-more-span">See more</span>
+              <svg xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512">
+                 <!--!Font Awesome Free 6.5.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.-->
+                 <path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/>
+              </svg>
+           </button>
+        </div>
+        <div class="offer-item">
+           <img src="../../../assets/hotel_pic.jpg" alt="Hotel picture" class="offer-item-pic"/>
+           <p class="offer-item-title">Hotels</p>
+           <p class="offer-item-description"> If you need comfor at night, hotel's the right place. </p>
+           <button class="see-more-container" pButton type="button" [routerLink]="['/accommodation-list']">
+              <span class="see-more-span">See more</span>
+              <svg xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512">
+                 <!--!Font Awesome Free 6.5.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.-->
+                 <path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/>
+              </svg>
+           </button>
+        </div>
+        <div class="offer-item">
+           <img src="../../../assets/resort_pic.jpg" alt="Resort picture" class="offer-item-pic"/>
+           <p class="offer-item-title">Resorts</p>
+           <p class="offer-item-description"> Welcome to our resorts, your idyllic retreat from the ordinary </p>
+           <button class="see-more-container" pButton type="button" [routerLink]="['/accommodation-list']">
+              <span class="see-more-span">See more</span>
+              <svg xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512">
+                 <!--!Font Awesome Free 6.5.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.-->
+                 <path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/>
+              </svg>
+           </button>
+        </div>
+        <div class="offer-item">
+           <img src="../../../assets/vila_pic.jpg" alt="Vila picture" class="offer-item-pic"/>
+           <p class="offer-item-title">Vilas</p>
+           <p class="offer-item-description"> You need a lot of space? Try some of our finest vilas. </p>
+           <button class="see-more-container" pButton type="button" [routerLink]="['/accommodation-list']">
+              <span class="see-more-span">See more</span>
+              <svg xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512">
+                 <!--!Font Awesome Free 6.5.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.-->
+                 <path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/>
+              </svg>
+           </button>
+        </div>
+     </div>
+  </div>
+</div>
+<div class="outer-footer-container">
+<div class="inner-footer-container">
+  <div class="upper-footer">
+     <div class="footer-text-links">
+        <span class="footer-main-text">Booking</span>
+        <span class="footer-links">
+        <a href="#" class="footer-link">Facebook</a>
+        <a href="#" class="footer-link">Twitter</a>
+        <a href="#" class="footer-link">Instagram</a>
+        <a href="#" class="footer-link">TikTok</a>
+        </span>
+     </div>
+     <div class="mail-container">
+        <span class="subscribe-text">Subscribe</span>
+        <div class="mail-form">
+           <input for="e-mail" type="email" class="e-mail-input" placeholder="Enter your email"> 
+           <button class="subscribe-button">Subscribe</button>
+        </div>
+        <span class="privacy-policy-text"> By subscribing you agree to with our Privacy Policy </span>
+     </div>
+  </div>
+  <div class="outer-lower-footer"></div>
+  <div class="inner-lower-footer">
+     <div class="footer-policy-info">
+        <div class="footer-policy-item">Privacy Policy</div>
+        <div class="footer-policy-item">Terms of Service</div>
+        <div class="footer-policy-item">Cookies Settings</div>
+     </div>
+     <div class="rights">© 2023 Booking. All rights reserved.</div>
+  </div>
+</div>
