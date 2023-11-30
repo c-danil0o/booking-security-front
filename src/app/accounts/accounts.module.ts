@@ -9,11 +9,13 @@ import {RadioButtonModule} from "primeng/radiobutton";
 import {PasswordModule} from "primeng/password";
 import {FormsModule} from "@angular/forms";
 import {ButtonModule} from "primeng/button";
+import { EditAccountComponent } from './edit-account/edit-account.component';
 
 @NgModule({
   declarations: [
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    EditAccountComponent
   ],
   imports: [
     CommonModule, RouterModule,
