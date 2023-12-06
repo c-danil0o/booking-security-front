@@ -1,8 +1,12 @@
-import { Address } from "../../address";
-import { Review } from "./review-model";
 
-export class Accommodation {
+import { Review } from "./review-model";
+import {Address} from "./address-model";
+import {Host} from "./host-model";
+
+export interface Accommodation {
+    id: number;
     name: string;
+    hostId: number;
     description: string;
     amenities: Array<string>;
     maxGuests: number;
@@ -13,22 +17,9 @@ export class Accommodation {
     autoApproval: boolean;
     averageGrade: number;
     roomNumber: number;
-    reviews: Array<Review>;
+    reviews: Review[];
     address: Address;
+    host: Host;
 
-    constructor(name: string, description: string, amenities: Array<string>, maxGuests: number, minGuests: number, photos: Array<string>, pricePerGuest: boolean, cancellationDeadline: number, autoApproval: boolean, averageGrade: number, roomNumber: number, reviews: Array<Review>, address: Address) {
-        this.name = name;
-        this.description = description;
-        this.amenities = amenities;
-        this.maxGuests = maxGuests;
-        this.minGuests = minGuests;
-        this.photos = photos;
-        this.pricePerGuest = pricePerGuest;
-        this.cancellationDeadline = cancellationDeadline;
-        this.autoApproval = autoApproval;
-        this.averageGrade = averageGrade;
-        this.roomNumber = roomNumber;
-        this.reviews = reviews;
-        this.address = address;
-    }
+
 }

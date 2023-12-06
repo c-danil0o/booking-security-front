@@ -1,8 +1,11 @@
-import { Component, Input } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import accommodationData from '../accommodation-data.json';
-import { Accommodation } from '../../model/accommodation-model';
-import { Address } from 'src/app/model/address-model';
-import { Review } from '../../model/review-model';
+import {Accommodation} from '../../model/accommodation-model';
+import {Address} from 'src/app/model/address-model';
+import {Review} from '../../model/review-model';
+import {ActivatedRoute} from "@angular/router";
+import {AccommodationService} from "../accommodation.service";
+import {ReviewService} from "../../reviews/review.service";
 
 @Component({
   selector: 'app-accommodation-details',
@@ -10,22 +13,42 @@ import { Review } from '../../model/review-model';
   styleUrls: ['./accommodation-details.component.css']
 })
 
-export class AccommodationDetailsComponent {
-  accommodation: Accommodation = accommodationData[0];
+export class AccommodationDetailsComponent implements OnInit {
+  accommodation: Accommodation
+  hostName: string
 
-  accommodationPicture: string = this.accommodation.photos[1];
-  name: string = this.accommodation.name;
-  address: Address = this.accommodation.address;
-  minGuests: number = this.accommodation.minGuests;
-  maxGuests: number = this.accommodation.maxGuests;
-  roomNumber: number = this.accommodation.roomNumber;
-  description: string = this.accommodation.description;
-  numberOfReviews: number = this.accommodation.reviews.length;
-  averageGrade: number = this.accommodation.averageGrade;
-  get stars() {
-    return Array(Math.floor(this.averageGrade)).fill(0);
+  constructor(private route: ActivatedRoute, private accommodationService: AccommodationService, private reviewService: ReviewService) {
   }
-  hostName: string = "John Smith";
-  amenities: string[] = this.accommodation.amenities;
-  reviews: Array<Review> = this.accommodation.reviews;
+
+  ngOnInit() {
+    this.route.params.subscribe((params) => {
+      const id = +params['accommodationId']
+      this.accommodationService.findById(id).subscribe({
+        next: (data: Accommodation) => {
+          this.accommodation = data
+          this.hostName = this.accommodation.host.firstName +" "+  this.accommodation.host.lastName;
+          this.reviewService.findByAccommodationId(this.accommodation.id).subscribe({
+            next: (data: Review[]) => {
+              this.accommodation.reviews = data
+            }
+          })
+
+        }
+      })
+
+
+    })
+
+  }
+
+
+  get stars() {
+    return Array(Math.floor(this.accommodation.averageGrade)).fill(0);
+  }
+
+  getPhotoURI(): string[] {
+    return this.accommodation.photos.map(element => '../../../../../assets/' + element)
+    //return this.accommodation.photos[0]
+  }
+
 }

@@ -308,6 +308,11 @@
     padding: 0 20px;
   }
 }
+.arrow{
+  text-align: center;
+  color: #5f5959;
+  margin-top: 5px;
+}
 .apartment-details {
   color: #fff;
   text-align: center;

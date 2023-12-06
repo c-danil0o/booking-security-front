@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import guestAccount from '../account-data.json'
-import { Guest } from '../guest';
+import { Guest } from '../../model/guest-model';
 
 @Component({
   selector: 'app-edit-account',
