@@ -1,16 +1,16 @@
 import { Component, Input } from '@angular/core';
 import accommodationData from '../accommodation-data.json';
-import { Accommodation } from '../accommodation';
-import { Address } from 'src/app/address';
-import { Review } from '../review';
+import { Accommodation } from '../../model/accommodation-model';
+import { Address } from 'src/app/model/address-model';
+import { Review } from '../../model/review-model';
 
 @Component({
-  selector: 'app-accommodation-page',
-  templateUrl: './accommodation-page.component.html',
-  styleUrls: ['./accommodation-page.component.css']
+  selector: 'app-accommodation-details',
+  templateUrl: './accommodation-details.component.html',
+  styleUrls: ['./accommodation-details.component.css']
 })
 
-export class AccommodationPageComponent {
+export class AccommodationDetailsComponent {
   accommodation: Accommodation = accommodationData[0];
 
   accommodationPicture: string = this.accommodation.photos[1];

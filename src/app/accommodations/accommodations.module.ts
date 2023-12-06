@@ -3,17 +3,21 @@ import { CommonModule } from '@angular/common';
 import { AccommodationListComponent } from './accommodation-list/accommodation-list.component';
 import {ButtonModule} from "primeng/button";
 import { RouterModule } from '@angular/router';
-import { AccommodationPageComponent } from './accommodation-page/accommodation-page.component';
+import { AccommodationDetailsComponent } from './accommodation-details/accommodation-details.component';
+import {HttpClientModule} from "@angular/common/http";
+import { AccommodationCardComponent } from './accommodation-card/accommodation-card.component';
+import {CardModule} from "primeng/card";
 
 
 
 @NgModule({
   declarations: [
     AccommodationListComponent,
-    AccommodationPageComponent,
+    AccommodationDetailsComponent,
+    AccommodationCardComponent,
   ],
   imports: [
-    CommonModule, RouterModule
+    CommonModule, RouterModule, HttpClientModule, CardModule
   ]
 })
 export class AccommodationsModule { }

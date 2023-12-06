@@ -1,19 +1,31 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import accommodationData from '../accommodation-data.json';
-import { Accommodation } from '../accommodation';
+import { Accommodation } from '../../model/accommodation-model';
+import {AccommodationService} from "../accommodation.service";
 
 @Component({
   selector: 'app-accommodation-list',
   templateUrl: './accommodation-list.component.html',
   styleUrls: ['./accommodation-list.component.css'],
 })
-export class AccommodationListComponent {
-  accommodations: Array<Accommodation> = accommodationData;
-
+export class AccommodationListComponent{
+  accommodations = accommodationData;
   currentPage: number = 1;
   itemsPerPage: number = 3;
   totalItems: number = this.accommodations.length;
 
+
+  constructor(private service: AccommodationService){
+  }
+
+  /*ngOnInit(): void{
+    this.service.getAll().subscribe({
+      next:(data: Accommodation[]) => {
+        this.accommodations = data;
+      },
+      error: (_) => {console.log("error!")}
+    })
+  }*/
   get totalPages(): number {
     return Math.ceil(this.totalItems / this.itemsPerPage);
   }
@@ -39,3 +51,5 @@ export class AccommodationListComponent {
       .map((_, index) => index + 1);
   }
 }
+
+

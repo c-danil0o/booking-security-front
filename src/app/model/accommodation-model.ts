@@ -1,5 +1,5 @@
-import { Address } from "../address";
-import { Review } from "./review";
+import { Address } from "../../address";
+import { Review } from "./review-model";
 
 export class Accommodation {
     name: string;
@@ -15,7 +15,7 @@ export class Accommodation {
     roomNumber: number;
     reviews: Array<Review>;
     address: Address;
-    
+
     constructor(name: string, description: string, amenities: Array<string>, maxGuests: number, minGuests: number, photos: Array<string>, pricePerGuest: boolean, cancellationDeadline: number, autoApproval: boolean, averageGrade: number, roomNumber: number, reviews: Array<Review>, address: Address) {
         this.name = name;
         this.description = description;
