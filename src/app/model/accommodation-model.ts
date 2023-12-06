@@ -3,7 +3,9 @@ import { Review } from "./review-model";
 import {Address} from "./address-model";
 
 export interface Accommodation {
+    id: number;
     name: string;
+    hostId: number;
     description: string;
     amenities: Array<string>;
     maxGuests: number;

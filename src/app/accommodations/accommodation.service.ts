@@ -12,12 +12,16 @@ export class AccommodationService {
   private accommodationList: Accommodation[] = [];
 
 
-  constructor(private httpClient: HttpClient ) {
+  constructor(private httpClient: HttpClient) {
   }
-  getAll(): Observable<Accommodation[]>{
-    return  this.httpClient.get<Accommodation[]>(environment.apiHost + 'api/accommodations/all')
+
+  getAll(): Observable<Accommodation[]> {
+    return this.httpClient.get<Accommodation[]>(environment.apiHost + 'api/accommodations/all')
   }
-  findById(id: number): Observable<Accommodation>{
+
+  findById(id: number): Observable<Accommodation> {
     return this.httpClient.get<Accommodation>(environment.apiHost + 'api/accommodations/' + id)
-}
+  }
+
+
 }

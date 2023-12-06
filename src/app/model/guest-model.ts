@@ -1,6 +1,6 @@
 import { Password } from "primeng/password";
-import { Account } from "./account";
-import {Address} from "../model/address-model";
+import { Account } from "./account-model";
+import {Address} from "./address-model";
 
 
 export interface Guest extends Account {

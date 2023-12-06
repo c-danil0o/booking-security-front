@@ -14,7 +14,7 @@ const routes: Routes = [
   {component: LoginComponent, path:"login"},
   {component: RegisterComponent, path:"register"},
   {component: AccommodationListComponent, path:"accommodation-list"},
-  {component: AccommodationDetailsComponent, path:"accommodation-page"},
+  {component: AccommodationDetailsComponent, path:"accommodation-details/:accommodationId"},
   {component: EditAccountComponent, path:"edit-account"}
   ];
 

@@ -1,8 +1,10 @@
-import { Component, Input } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import accommodationData from '../accommodation-data.json';
 import { Accommodation } from '../../model/accommodation-model';
 import { Address } from 'src/app/model/address-model';
 import { Review } from '../../model/review-model';
+import {ActivatedRoute} from "@angular/router";
+import {AccommodationService} from "../accommodation.service";
 
 @Component({
   selector: 'app-accommodation-details',
@@ -10,22 +12,29 @@ import { Review } from '../../model/review-model';
   styleUrls: ['./accommodation-details.component.css']
 })
 
-export class AccommodationDetailsComponent {
-  accommodation: Accommodation = accommodationData[0];
+export class AccommodationDetailsComponent implements OnInit{
+  accommodation: Accommodation
 
-  accommodationPicture: string = this.accommodation.photos[1];
-  name: string = this.accommodation.name;
-  address: Address = this.accommodation.address;
-  minGuests: number = this.accommodation.minGuests;
-  maxGuests: number = this.accommodation.maxGuests;
-  roomNumber: number = this.accommodation.roomNumber;
-  description: string = this.accommodation.description;
-  numberOfReviews: number = this.accommodation.reviews.length;
-  averageGrade: number = this.accommodation.averageGrade;
+   constructor(private route: ActivatedRoute, private accommodationService: AccommodationService) {
+  }
+  ngOnInit() {
+    this.route.params.subscribe((params) => {
+      const id = +params['accommodationId']
+      this.accommodationService.findById(id).subscribe({
+        next: (data: Accommodation) => { this.accommodation = data
+        console.log(data)}
+      })
+    })
+  }
+
+
   get stars() {
-    return Array(Math.floor(this.averageGrade)).fill(0);
+    return Array(Math.floor(this.accommodation.averageGrade)).fill(0);
+  }
+
+  getPhotoURI(): string[]{
+    return this.accommodation.photos.map(element => '../../../../../assets/' + element)
+    //return this.accommodation.photos[0]
   }
   hostName: string = "John Smith";
-  amenities: string[] = this.accommodation.amenities;
-  reviews: Array<Review> = this.accommodation.reviews;
 }
