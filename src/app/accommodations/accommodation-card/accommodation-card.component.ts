@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Accommodation} from "../../model/accommodation-model";
+import {environment} from "../../../env/env";
 
 @Component({
   selector: 'app-accommodation-card',
@@ -15,5 +16,10 @@ export class AccommodationCardComponent {
   onAccommodationClicked(): void{
     this.clicked.emit(this.accommodation)
     console.log(this.accommodation.photos)
+  }
+
+  getPhotoURI(): string[]{
+    return this.accommodation.photos.map(element => '../../../../../assets/' + element)
+    //return this.accommodation.photos[0]
   }
 }

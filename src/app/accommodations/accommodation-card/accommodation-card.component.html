@@ -1,4 +1,4 @@
-<div class="accommodation-inner-container"(click)="onAccommodationClicked()">
+<div class="accommodation-inner-container" (click)="onAccommodationClicked()">
   <div class="accommodation-info">
     <span class="accommodation-name"> {{ accommodation.name }}</span>
     <span class="accommodation-description">
@@ -31,7 +31,7 @@
   <div class="accommodation-photo">
     <!-- get first picture from accommodation and show it to users -->
     <img
-      [src]="accommodation.photos[0]"
+      [src]="getPhotoURI()[0]"
       class="accommodation-picture"
     />
   </div>
