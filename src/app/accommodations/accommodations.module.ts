@@ -7,6 +7,9 @@ import { AccommodationDetailsComponent } from './accommodation-details/accommoda
 import {HttpClientModule} from "@angular/common/http";
 import { AccommodationCardComponent } from './accommodation-card/accommodation-card.component';
 import {CardModule} from "primeng/card";
+import {PaginatorModule} from "primeng/paginator";
+import {InputTextModule} from "primeng/inputtext";
+import {ListboxModule} from "primeng/listbox";
 
 
 
@@ -17,7 +20,7 @@ import {CardModule} from "primeng/card";
     AccommodationCardComponent,
   ],
   imports: [
-    CommonModule, RouterModule, HttpClientModule, CardModule
+    CommonModule, RouterModule, HttpClientModule, CardModule, PaginatorModule, InputTextModule, ListboxModule
   ]
 })
 export class AccommodationsModule { }

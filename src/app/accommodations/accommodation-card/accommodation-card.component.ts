@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Accommodation} from "../../model/accommodation-model";
 
 @Component({
   selector: 'app-accommodation-card',
@@ -6,5 +7,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./accommodation-card.component.css']
 })
 export class AccommodationCardComponent {
+  @Input()
+  accommodation: Accommodation;
+  @Output()
+  clicked: EventEmitter<Accommodation> = new EventEmitter<Accommodation>();
 
+  onAccommodationClicked(): void{
+    this.clicked.emit(this.accommodation)
+    console.log(this.accommodation.photos)
+  }
 }

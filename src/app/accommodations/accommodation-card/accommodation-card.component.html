@@ -1,1 +1,39 @@
-<p>accommodation-card works!</p>
+<div class="accommodation-inner-container"(click)="onAccommodationClicked()">
+  <div class="accommodation-info">
+    <span class="accommodation-name"> {{ accommodation.name }}</span>
+    <span class="accommodation-description">
+                {{ accommodation.description }}
+              </span>
+    <div class="accommodation-detail">
+      <span class="pi pi-map-marker"></span>
+      <span class="accommodation-data">
+                  {{ accommodation.address.city }}
+                </span>
+      <span class="pi pi-users"></span>
+      <span class="accommodation-data">
+                  {{ accommodation.minGuests }} - {{ accommodation.maxGuests }}
+                </span>
+      <span class="pi pi-star"></span>
+      <div class="accommodation-data">
+        {{ accommodation.averageGrade }}
+      </div>
+    </div>
+    <button
+      class="more-about-accommodation"
+      pButton
+      type="button"
+      [routerLink]="['/accommodation-details']"
+    >
+      <span class="apartment-details">Details</span>
+      <span class="pi pi-arrow-left"></span>
+    </button>
+  </div>
+  <div class="accommodation-photo">
+    <!-- get first picture from accommodation and show it to users -->
+    <img
+      [src]="accommodation.photos[0]"
+      class="accommodation-picture"
+    />
+  </div>
+</div>
+

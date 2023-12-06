@@ -15,9 +15,9 @@ export class AccommodationService {
   constructor(private httpClient: HttpClient ) {
   }
   getAll(): Observable<Accommodation[]>{
-    return  this.httpClient.get<Accommodation[]>(environment.apiHost + 'accommodations/all')
+    return  this.httpClient.get<Accommodation[]>(environment.apiHost + 'api/accommodations/all')
   }
   findById(id: number): Observable<Accommodation>{
-    return this.httpClient.get<Accommodation>(environment.apiHost + 'accommodations/' + id)
+    return this.httpClient.get<Accommodation>(environment.apiHost + 'api/accommodations/' + id)
 }
 }

@@ -1,125 +1,43 @@
 <div class="main-container">
-  <span class="search-container">
-    <input class="clear-input" type="text" placeholder="Search:" />
-    <button
-      class="clear-input-button"
-      aria-label="Clear input"
-      title="Clear input"
-    ></button>
-    <button class="search-button">
-      <img
-        src="https://cdn.builder.io/api/v1/image/assets/TEMP/20801688-199a-4765-810a-d4f8639c6c4a?"
-      />
-    </button>
-  </span>
+  <span class="p-input-icon-left">
+    <i class="pi pi-search"></i>
+    <input type="text" pInputText [(ngModel)]="search_text"/>
+</span>
   <div class="accommodations-filters">
     <span class="filter-text">Filters:</span>
     <div class="filter-accommodation-container">
-      <div class="filters">
-        <div class="filtering-option">
-          <img
-            src="https://cdn.builder.io/api/v1/image/assets/TEMP/4b95ea95-4e5c-491a-8e19-3fcee82a4467?"
-          />
-          <span>Country</span>
-          <img
-            src="https://cdn.builder.io/api/v1/image/assets/TEMP/7bbfa935-6791-4c46-be26-f5285f881dc8?"
-          />
-        </div>
-        <div class="filtering-option">
-          <img
-            src="https://cdn.builder.io/api/v1/image/assets/TEMP/a5facdf5-2a1b-429e-a735-b909182b60bd?"
-          />
-          <span>City</span>
-          <img
-            src="https://cdn.builder.io/api/v1/image/assets/TEMP/dd46c0b8-cf17-47e2-b859-f52c4b2a7639?"
-          />
-        </div>
-        <div class="filtering-option">
-          <img
-            src="https://cdn.builder.io/api/v1/image/assets/TEMP/2e2a5a2b-a5b5-434d-a599-d36d6188a0dd?"
-          />
-          <span>Shipments</span>
-          <img
-            src="https://cdn.builder.io/api/v1/image/assets/TEMP/e3792c27-e670-4447-927e-799d880941f7?"
-          />
-        </div>
-        <div class="filtering-option">
-          <img
-            src="https://cdn.builder.io/api/v1/image/assets/TEMP/9d49300b-5203-4423-825e-20a0304f0906?"
-          />
-          <span>Guests</span>
-          <img
-            loading="lazy"
-            src="https://cdn.builder.io/api/v1/image/assets/TEMP/baf6cab1-1588-4054-bbc1-a3515c5b7bb9?"
-            class="img-13"
-          />
-        </div>
-        <div class="filtering-option">
-          <img
-            src="https://cdn.builder.io/api/v1/image/assets/TEMP/b7beb958-46ea-475c-9747-1d914c052e19?"
-          />
-          <span>Dates</span>
-          <img
-            src="https://cdn.builder.io/api/v1/image/assets/TEMP/1d2c936c-2712-4a31-9172-b946061bff34?"
-          />
-        </div>
-      </div>
+      <p-listbox
+        [options]="items"
+        [(ngModel)]="selectedItems"
+        [selectAll]="selectAll"
+        optionLabel="label"
+        [style]="{ width: '15rem' }"
+        [virtualScroll]="true"
+        [filter]="true"
+        [virtualScrollItemSize]="43"
+        [multiple]="true"
+        [checkbox]="true"
+        [showToggleAll]="false"
+        [metaKeySelection]="false"
+        [showToggleAll]="true"
+        (onSelectAllChange)="onSelectAllChange($event)"
+        (onChange)="onChange($event)"
+        [listStyle]="{ 'max-height': '220px' }"
+      ></p-listbox>
       <div
         class="accommodations"
         *ngIf="accommodations && accommodations.length > 0"
       >
-        <p-card header="Title">
-          <p class="m-0">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque
-            quas!
-          </p>
-        </p-card>
         <div
           class="accommodation-outside-container"
           *ngFor="let accommodation of paginatedAccommodations"
         >
-          <div class="accommodation-inner-container">
-            <div class="accommodation-info">
-              <span class="accommodation-name"> {{ accommodation.name }}</span>
-              <span class="accommodation-description">
-                {{ accommodation.description }}
-              </span>
-              <div class="accommodation-detail">
-                  <span class="pi pi-map-marker"></span>
-                <span class="accommodation-data">
-                  {{ accommodation.address.city }}
-                </span>
-                <span class="pi pi-users"></span>
-                <span class="accommodation-data">
-                  {{ accommodation.minGuests }} - {{ accommodation.maxGuests }}
-                </span>
-               <span class="pi pi-star"></span>
-                <div class="accommodation-data">
-                  {{ accommodation.averageGrade }}
-                </div>
-              </div>
-              <button
-                class="more-about-accommodation"
-                pButton
-                type="button"
-                [routerLink]="['/accommodation-details']"
-              >
-                <span class="apartment-details">Details</span>
-                <img
-                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/214aa1d8-18cd-49cd-837a-318914bdd2cb?"
-                />
-              </button>
-            </div>
-            <div class="accommodation-photo">
-              <!-- get first picture from accommodation and show it to users -->
-              <img
-                [src]="accommodation.photos[0]"
-                class="accommodation-picture"
-              />
-            </div>
-          </div>
+          <app-accommodation-card (clicked)="onAccommodationClicked($event)"
+                                  [accommodation]="accommodation"></app-accommodation-card>
         </div>
-        <div class="pagination">
+        <p-paginator (onPageChange)="onPageChange($event)" [first]="0" [rows]="rows" [totalRecords]="120"
+                     [rowsPerPageOptions]="[10, 20, 30]"></p-paginator>
+        <!--<div class="pagination">
           <span class="pagination-text">
             Showing {{ (currentPage - 1) * itemsPerPage + 1 }} to
             {{
@@ -154,7 +72,7 @@
           >
             &raquo;
           </button>
-        </div>
+        </div>-->
       </div>
     </div>
   </div>
