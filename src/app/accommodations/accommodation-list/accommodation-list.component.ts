@@ -14,6 +14,7 @@ export class AccommodationListComponent implements OnInit{
   accommodations: Accommodation[];
   currentPage: number = 1;
   rows: number = 3;
+  first: number = 0;
   totalItems: number = 0
 
 
@@ -24,6 +25,8 @@ export class AccommodationListComponent implements OnInit{
     this.service.getAll().subscribe({
       next:(data: Accommodation[]) => {
         this.accommodations = data;
+        this.totalItems = data.length
+        this.first = (this.currentPage -1 ) * this.rows
       },
       error: (_) => {console.log("error!")}
     })
@@ -32,30 +35,12 @@ export class AccommodationListComponent implements OnInit{
   items: any;
   selectedItems: any;
   selectAll: any;
-  get totalPages(): number {
-    return Math.ceil(this.totalItems / this.rows);
-  }
 
   get paginatedAccommodations(): Array<Accommodation> {
-    return this.accommodations.slice(
-      (this.currentPage - 1) * this.rows,
-      this.currentPage * this.rows
+    return this.accommodations.slice(this.first, this.first + this.rows
     );
   }
 
-  changePage(page: number): void {
-    this.currentPage = page;
-  }
-
-  isActive(pageNumber: number): boolean {
-    return this.currentPage === pageNumber;
-  }
-
-  totalPagesArray(): number[] {
-    return Array(this.totalPages)
-      .fill(0)
-      .map((_, index) => index + 1);
-  }
 
   onPageChange($event: PaginatorState) {
     if ($event.page != null) {
@@ -63,6 +48,9 @@ export class AccommodationListComponent implements OnInit{
     }
     if ($event.rows != null) {
       this.rows = $event.rows
+    }
+    if ($event.first != null){
+      this.first = $event.first
     }
 
   }
