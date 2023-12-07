@@ -35,8 +35,8 @@
           <app-accommodation-card (clicked)="onAccommodationClicked($event)"
                                   [accommodation]="accommodation"></app-accommodation-card>
         </div>
-        <p-paginator (onPageChange)="onPageChange($event)" [first]="0" [rows]="rows" [totalRecords]="120"
-                     [rowsPerPageOptions]="[10, 20, 30]"></p-paginator>
+        <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="totalItems"
+                     [rowsPerPageOptions]="[3, 5, 10, 20, 30]"></p-paginator>
         <!--<div class="pagination">
           <span class="pagination-text">
             Showing {{ (currentPage - 1) * itemsPerPage + 1 }} to
