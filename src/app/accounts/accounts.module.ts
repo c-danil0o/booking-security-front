@@ -6,9 +6,11 @@ import {InputTextModule} from "primeng/inputtext";
 import {CheckboxModule} from "primeng/checkbox";
 import {RadioButtonModule} from "primeng/radiobutton";
 import {PasswordModule} from "primeng/password";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {ButtonModule} from "primeng/button";
 import { EditAccountComponent } from './edit-account/edit-account.component';
+import {DropdownModule} from "primeng/dropdown";
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 @NgModule({
   declarations: [
@@ -17,7 +19,7 @@ import { EditAccountComponent } from './edit-account/edit-account.component';
   ],
   imports: [
     CommonModule, RouterModule,
-    InputTextModule, CheckboxModule, RadioButtonModule, PasswordModule, FormsModule, ButtonModule
+    InputTextModule, CheckboxModule, RadioButtonModule, PasswordModule, FormsModule, ButtonModule, ReactiveFormsModule, DropdownModule, MatTooltipModule
   ]
 })
 export class AccountsModule {
