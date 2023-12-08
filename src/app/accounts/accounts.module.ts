@@ -11,11 +11,15 @@ import {ButtonModule} from "primeng/button";
 import { EditAccountComponent } from './edit-account/edit-account.component';
 import {DropdownModule} from "primeng/dropdown";
 import {MatTooltipModule} from "@angular/material/tooltip";
+import { RegistrationConfirmComponent } from './registration-confirm/registration-confirm.component';
+import { EmailSentComponent } from './email-sent/email-sent.component';
 
 @NgModule({
   declarations: [
     RegisterComponent,
-    EditAccountComponent
+    EditAccountComponent,
+    RegistrationConfirmComponent,
+    EmailSentComponent
   ],
   imports: [
     CommonModule, RouterModule,

@@ -24,4 +24,9 @@ export class AccountService {
       responseType: "text"
     })
   }
+  confirmRegistration(token: string): Observable<any>{
+    return this.httpClient.get(environment.apiHost+ 'api/register/confirm?token=' + token, {
+      responseType: "text"
+    })
+  }
 }

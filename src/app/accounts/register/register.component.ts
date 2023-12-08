@@ -35,6 +35,7 @@ export class RegisterComponent implements OnInit{
 
 
     }, [confirmPasswordValidator])
+    this.registerForm.reset()
   }
 
 
@@ -61,13 +62,14 @@ export class RegisterComponent implements OnInit{
         this.accountService.register(account).subscribe({
           next: (response: NewAccount)=>{
             console.log(response)
+            this.router.navigate(['/email-sent'])
           }
         })
       }else{
         console.log("invalid")
         this.registerForm.markAllAsTouched();
         for (const key of Object.keys(this.registerForm.controls)) {
-          if(this.registerForm.controls[key].value.length === 0) {
+          if(this.registerForm.controls[key].value == null  || this.registerForm.controls[key].value.length === 0) {
             this.registerForm.controls[key].markAsDirty();
           }
         }

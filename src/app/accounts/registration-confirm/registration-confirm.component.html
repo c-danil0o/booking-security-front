@@ -1,0 +1,11 @@
+<div class="registration_confirm">
+
+  <div *ngIf="confirmed === 1" class="wrapper">
+    <h1>Your have successfully verified your email!</h1>
+    <h2>You can go ahead and login!</h2>
+  </div>
+  <div *ngIf="confirmed === -1" class="wrapper">
+    <h1>Confirmation failure!</h1>
+    <h2>Invalid confirmation link!!</h2>
+  </div>
+</div>
