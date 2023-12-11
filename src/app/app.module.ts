@@ -8,6 +8,7 @@ import {AccountsModule} from "./accounts/accounts.module";
 import { AccommodationsModule } from './accommodations/accommodations.module';
 import {AuthModule} from "./infrastructure/auth/auth.module";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {ProfileModule} from "./profile/profile.module";
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     AppRoutingModule,
     AccountsModule,
     AccommodationsModule,
-    AuthModule, BrowserAnimationsModule
+    AuthModule, BrowserAnimationsModule,
+    ProfileModule
   ],
   providers: [],
   bootstrap: [AppComponent]
