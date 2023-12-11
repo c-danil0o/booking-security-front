@@ -68,7 +68,7 @@
         <div class="single-review">
           <div class="reviewer-username-photo">
             <img src="../../../assets/reviewer.jpg" class="reviewer-photo" />
-            <div class="reviewer-username">{{ review.authorId }}</div>
+            <div class="reviewer-username">{{ review.author.firstName + ' ' + review.author.lastName }}</div>
           </div>
 
           <div class="review-desc">{{ review.comment }}</div>

@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {environment} from "../../../env/env";
 import {Account} from "../../model/account-model";
@@ -13,6 +13,11 @@ export class AccountService {
 
   constructor(private httpClient: HttpClient ) {
   }
+
+  private headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    skip: 'true',
+  });
   getAll(): Observable<Account[]>{
     return  this.httpClient.get<Account[]>(environment.apiHost + 'api/hosts/all')
   }
@@ -21,12 +26,14 @@ export class AccountService {
   }
   register(account: NewAccount): Observable<any>{
     return this.httpClient.post(environment.apiHost + 'api/register', account, {
-      responseType: "text"
+      responseType: "text",
+      headers: this.headers
     })
   }
   confirmRegistration(token: string): Observable<any>{
     return this.httpClient.get(environment.apiHost+ 'api/register/confirm?token=' + token, {
-      responseType: "text"
+      responseType: "text",
+      headers: this.headers
     })
   }
 }

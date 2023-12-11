@@ -22,4 +22,8 @@ export class ReviewService {
   findByAccommodationId(id: number): Observable<Review[]>{
     return this.httpClient.get<Review[]>(environment.apiHost + 'api/reviews?accommodationId=' + id)
   }
+
+  findByHostId(id: number): Observable<Review[]>{
+    return this.httpClient.get<Review[]>(environment.apiHost + 'api/reviews/host?hostId=' + id)
+  }
 }

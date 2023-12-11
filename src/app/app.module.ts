@@ -9,6 +9,8 @@ import { AccommodationsModule } from './accommodations/accommodations.module';
 import {AuthModule} from "./infrastructure/auth/auth.module";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {ProfileModule} from "./profile/profile.module";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {Interceptor} from "./infrastructure/auth/interceptor";
 
 @NgModule({
   declarations: [
@@ -22,9 +24,9 @@ import {ProfileModule} from "./profile/profile.module";
     AccountsModule,
     AccommodationsModule,
     AuthModule, BrowserAnimationsModule,
-    ProfileModule
+    ProfileModule, HttpClientModule,
   ],
-  providers: [],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

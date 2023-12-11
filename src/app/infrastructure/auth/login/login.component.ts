@@ -30,7 +30,7 @@ export class LoginComponent {
         next: (response: AuthResponse) => {
           localStorage.setItem('user', response.token);
           this.authService.setUser()
-          this.router.navigate(['/edit-account'])
+          this.router.navigate(['/host-profile'])
         }
       })
     }
