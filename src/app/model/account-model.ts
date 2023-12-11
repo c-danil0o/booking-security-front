@@ -1,7 +1,7 @@
 import { Password } from "primeng/password";
 
 export interface Account {
-    id: number;
+    id?: number;
     email: string;
     password: Password;
     isBlocked: boolean;

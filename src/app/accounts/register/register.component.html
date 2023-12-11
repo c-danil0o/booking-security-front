@@ -2,27 +2,38 @@
 
   <div class="login_wrapper">
     <span class="sign_in">Sign Up</span>
-    <div class="fields">
-      <input class="email_field" type="text" pInputText placeholder="First Name"/>
-      <input class="email_field" type="text" pInputText placeholder="Last Name"/>
-      <input class="email_field" type="tel" pInputText placeholder="Phone"/>
-      <input class="email_field" type="text" pInputText placeholder="Address"/>
-      <input class="email_field" type="email" pInputText placeholder="Email"/>
-      <p-password class="password_field" placeholder="Password" [toggleMask]="true"></p-password>
-      <p-password class="password_field" placeholder="Confirm password" [toggleMask]="true"></p-password>
+    <form class="fields" [formGroup]="registerForm">
+      <input class="email_field" type="text" pInputText placeholder="First Name" formControlName="firstname"/>
+      <input class="email_field" type="text" pInputText placeholder="Last Name" formControlName="lastname"/>
+      <input class="email_field" type="tel" pInputText placeholder="Phone" formControlName="phone"/>
+      <p-dropdown class="email_field" [style]="{'width':'100%'}" [options]="countries" formControlName="selectedCountry" placeholder="Country" optionLabel="name" [filter]="true" [filterBy]="selectedCountry.name" ></p-dropdown>
+
+      <input class="email_field" type="text" pInputText placeholder="City" formControlName="city"/>
+      <div class="address">
+        <input class="street_field" type="text" pInputText placeholder="Street" formControlName="street"/>
+        <input class="number_field" type="text" pInputText placeholder="Number" formControlName="number"/>
+      </div>
+
+      <input class="email_field" type="email" pInputText placeholder="Email" formControlName="email"/>
+      <p-password [style]="{'width':'100%'}" class="password_field" [inputStyle]="{'width':'100%'}" placeholder="Password" [toggleMask]="true" formControlName="password"></p-password>
+      <div class="error-message" *ngIf="registerForm.errors?.['PasswordNoMatch']">
+        Password doesn't match.
+      </div>
+      <p-password class="password_field" [ngClass]= "registerForm.errors?.['PasswordNoMatch'] ? 'ng-dirty ng-invalid' : 'ng-valid'" [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}" placeholder="Confirm password" [toggleMask]="true" [feedback]="false" formControlName="repeat_password"></p-password>
       <div class="acc_type">
         <div class="acc_type_item">
-          <p-radioButton name="guest" value="Cheese" [(ngModel)]="account_type" inputId="type1"></p-radioButton>
+          <p-radioButton name="account_type" value="Guest"  inputId="type1" formControlName="account_type"></p-radioButton>
           <label  class="ml-2">Guest</label>
         </div>
 
         <div class="acc_type_item">
-          <p-radioButton name="pizza" value="Mushroom" [(ngModel)]="account_type" inputId="type2"></p-radioButton>
+          <p-radioButton name="account_type" value="Host"  inputId="type2" formControlName="account_type"></p-radioButton>
           <label  class="ml-2">Host</label>
         </div>
       </div>
-    </div>
-    <button pButton type="button" label="Sign Up" class="p-button-secondary"></button>
+      <button pButton type="button" label="Sign Up" class="p-button-secondary sign_up_button" (click)="register()" type="submit"></button>
+    </form>
+
 
   </div>
 </div>
