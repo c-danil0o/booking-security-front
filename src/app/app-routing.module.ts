@@ -10,6 +10,7 @@ import {AccommodationDetailsComponent} from "./accommodations/accommodation-deta
 import {RegistrationConfirmComponent} from "./accounts/registration-confirm/registration-confirm.component";
 import {EmailSentComponent} from "./accounts/email-sent/email-sent.component";
 import {HostProfileComponent} from "./profile/host-profile/host-profile.component";
+import {HostReservationsComponent} from "./reservations/host-reservations/host-reservations.component";
 
 
 const routes: Routes = [
@@ -21,7 +22,8 @@ const routes: Routes = [
   {component: EditAccountComponent, path:"edit-account"},
   {component: EmailSentComponent, path:"email-sent"},
   {component: RegistrationConfirmComponent, path:"registration-confirmation"},
-  {component: HostProfileComponent, path:"host-profile"}
+  {component: HostProfileComponent, path:"host-profile"},
+  {component: HostReservationsComponent, path:"host-reservations"}
   ];
 
 @NgModule({

@@ -5,7 +5,7 @@ import {CardModule} from "primeng/card";
 import {ButtonModule} from "primeng/button";
 import {RatingModule} from "primeng/rating";
 import {FormsModule} from "@angular/forms";
-import {RouterLink} from "@angular/router";
+import {RouterLink, RouterLinkActive} from "@angular/router";
 
 
 
@@ -13,14 +13,15 @@ import {RouterLink} from "@angular/router";
   declarations: [
     HostProfileComponent
   ],
-  imports: [
-    CommonModule,
-    CardModule,
-    ButtonModule,
-    NgOptimizedImage,
-    RatingModule,
-    FormsModule,
-    RouterLink
-  ]
+    imports: [
+        CommonModule,
+        CardModule,
+        ButtonModule,
+        NgOptimizedImage,
+        RatingModule,
+        FormsModule,
+        RouterLink,
+        RouterLinkActive
+    ]
 })
 export class ProfileModule { }
