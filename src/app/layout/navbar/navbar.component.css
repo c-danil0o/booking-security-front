@@ -37,4 +37,12 @@
 .register_button{
   color: white;
 }
+.profile-button{
+  background-color: #cfcfcf;
+  border-width: 0;
+  border-radius: 20px;
+}
+.custom_icon{
+
+}
 

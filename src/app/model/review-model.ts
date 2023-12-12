@@ -1,9 +1,11 @@
+import {User} from "./user-model";
 
 
 export interface Review {
+    id: number;
     grade: number;
     comment: string;
-    authorId: number;
+    author: User;
     approved: boolean;
 
 }

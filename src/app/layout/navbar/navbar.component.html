@@ -9,8 +9,10 @@
   <div class="buttons">
     <button *ngIf="role == null" pButton [routerLink]="['/login']" type="button" label="Login" class="p-button-outlined login_button"></button>
     <button *ngIf="role == null" pButton type="button" [routerLink]="['/register']" routerLinkActive="active" label="Register" class="p-button register_button"></button>
+<!--
     <button *ngIf="role != null" pButton type="button" (click)="logOut()"  label="Log Out" class="p-button register_button"></button>
-    <button *ngIf="role != null" pButton type="button" [routerLink]="['/edit-account']" routerLinkActive="active" label="My Account" class="p-button login_button"></button>
+-->
+    <button *ngIf="role != null" pButton type="button" [routerLink]="['/host-profile']" routerLinkActive="active" label="My Account" class="p-button profile-button" icon="pi pi-user" iconPos="right"></button>
 
   </div>
 

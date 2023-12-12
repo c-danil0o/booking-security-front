@@ -18,7 +18,7 @@ export class Interceptor implements HttpInterceptor {
 
     if (accessToken) {
       const cloned = req.clone({
-        headers: req.headers.set('X-Auth-Token', accessToken),
+        headers: req.headers.set('Authorization', 'Bearer ' + accessToken),
       });
 
       return next.handle(cloned);

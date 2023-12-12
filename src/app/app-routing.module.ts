@@ -9,6 +9,7 @@ import { EditAccountComponent } from './accounts/edit-account/edit-account.compo
 import {AccommodationDetailsComponent} from "./accommodations/accommodation-details/accommodation-details.component";
 import {RegistrationConfirmComponent} from "./accounts/registration-confirm/registration-confirm.component";
 import {EmailSentComponent} from "./accounts/email-sent/email-sent.component";
+import {HostProfileComponent} from "./profile/host-profile/host-profile.component";
 
 
 const routes: Routes = [
@@ -19,7 +20,8 @@ const routes: Routes = [
   {component: AccommodationDetailsComponent, path:"accommodation-details/:accommodationId"},
   {component: EditAccountComponent, path:"edit-account"},
   {component: EmailSentComponent, path:"email-sent"},
-  {component: RegistrationConfirmComponent, path:"registration-confirmation"}
+  {component: RegistrationConfirmComponent, path:"registration-confirmation"},
+  {component: HostProfileComponent, path:"host-profile"}
   ];
 
 @NgModule({

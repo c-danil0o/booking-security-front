@@ -8,6 +8,9 @@ import {AccountsModule} from "./accounts/accounts.module";
 import { AccommodationsModule } from './accommodations/accommodations.module';
 import {AuthModule} from "./infrastructure/auth/auth.module";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {ProfileModule} from "./profile/profile.module";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {Interceptor} from "./infrastructure/auth/interceptor";
 
 @NgModule({
   declarations: [
@@ -20,9 +23,10 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     AppRoutingModule,
     AccountsModule,
     AccommodationsModule,
-    AuthModule, BrowserAnimationsModule
+    AuthModule, BrowserAnimationsModule,
+    ProfileModule, HttpClientModule,
   ],
-  providers: [],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
