@@ -11,6 +11,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {ProfileModule} from "./profile/profile.module";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {Interceptor} from "./infrastructure/auth/interceptor";
+import {SharedModule} from "./shared/shared.module";
 
 @NgModule({
   declarations: [
@@ -24,7 +25,7 @@ import {Interceptor} from "./infrastructure/auth/interceptor";
     AccountsModule,
     AccommodationsModule,
     AuthModule, BrowserAnimationsModule,
-    ProfileModule, HttpClientModule,
+    ProfileModule, HttpClientModule,SharedModule
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true}],
   bootstrap: [AppComponent]

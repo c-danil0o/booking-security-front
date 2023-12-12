@@ -11,6 +11,7 @@ import {RegistrationConfirmComponent} from "./accounts/registration-confirm/regi
 import {EmailSentComponent} from "./accounts/email-sent/email-sent.component";
 import {HostProfileComponent} from "./profile/host-profile/host-profile.component";
 import {HostPropertiesComponent} from "./profile/host-properties/host-properties.component";
+import {NewAccommodationComponent} from "./accommodations/new-accommodation/new-accommodation.component";
 
 
 const routes: Routes = [
@@ -23,7 +24,8 @@ const routes: Routes = [
   {component: EmailSentComponent, path:"email-sent"},
   {component: RegistrationConfirmComponent, path:"registration-confirmation"},
   {component: HostProfileComponent, path:"host-profile"},
-  {component: HostPropertiesComponent, path:"host-properties/:hostId"}
+  {component: HostPropertiesComponent, path:"host-properties/:hostId"},
+  {component: NewAccommodationComponent, path:"new-accommodation"}
   ];
 
 @NgModule({

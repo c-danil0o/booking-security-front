@@ -14,7 +14,7 @@
              [globalFilterFields]="['name', 'location',  'status']">
       <ng-template pTemplate="caption">
         <div class="flex">
-          <button pButton type="button" label="Add property" class="p-button-primary"></button>
+          <button pButton type="button" label="Add property" class="p-button-primary" [routerLink]="['/new-accommodation']"></button>
 
           <div class="p-input-icon-right search">
                 <i class="pi pi-search"></i>
@@ -37,8 +37,8 @@
           <td>{{property.location}}</td>
           <td>{{property.status}}</td>
           <td><div class="buttons">
-            <button pButton type="button" label="View" class="p-button-primary option-button"></button>
-            <button pButton type="button" label="Edit" class="p-button-secondary option-button"></button>
+            <button pButton type="button" label="View" class="p-button-primary option-button" [routerLink]="['/accommodation-details', property.id]"></button>
+            <button pButton type="button" label="Edit" class="p-button-secondary option-button" [routerLink]="['/accommodation-edit', property.id]"></button>
           </div></td>
         </tr>
       </ng-template>
