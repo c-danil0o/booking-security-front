@@ -20,7 +20,7 @@
   </div>
   <div class="central-panel">
     <div class="option-buttons">
-      <button pButton type="button" label="My Properties" class="p-button-primary option-button"></button>
+      <button pButton type="button" label="My Properties" [routerLink]="['/host-properties', user.id]" class="p-button-primary option-button"></button>
       <button pButton type="button" label="Reservations" class="p-button-primary option-button"></button>
       <button pButton type="button" label="Reports" class="p-button-primary option-button"></button>
 

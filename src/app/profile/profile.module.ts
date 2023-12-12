@@ -6,12 +6,16 @@ import {ButtonModule} from "primeng/button";
 import {RatingModule} from "primeng/rating";
 import {FormsModule} from "@angular/forms";
 import {RouterLink} from "@angular/router";
+import { HostPropertiesComponent } from './host-properties/host-properties.component';
+import {TableModule} from "primeng/table";
+import {InputTextModule} from "primeng/inputtext";
 
 
 
 @NgModule({
   declarations: [
-    HostProfileComponent
+    HostProfileComponent,
+    HostPropertiesComponent
   ],
   imports: [
     CommonModule,
@@ -20,7 +24,9 @@ import {RouterLink} from "@angular/router";
     NgOptimizedImage,
     RatingModule,
     FormsModule,
-    RouterLink
+    RouterLink,
+    TableModule,
+    InputTextModule
   ]
 })
 export class ProfileModule { }
