@@ -63,4 +63,5 @@ export class HostProfileComponent implements OnInit {
   }
 
   protected readonly confirmPasswordValidator = confirmPasswordValidator;
+  protected readonly length = length;
 }

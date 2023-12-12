@@ -27,6 +27,7 @@
     </div>
     <span class="reviews-text">Recent reviews:</span>
     <div class="reviews">
+      <div class="comment-text  " *ngIf="user.hostReviews.length === 0">No reviews</div>
       <div class="review" *ngFor="let review of user.hostReviews">
         <div class="header-review">
           <img alt="commenter" height="80" width="80" src="assets/reviewer.jpg" class="reviewer-photo">
