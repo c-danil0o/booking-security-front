@@ -15,6 +15,9 @@ import {NewAccommodationComponent} from "./accommodations/new-accommodation/new-
 import {
   AccommodationTimeslotsComponent
 } from "./accommodations/accommodation-timeslots/accommodation-timeslots.component";
+import {HostReservationsComponent} from "./reservations/host-reservations/host-reservations.component";
+import {GuestProfileComponent} from "./profile/guest-profile/guest-profile.component";
+import {GuestReservationsComponent} from "./reservations/guest-reservations/guest-reservations.component";
 
 
 const routes: Routes = [
@@ -23,13 +26,17 @@ const routes: Routes = [
   {component: RegisterComponent, path:"register"},
   {component: AccommodationListComponent, path:"accommodation-list"},
   {component: AccommodationDetailsComponent, path:"accommodation-details/:accommodationId"},
-  {component: EditAccountComponent, path:"edit-account/:accountId"},
+  {component: EditAccountComponent, path:"edit-account"},
   {component: EmailSentComponent, path:"email-sent"},
   {component: RegistrationConfirmComponent, path:"registration-confirmation"},
   {component: HostProfileComponent, path:"host-profile"},
   {component: HostPropertiesComponent, path:"host-properties/:hostId"},
   {component: NewAccommodationComponent, path:"new-accommodation"},
-  {component: AccommodationTimeslotsComponent, path: "accommodation-timeslots/:accId"}
+  {component: AccommodationTimeslotsComponent, path: "accommodation-timeslots/:accId"},
+  {component: HostProfileComponent, path:"host-profile"},
+  {component: GuestReservationsComponent, path:"guest-reservations"},
+  {component: HostReservationsComponent, path:"host-reservations"},
+  {component: GuestProfileComponent, path:"guest-profile"},
   ];
 
 @NgModule({

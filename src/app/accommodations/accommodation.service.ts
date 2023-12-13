@@ -34,4 +34,19 @@ export class AccommodationService {
   }
 
 
+
+  // ngOnInit() {
+  //   this.route.params.subscribe((params)=>{
+  //     const id = +params['hostId']
+  //     this.accommodationService.findByHostId(id).subscribe({
+  //       next: (data: HostProperty[]) =>{
+  //         this.properties = data;
+  //         this.loading = false;
+  //       }
+  //
+  //     })
+  //   })
+  // }
+
+
 }

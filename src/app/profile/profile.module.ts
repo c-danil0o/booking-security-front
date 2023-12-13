@@ -1,21 +1,24 @@
-import { NgModule } from '@angular/core';
+import {NgModule} from '@angular/core';
 import {CommonModule, NgOptimizedImage} from '@angular/common';
-import { HostProfileComponent } from './host-profile/host-profile.component';
+import {HostProfileComponent} from './host-profile/host-profile.component';
 import {CardModule} from "primeng/card";
 import {ButtonModule} from "primeng/button";
 import {RatingModule} from "primeng/rating";
 import {FormsModule} from "@angular/forms";
-import {RouterLink} from "@angular/router";
-import { HostPropertiesComponent } from './host-properties/host-properties.component';
+import {HostPropertiesComponent} from './host-properties/host-properties.component';
 import {TableModule} from "primeng/table";
 import {InputTextModule} from "primeng/inputtext";
-
+import {RouterLink, RouterLinkActive} from "@angular/router";
+import {GuestProfileComponent} from './guest-profile/guest-profile.component';
+import {AccommodationsModule} from "../accommodations/accommodations.module";
+import {PaginatorModule} from "primeng/paginator";
 
 
 @NgModule({
   declarations: [
     HostProfileComponent,
-    HostPropertiesComponent
+    HostPropertiesComponent,
+    GuestProfileComponent
   ],
   imports: [
     CommonModule,
@@ -26,7 +29,13 @@ import {InputTextModule} from "primeng/inputtext";
     FormsModule,
     RouterLink,
     TableModule,
-    InputTextModule
+    InputTextModule,
+
+
+    RouterLinkActive,
+    AccommodationsModule,
+    PaginatorModule
   ]
 })
-export class ProfileModule { }
+export class ProfileModule {
+}

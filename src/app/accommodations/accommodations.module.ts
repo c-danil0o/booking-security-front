@@ -32,6 +32,10 @@ import {InputSwitchModule} from "primeng/inputswitch";
     NewAccommodationComponent,
     AccommodationTimeslotsComponent,
   ],
+  exports: [
+    AccommodationCardComponent,
+    AccommodationCardComponent
+  ],
   imports: [
     CommonModule, RouterModule, HttpClientModule, CardModule, PaginatorModule, InputTextModule, ListboxModule, ReactiveFormsModule, CheckboxModule, FileUploadModule, StyleClassModule, SharedModule, InputTextareaModule, CalendarModule, TableModule, InputSwitchModule
   ]
