@@ -12,7 +12,8 @@
 <!--
     <button *ngIf="role != null" pButton type="button" (click)="logOut()"  label="Log Out" class="p-button register_button"></button>
 -->
-    <button *ngIf="role != null" pButton type="button" [routerLink]="['/host-profile']" routerLinkActive="active" label="My Account" class="p-button profile-button" icon="pi pi-user" iconPos="right"></button>
+    <button *ngIf="role != null && role=='ROLE_Host'" pButton type="button" [routerLink]="['/host-profile']" routerLinkActive="active" label="My Account" class="p-button profile-button" icon="pi pi-user" iconPos="right"></button>
+    <button *ngIf="role != null && role=='ROLE_Guest'" pButton type="button" [routerLink]="['/guest-profile']" routerLinkActive="active" label="My Account" class="p-button profile-button" icon="pi pi-user" iconPos="right"></button>
 
   </div>
 

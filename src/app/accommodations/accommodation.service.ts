@@ -23,6 +23,8 @@ export class AccommodationService {
     return this.httpClient.get<Accommodation>(environment.apiHost + 'api/accommodations/' + id)
   }
 
+
+
   // ngOnInit() {
   //   this.route.params.subscribe((params)=>{
   //     const id = +params['hostId']

@@ -6,12 +6,16 @@ import {ButtonModule} from "primeng/button";
 import {RatingModule} from "primeng/rating";
 import {FormsModule} from "@angular/forms";
 import {RouterLink, RouterLinkActive} from "@angular/router";
+import { GuestProfileComponent } from './guest-profile/guest-profile.component';
+import {AccommodationsModule} from "../accommodations/accommodations.module";
+import {PaginatorModule} from "primeng/paginator";
 
 
 
 @NgModule({
   declarations: [
-    HostProfileComponent
+    HostProfileComponent,
+    GuestProfileComponent
   ],
     imports: [
         CommonModule,
@@ -21,7 +25,9 @@ import {RouterLink, RouterLinkActive} from "@angular/router";
         RatingModule,
         FormsModule,
         RouterLink,
-        RouterLinkActive
+        RouterLinkActive,
+        AccommodationsModule,
+        PaginatorModule
     ]
 })
 export class ProfileModule { }

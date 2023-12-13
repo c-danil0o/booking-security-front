@@ -6,12 +6,14 @@ import {InputTextModule} from "primeng/inputtext";
 import {ButtonModule} from "primeng/button";
 import {FormsModule} from "@angular/forms";
 import {DropdownModule} from "primeng/dropdown";
+import { GuestReservationsComponent } from './guest-reservations/guest-reservations.component';
 
 
 
 @NgModule({
   declarations: [
-    HostReservationsComponent
+    HostReservationsComponent,
+    GuestReservationsComponent
   ],
   imports: [
     CommonModule,
