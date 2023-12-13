@@ -19,6 +19,10 @@ import {ListboxModule} from "primeng/listbox";
     AccommodationDetailsComponent,
     AccommodationCardComponent,
   ],
+  exports: [
+    AccommodationCardComponent,
+    AccommodationCardComponent
+  ],
   imports: [
     CommonModule, RouterModule, HttpClientModule, CardModule, PaginatorModule, InputTextModule, ListboxModule
   ]

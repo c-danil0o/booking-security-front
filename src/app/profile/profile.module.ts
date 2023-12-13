@@ -5,22 +5,29 @@ import {CardModule} from "primeng/card";
 import {ButtonModule} from "primeng/button";
 import {RatingModule} from "primeng/rating";
 import {FormsModule} from "@angular/forms";
-import {RouterLink} from "@angular/router";
+import {RouterLink, RouterLinkActive} from "@angular/router";
+import { GuestProfileComponent } from './guest-profile/guest-profile.component';
+import {AccommodationsModule} from "../accommodations/accommodations.module";
+import {PaginatorModule} from "primeng/paginator";
 
 
 
 @NgModule({
   declarations: [
-    HostProfileComponent
+    HostProfileComponent,
+    GuestProfileComponent
   ],
-  imports: [
-    CommonModule,
-    CardModule,
-    ButtonModule,
-    NgOptimizedImage,
-    RatingModule,
-    FormsModule,
-    RouterLink
-  ]
+    imports: [
+        CommonModule,
+        CardModule,
+        ButtonModule,
+        NgOptimizedImage,
+        RatingModule,
+        FormsModule,
+        RouterLink,
+        RouterLinkActive,
+        AccommodationsModule,
+        PaginatorModule
+    ]
 })
 export class ProfileModule { }
