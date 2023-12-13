@@ -9,5 +9,6 @@ export interface AccommodationForm1Model{
   accommodationType: string;
   minGuests: number;
   maxGuests: number;
+  photos: string[];
 
 }

@@ -17,6 +17,10 @@ import {FileUploadModule} from "primeng/fileupload";
 import {StyleClassModule} from "primeng/styleclass";
 import {SharedModule} from "../shared/shared.module";
 import {InputTextareaModule} from "primeng/inputtextarea";
+import { AccommodationTimeslotsComponent } from './accommodation-timeslots/accommodation-timeslots.component';
+import {CalendarModule} from "primeng/calendar";
+import {TableModule} from "primeng/table";
+import {InputSwitchModule} from "primeng/inputswitch";
 
 
 
@@ -26,9 +30,10 @@ import {InputTextareaModule} from "primeng/inputtextarea";
     AccommodationDetailsComponent,
     AccommodationCardComponent,
     NewAccommodationComponent,
+    AccommodationTimeslotsComponent,
   ],
   imports: [
-    CommonModule, RouterModule, HttpClientModule, CardModule, PaginatorModule, InputTextModule, ListboxModule, ReactiveFormsModule, CheckboxModule, FileUploadModule, StyleClassModule, SharedModule, InputTextareaModule
+    CommonModule, RouterModule, HttpClientModule, CardModule, PaginatorModule, InputTextModule, ListboxModule, ReactiveFormsModule, CheckboxModule, FileUploadModule, StyleClassModule, SharedModule, InputTextareaModule, CalendarModule, TableModule, InputSwitchModule
   ]
 })
 export class AccommodationsModule { }

@@ -60,7 +60,7 @@ export class NewAccommodationComponent implements OnInit {
   }
 
   next() {
-    if (this.new_accommodation_form.valid && this.new_accommodation_form.controls["minGuests"].value <= this.new_accommodation_form.controls["maxGuests"].value){
+    if (this.new_accommodation_form.valid && this.new_accommodation_form.controls["minGuests"].value <= this.new_accommodation_form.controls["maxGuests"].value) {
       console.log('valid')
       const address: Address = {
         country: this.new_accommodation_form.value.country,
@@ -68,26 +68,26 @@ export class NewAccommodationComponent implements OnInit {
         number: this.new_accommodation_form.value.number,
         city: this.new_accommodation_form.value.city,
       }
-      const model: AccommodationForm1Model ={
+      const model: AccommodationForm1Model = {
         address: address,
         name: this.new_accommodation_form.value.name,
-        amenities: this.new_accommodation_form.value.selected_amenities,
+        amenities: this.selected_amenities,
         description: this.new_accommodation_form.value.description,
         files: this.new_accommodation_form.value.files,
         minGuests: this.new_accommodation_form.value.minGuests,
         maxGuests: this.new_accommodation_form.value.maxGuests,
-        accommodationType: this.new_accommodation_form.value.selectedType
+        accommodationType: this.new_accommodation_form.value.selectedType.name,
+        photos: ['file.txt']//to be implemented
       }
       this.formsService.setForms(model);
-      //this.router.navigate('/accommodation-timeslots');
-      alert("success");
-      console.log(model);
+      console.log('first', model)
+      this.router.navigate(['/accommodation-timeslots', 0]);
 
-    }else{
+    } else {
       console.log("invalid")
       this.new_accommodation_form.markAllAsTouched();
       for (const key of Object.keys(this.new_accommodation_form.controls)) {
-        if(this.new_accommodation_form.controls[key].value == null  || this.new_accommodation_form.controls[key].value.length === 0 || this.new_accommodation_form.controls[key].value === 0) {
+        if (this.new_accommodation_form.controls[key].value == null || this.new_accommodation_form.controls[key].value.length === 0 || this.new_accommodation_form.controls[key].value === 0) {
           this.new_accommodation_form.controls[key].markAsDirty();
         }
       }
@@ -96,18 +96,18 @@ export class NewAccommodationComponent implements OnInit {
 
   GetData($event: Address) {
     console.log($event);
-    this.new_accommodation_form.controls['street'].setValue( $event.street);
-    this.new_accommodation_form.controls['number'].setValue( $event.number);
-    this.new_accommodation_form.controls['city'].setValue( $event.city);
-    this.new_accommodation_form.controls['country'].setValue( $event.country);
+    this.new_accommodation_form.controls['street'].setValue($event.street);
+    this.new_accommodation_form.controls['number'].setValue($event.number);
+    this.new_accommodation_form.controls['city'].setValue($event.city);
+    this.new_accommodation_form.controls['country'].setValue($event.country);
 
   }
 
 
   onCheckChange($event: CheckboxChangeEvent, amenity: string) {
-    if ($event.checked.length === 1){
+    if ($event.checked.length === 1) {
       this.selected_amenities.push(amenity)
-    }else{
+    } else {
       const index = this.selected_amenities.indexOf(amenity, 0);
       if (index > -1) {
         this.selected_amenities.splice(index, 1);
