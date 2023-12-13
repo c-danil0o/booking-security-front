@@ -10,5 +10,6 @@ export interface Reservation{
   price:number;
   accommodationName: string;
   guestEmail: string;
+  hostEmail: string
   reservationStatus:ReservationStatus;
 }

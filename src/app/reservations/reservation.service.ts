@@ -27,5 +27,10 @@ export class ReservationService {
     return this.httpClient.put<void>(url, {});
   }
 
+  cancelReservation(id: number): Observable<void>{
+    const url = `${environment.apiHost}api/reservations/${id}/cancel`;
+    return this.httpClient.put<void>(url, {});
+  }
+
 
 }

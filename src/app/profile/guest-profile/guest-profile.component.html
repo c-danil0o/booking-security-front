@@ -20,8 +20,8 @@
   </div>
   <div class="central-panel">
     <div class="option-buttons">
-      <button pButton type="button" label="My Properties" class="p-button-primary option-button"></button>
-      <button pButton type="button" [routerLink]="['/host-reservations']" routerLinkActive="active" label="Reservations" class="p-button-primary option-button"></button>
+      <button pButton type="button" label="Notifications" class="p-button-primary option-button"></button>
+      <button pButton type="button" [routerLink]="['/guest-reservations']" routerLinkActive="active" label="Reservations" class="p-button-primary option-button"></button>
       <button pButton type="button" label="Reports" class="p-button-primary option-button"></button>
 
     </div>
@@ -29,7 +29,7 @@
     <div class="accommodations">
       <div class="comment-text  " *ngIf="user.favorites.length === 0">No favorites</div>
       <div class="accommodations" *ngFor="let accommodation of user.favorites">
-        <app-accommodation-card (clicked)="onAccommodationClicked($event)"
+        <app-accommodation-card class="accommodation-single" (clicked)="onAccommodationClicked($event)"
                                 [accommodation]="accommodation"></app-accommodation-card>
 
 <!--        <div class="header-review">-->

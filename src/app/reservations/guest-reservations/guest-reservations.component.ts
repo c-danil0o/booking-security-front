@@ -1,16 +1,17 @@
 import {Component, OnInit} from '@angular/core';
 import {Reservation} from "../../model/reservation-model";
+import {SelectItem} from "primeng/api";
 import {ActivatedRoute} from "@angular/router";
 import {ReservationService} from "../reservation.service";
 import {Table} from "primeng/table";
-import {SelectItem} from "primeng/api";
+import {toNumbers} from "@angular/compiler-cli/src/version_helpers";
 
 @Component({
-  selector: 'app-host-reservations',
-  templateUrl: './host-reservations.component.html',
-  styleUrls: ['./host-reservations.component.css']
+  selector: 'app-guest-reservations',
+  templateUrl: './guest-reservations.component.html',
+  styleUrls: ['./guest-reservations.component.css']
 })
-export class HostReservationsComponent implements OnInit{
+export class GuestReservationsComponent implements OnInit{
   reservations: Reservation[];
   loading: boolean = true;
   filteredReservations: Reservation[];
@@ -22,13 +23,11 @@ export class HostReservationsComponent implements OnInit{
     { label: 'Denied', value: 'Denied' },
     { label: 'Active', value: 'Active' },
     { label: 'Done', value: 'Done' },
-    { label: 'Canceled', value: 'Canceled' },
-    // Add more status options as needed
+    { label: 'Cancelled', value: 'Cancelled' },
   ];
 
   constructor(private route: ActivatedRoute, private reservationService: ReservationService) {
   }
-
   clear(table: Table){
     table.clear();
   }
@@ -53,37 +52,20 @@ export class HostReservationsComponent implements OnInit{
     })
   }
 
-  acceptReservation(id: number) {
-    const isConfirmed = window.confirm('Are you sure you want to approve this reservation?');
-    if (isConfirmed) {
-      this.reservationService.approveReservation(id).subscribe(
-        () => {
-          console.log('Reservation approved successfully');
-          alert('Reservation approved successfully');
-          this.refresh();
-        },
-        (error) => {
-          console.error('Failed to approve reservation:', error);
-          alert('Failed to approve reservation');
-        }
-      );
-    }
-  }
-
-  declineReservation(id: number) {
-    const isConfirmed = window.confirm('Are you sure you want to deny this reservation?');
+  cancelReservation(id: number) {
+    const isConfirmed = window.confirm('Are you sure you want to cancel this reservation?');
     if (isConfirmed){
-      this.reservationService.denyReservation(id).subscribe(
-        () => {
-          console.log('Reservation denied successfully');
-          alert('Reservation denied successfully');
-          this.refresh();
-          // You can perform additional actions after approval if needed
-        },
-        (error) => {
-          console.error('Failed to deny reservation:', error);
-          alert('Failed to deny reservation');
-        });
+      this.reservationService.cancelReservation(id).subscribe(
+          () => {
+            console.log('Reservation canceled successfully');
+            alert('Reservation canceled successfully');
+            this.refresh();
+            // You can perform additional actions after approval if needed
+          },
+          (error) => {
+            console.error('Failed to cancel reservation:', error);
+            alert('Failed to cancel reservation');
+          });
     }
 
   }
@@ -119,6 +101,4 @@ export class HostReservationsComponent implements OnInit{
     }
   }
 
-
 }
-

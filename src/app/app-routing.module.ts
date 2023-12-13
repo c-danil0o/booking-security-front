@@ -12,6 +12,7 @@ import {EmailSentComponent} from "./accounts/email-sent/email-sent.component";
 import {HostProfileComponent} from "./profile/host-profile/host-profile.component";
 import {HostReservationsComponent} from "./reservations/host-reservations/host-reservations.component";
 import {GuestProfileComponent} from "./profile/guest-profile/guest-profile.component";
+import {GuestReservationsComponent} from "./reservations/guest-reservations/guest-reservations.component";
 
 
 const routes: Routes = [
@@ -24,8 +25,9 @@ const routes: Routes = [
   {component: EmailSentComponent, path:"email-sent"},
   {component: RegistrationConfirmComponent, path:"registration-confirmation"},
   {component: HostProfileComponent, path:"host-profile"},
+  {component: GuestReservationsComponent, path:"guest-reservations"},
   {component: HostReservationsComponent, path:"host-reservations"},
-  {component: GuestProfileComponent, path:"guest-profile"}
+  {component: GuestProfileComponent, path:"guest-profile"},
   ];
 
 @NgModule({

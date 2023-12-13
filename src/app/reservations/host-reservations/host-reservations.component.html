@@ -30,15 +30,15 @@
             <th pSortableColumn="end date" style="width:20%">End Date <p-sortIcon></p-sortIcon></th>
             <th pSortableColumn="price" style="width:15%">Price <p-sortIcon></p-sortIcon></th>
             <th pSortableColumn="status" style="width:15%">Status <p-sortIcon field="status"></p-sortIcon></th>
-            <th pSortableColumn="Accept/Reject" style="width:20%">View or Edit <p-sortIcon ></p-sortIcon></th>
+            <th pFrozenColumn="Accept/Reject" style="width:20%">View or Edit</th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-reservation>
           <tr *ngIf="filteredReservations.includes(reservation)">
             <td>{{reservation.accommodationName}}</td>
             <td>{{reservation.guestEmail}}</td>
-            <td>{{reservation.startDate}}</td>
-            <td>{{reservation.endDate }}</td>
+            <td>{{reservation.startDate | date : 'dd-MM-yyyy'}}</td>
+            <td>{{reservation.endDate | date : 'dd-MM-yyyy'}}</td>
             <td>{{reservation.price}}</td>
             <td>{{reservation.reservationStatus}}</td>
 
