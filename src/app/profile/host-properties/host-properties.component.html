@@ -1,0 +1,48 @@
+<div class="properties-wrapper">
+  <div class="header-card">
+    <span class="pi pi-building icon"></span>
+    <span class="title">My properties</span>
+  </div>
+  <div class="central-panel">
+    <div class="properties-table">
+    <p-table #dt1 [value]="properties" [tableStyle]="{'min-width': '60rem'}"     [rows]="10"
+             [showCurrentPageReport]="true"
+             [rowsPerPageOptions]="[10, 25, 50]"
+             [paginator]="true"
+             [loading]="loading"
+             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+             [globalFilterFields]="['name', 'location',  'status']">
+      <ng-template pTemplate="caption">
+        <div class="flex">
+          <button pButton type="button" label="Add property" class="p-button-primary" [routerLink]="['/new-accommodation']"></button>
+
+          <div class="p-input-icon-right search">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text" (input)="dt1.filterGlobal($any($event).target.value, 'contains')" placeholder="Search" />
+            </div>
+          <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash" (click)="clear(dt1)"></button>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="name" style="width:20%">Name <p-sortIcon field="name"></p-sortIcon></th>
+          <th pFrozenColumn="location" style="width:20%">Location </th>
+          <th pSortableColumn="status" style="width:20%">Status <p-sortIcon field="status"></p-sortIcon></th>
+          <th pSortableColumn="view_edit" style="width:20%">View or Edit <p-sortIcon field="view_edit"></p-sortIcon></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-property>
+        <tr>
+          <td>{{property.name}}</td>
+          <td>{{property.location}}</td>
+          <td>{{property.status}}</td>
+          <td><div class="buttons">
+            <button pButton type="button" label="View" class="p-button-primary option-button" [routerLink]="['/accommodation-details', property.id]"></button>
+            <button pButton type="button" label="Edit" class="p-button-secondary option-button" [routerLink]="['/accommodation-edit', property.id]"></button>
+          </div></td>
+        </tr>
+      </ng-template>
+    </p-table>
+    </div>
+  </div>
+</div>

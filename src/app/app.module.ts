@@ -16,6 +16,9 @@ import { ConfirmationService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DropdownModule } from 'primeng/dropdown';
 
+import {SharedModule} from "./shared/shared.module";
+import {GoogleMapsModule} from "@angular/google-maps";
+
 
 @NgModule({
   declarations: [
@@ -29,7 +32,8 @@ import { DropdownModule } from 'primeng/dropdown';
     AccountsModule,
     AccommodationsModule,
     AuthModule, BrowserAnimationsModule,
-    ProfileModule, HttpClientModule,
+    ProfileModule, HttpClientModule,SharedModule, GoogleMapsModule,
+    HttpClientModule,
     ReservationsModule,
     ConfirmDialogModule,
     DropdownModule,

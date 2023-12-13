@@ -10,6 +10,17 @@ import {CardModule} from "primeng/card";
 import {PaginatorModule} from "primeng/paginator";
 import {InputTextModule} from "primeng/inputtext";
 import {ListboxModule} from "primeng/listbox";
+import { NewAccommodationComponent } from './new-accommodation/new-accommodation.component';
+import {ReactiveFormsModule} from "@angular/forms";
+import {CheckboxModule} from "primeng/checkbox";
+import {FileUploadModule} from "primeng/fileupload";
+import {StyleClassModule} from "primeng/styleclass";
+import {SharedModule} from "../shared/shared.module";
+import {InputTextareaModule} from "primeng/inputtextarea";
+import { AccommodationTimeslotsComponent } from './accommodation-timeslots/accommodation-timeslots.component';
+import {CalendarModule} from "primeng/calendar";
+import {TableModule} from "primeng/table";
+import {InputSwitchModule} from "primeng/inputswitch";
 
 
 
@@ -18,13 +29,15 @@ import {ListboxModule} from "primeng/listbox";
     AccommodationListComponent,
     AccommodationDetailsComponent,
     AccommodationCardComponent,
+    NewAccommodationComponent,
+    AccommodationTimeslotsComponent,
   ],
   exports: [
     AccommodationCardComponent,
     AccommodationCardComponent
   ],
   imports: [
-    CommonModule, RouterModule, HttpClientModule, CardModule, PaginatorModule, InputTextModule, ListboxModule
+    CommonModule, RouterModule, HttpClientModule, CardModule, PaginatorModule, InputTextModule, ListboxModule, ReactiveFormsModule, CheckboxModule, FileUploadModule, StyleClassModule, SharedModule, InputTextareaModule, CalendarModule, TableModule, InputSwitchModule
   ]
 })
 export class AccommodationsModule { }
