@@ -12,6 +12,8 @@ import {ProfileModule} from "./profile/profile.module";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {Interceptor} from "./infrastructure/auth/interceptor";
 import {SharedModule} from "./shared/shared.module";
+import {GoogleMapsModule} from "@angular/google-maps";
+
 
 @NgModule({
   declarations: [
@@ -25,7 +27,7 @@ import {SharedModule} from "./shared/shared.module";
     AccountsModule,
     AccommodationsModule,
     AuthModule, BrowserAnimationsModule,
-    ProfileModule, HttpClientModule,SharedModule
+    ProfileModule, HttpClientModule,SharedModule, GoogleMapsModule
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true}],
   bootstrap: [AppComponent]

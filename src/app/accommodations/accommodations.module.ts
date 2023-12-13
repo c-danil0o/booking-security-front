@@ -16,6 +16,7 @@ import {CheckboxModule} from "primeng/checkbox";
 import {FileUploadModule} from "primeng/fileupload";
 import {StyleClassModule} from "primeng/styleclass";
 import {SharedModule} from "../shared/shared.module";
+import {InputTextareaModule} from "primeng/inputtextarea";
 
 
 
@@ -27,7 +28,7 @@ import {SharedModule} from "../shared/shared.module";
     NewAccommodationComponent,
   ],
   imports: [
-    CommonModule, RouterModule, HttpClientModule, CardModule, PaginatorModule, InputTextModule, ListboxModule, ReactiveFormsModule, CheckboxModule, FileUploadModule, StyleClassModule, SharedModule
+    CommonModule, RouterModule, HttpClientModule, CardModule, PaginatorModule, InputTextModule, ListboxModule, ReactiveFormsModule, CheckboxModule, FileUploadModule, StyleClassModule, SharedModule, InputTextareaModule
   ]
 })
 export class AccommodationsModule { }

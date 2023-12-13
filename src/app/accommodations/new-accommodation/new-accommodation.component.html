@@ -4,6 +4,7 @@
     <span class="title">New property</span>
   </div>
   <div class="central-panel">
+    <div class="forms-up">
     <div class="left-forms">
       <ng-form class="form" [formGroup]="new_accommodation_form">
 
@@ -11,19 +12,19 @@
         <p-dropdown formControlName="selectedType" [options]="types" optionLabel="name"
                     placeholder="Property type:" [style]="{'width':'100%'}"></p-dropdown>
         <div class="guests">
-          <p-inputNumber [inputStyle]="{'width':'100%'}" [showButtons]="true" inputId="stacked" placeholder="Min Guests"> </p-inputNumber>
-          <p-inputNumber [inputStyle]="{'width':'100%'}" [showButtons]="true" inputId="stacked" placeholder="Max Guests"> </p-inputNumber>
+          <p-inputNumber [inputStyle]="{'width':'100%'}" [showButtons]="true" inputId="stacked" placeholder="Min Guests" formControlName="minGuests"> </p-inputNumber>
+          <p-inputNumber [inputStyle]="{'width':'100%'}" [showButtons]="true" inputId="stacked" placeholder="Max Guests" formControlName="maxGuests"> </p-inputNumber>
         </div>
         <span class="amenities">Amenities:</span>
         <div  class="fields-checkbox">
           <div class="checkbox-field" *ngFor="let amentity of amenities">
-            <p-checkbox name="group" [value]="amentity" formControlName="selected_amenities"
+            <p-checkbox name="group" [value]="amentity" (onChange)="onCheckChange($event, amentity)"
                         [inputId]="amentity"></p-checkbox>
             <label class="label" [for]="amentity">{{ amentity }}</label></div>
           <input class="new_amenity" type="text" pInputText placeholder="Add amenity" formControlName="newAmenity" (keyup.enter)="addAmenity($any($event).target.value)"/>
         </div>
         <span class="amenities">Photos:</span>
-        <p-fileUpload class="file_upload" name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" (onUpload)="onUpload($event)" [multiple]="true" accept="image/*" [maxFileSize]="1000000">
+        <p-fileUpload class="file_upload" name="demo[]" [style]="{'width': '100%'}" url="https://www.primefaces.org/cdn/api/upload.php"  (onUpload)="onUpload($event)" [multiple]="true" accept="image/*" [maxFileSize]="1000000">
           <ng-template pTemplate="content">
             <ul *ngIf="uploadedFiles.length">
               <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>
@@ -34,8 +35,27 @@
       </ng-form>
     </div>
     <div class="right_forms">
-      <!--<app-map></app-map>-->
-    </div>
+      <app-google-map (address)="GetData($event)" ></app-google-map>
+      <ng-form [formGroup]="new_accommodation_form"  class="under_map">
+        <div class="address_forms">
+          <input  type="text" pInputText placeholder="City" formControlName="city"/>
+          <input  type="text" pInputText placeholder="Country" formControlName="country"/>
+          <div class="address">
+            <input type="text" class="address_field" pInputText placeholder="Street" formControlName="street" />
+            <input class="number_field" type="text" pInputText placeholder="Number" formControlName="number"/>
+          </div>
+        </div>
 
+
+      </ng-form>
+
+
+    </div>
+    </div>
+    <ng-form [formGroup]="new_accommodation_form"  class="description">
+      <textarea rows="5" cols="30" pInputTextarea [autoResize]="true" [style]="{'width':'100%'}" placeholder="Description" formControlName="description"></textarea>
+      <button pButton type="button" label="Next" class="p-button-primary next_button" (click)="next()"></button>
+    </ng-form>
   </div>
+
 </div>
