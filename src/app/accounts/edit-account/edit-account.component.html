@@ -58,13 +58,14 @@
         </form>
 
         <div class="outer-change-password-container">
-          <div class="inner-change-password-container">
+          <form class="password-fields" [formGroup]="changePasswordForm" (ngSubmit)="onChangePassword()">
             <span class="change-pass-text">Change password:</span>
 
-            <p-password class="change-password" placeholder="Old password" [toggleMask]="true"/>
-            <p-password class="change-password" placeholder="New password" [toggleMask]="true"/>
-            <button pButton type="button" class="change-pass-button">Change</button>
-          </div>
+            <p-password class="change-password" placeholder="Old password" [toggleMask]="true" formControlName="oldpassword"/>
+            <p-password class="change-password" placeholder="New password" [toggleMask]="true" formControlName="newpassword"/>
+            <p-password class="change-password" placeholder="Confirm new password" [toggleMask]="true" formControlName="confirmedpassword"/>
+            <button pButton type="submit" class="change-pass-button">Change</button>
+          </form>
         </div>
       </div>
     </div>

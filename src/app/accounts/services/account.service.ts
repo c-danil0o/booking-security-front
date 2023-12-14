@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import {environment} from "../../../env/env";
 import {Account} from "../../model/account-model";
 import {NewAccount} from "../../model/register-model";
+import { NewPassword } from "src/app/model/password-change-model";
 @Injectable({
   providedIn: 'root'
 })
@@ -18,19 +19,27 @@ export class AccountService {
     'Content-Type': 'application/json',
     skip: 'true',
   });
+
   getAll(): Observable<Account[]>{
     return  this.httpClient.get<Account[]>(environment.apiHost + 'api/hosts/all')
   }
+
   register(account: NewAccount): Observable<any>{
     return this.httpClient.post(environment.apiHost + 'api/register', account, {
       responseType: "text",
       headers: this.headers
     })
   }
+
   confirmRegistration(token: string): Observable<any>{
     return this.httpClient.get(environment.apiHost+ 'api/register/confirm?token=' + token, {
       responseType: "text",
       headers: this.headers
     })
+  }
+
+  changePassword(passwordAccount: NewPassword): Observable<void>{
+    console.log(JSON.stringify(passwordAccount));
+    return this.httpClient.post<void>(environment.apiHost + 'api/passwordChange', passwordAccount)
   }
 }

@@ -8,6 +8,8 @@ import { countries } from '../register/countries';
 import { Address } from 'src/app/model/address-model';
 import { E } from '@angular/cdk/keycodes';
 import { AccountService } from '../services/account.service';
+import { NewPassword } from 'src/app/model/password-change-model';
+import { error } from '@angular/compiler-cli/src/transformers/util';
 
 @Component({
   selector: 'app-edit-account',
@@ -17,12 +19,15 @@ import { AccountService } from '../services/account.service';
 export class EditAccountComponent {
   account: any;
   editAccountForm: FormGroup;
+  changePasswordForm: FormGroup;
 
   constructor(private router: Router, private authService: AuthService, private route: ActivatedRoute, private accountService: AccountService, private hostService: HostService, private guestService: GuestService) {}
 
 
   ngOnInit() {
     this.initializeEditAccountForm();
+    this.initializeChangePasswordForm();
+
     this.route.params.subscribe(params => {
       const userId = params['id'];
       if (this.authService.getRole().toUpperCase() === 'ROLE_HOST') {
@@ -49,8 +54,14 @@ export class EditAccountComponent {
       city: new FormControl('', Validators.required),
       number: new FormControl('', Validators.required),
       email: new FormControl('', [Validators.required, Validators.email]),
-      // oldpassword: new FormControl('', Validators.required),
-      // newpassword: new FormControl('', [Validators.required, Validators.minLength(6)]),
+    });
+  }
+
+  private initializeChangePasswordForm(): void {
+    this.changePasswordForm = new FormGroup({
+      oldpassword: new FormControl('', Validators.required),
+      newpassword: new FormControl('', [Validators.required, Validators.minLength(6)]),
+      confirmedpassword: new FormControl('', [Validators.required, Validators.minLength(6)]),
     });
   }
   
@@ -108,7 +119,7 @@ export class EditAccountComponent {
         )  
       }
     } else {
-      alert('Invalid form');
+      alert('Invalid data entered.\nPlease try again.');
   
       // print all invalid fields in the console
       this.editAccountForm.markAllAsTouched();
@@ -124,20 +135,6 @@ export class EditAccountComponent {
     this.editAccountForm.reset();
     this.patchEditAccountForm();
   }
-
-  patchEditAccountForm(): void {
-    this.editAccountForm.patchValue({
-      firstname: this.account.firstName,
-      lastname: this.account.lastName,
-      phone: this.account.phone,
-      selectedCountry: this.account.address.country,
-      street: this.account.address.street,
-      city: this.account.address.city,
-      number: this.account.address.number,
-      email: this.account.email,
-    })
-  }
-
 
   onDelete(): void {
     if(confirm('Are you sure you want to delete your account?')) {
@@ -159,5 +156,57 @@ export class EditAccountComponent {
         }
       )
     }
+  }
+
+  onChangePassword(): void {
+    if(this.changePasswordForm.valid && this.changePasswordForm.value.newpassword === this.changePasswordForm.value.confirmedpassword) {
+      const newPassword: NewPassword = {
+        email: this.account.email,
+        oldPassword: this.changePasswordForm.value.oldpassword,
+        newPassword: this.changePasswordForm.value.newpassword,
+        confirmedPassword: this.changePasswordForm.value.confirmedpassword
+      }
+
+      this.accountService.changePassword(newPassword).subscribe(
+        () => {
+          alert("Password updated successfully\nYou'll be logged out so you can login with new credentials")
+          this.authService.logout().subscribe({
+            next: (_) => {
+              localStorage.removeItem('user');
+              this.authService.setUser();
+              this.router.navigate(['/login']);
+            }
+          })
+        },
+        error => {
+          alert("An error occurred while changing password, we're sorry for inconvenience");
+          console.log("Error: " + error);
+          console.error(`Error changing password: ${error}`)
+        }
+      )
+    } else {
+      alert('Incorrectly filled in data.\nPlease try again.');
+  
+      // print all invalid fields in the console
+      this.editAccountForm.markAllAsTouched();
+      for (const key of Object.keys(this.editAccountForm.controls)) {
+        if (this.editAccountForm.controls[key].invalid) {
+          console.log(`${key}:`, this.editAccountForm.controls[key].errors);
+        }
+      }
+    }
+  }
+
+  patchEditAccountForm(): void {
+    this.editAccountForm.patchValue({
+      firstname: this.account.firstName,
+      lastname: this.account.lastName,
+      phone: this.account.phone,
+      selectedCountry: this.account.address.country,
+      street: this.account.address.street,
+      city: this.account.address.city,
+      number: this.account.address.number,
+      email: this.account.email,
+    })
   }
 }
