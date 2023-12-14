@@ -25,7 +25,6 @@ export class AuthService {
   login(auth: any): Observable<AuthResponse> {
     return this.http.post<any>(environment.apiHost + 'api/login', auth, {
       headers: this.headers,
-
     });
   }
 

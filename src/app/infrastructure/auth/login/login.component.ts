@@ -25,7 +25,6 @@ export class LoginComponent {
         email: this.loginForm.value.username || "",
         password: this.loginForm.value.password || ""
       }
-      console.log("fdfdf")
       this.authService.login(login).subscribe({
         next: (response: AuthResponse) => {
           localStorage.setItem('user', response.token);

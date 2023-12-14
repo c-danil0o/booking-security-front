@@ -8,6 +8,7 @@ import {ReviewService} from "../../reviews/review.service";
 import {error} from "@angular/compiler-cli/src/transformers/util";
 import {confirmPasswordValidator} from "../../accounts/register/password.validator";
 import {Email} from "../../model/Email";
+import { ConnectableObservable } from 'rxjs';
 
 @Component({
   selector: 'app-host-profile',
@@ -19,14 +20,17 @@ export class HostProfileComponent implements OnInit {
 
   constructor(private authService: AuthService, private router: Router, private hostService: HostService, private reviewService: ReviewService) {
   }
+  
+  that = this;
   ngOnInit() {
     const user_email: string | null = this.authService.getEmail();
-    console.log(user_email);
+    // console.log(user_email);
 
     if (user_email != null) {
       const email: Email = {
         email: user_email
       }
+
       this.hostService.findByEmail(email).subscribe({
         next: (data: Host) => {
           this.user = data;

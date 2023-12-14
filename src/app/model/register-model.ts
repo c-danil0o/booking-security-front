@@ -9,6 +9,4 @@ export interface NewAccount{
   phone: string;
   role: string
   address: Address
-
-
 }

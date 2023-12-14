@@ -26,7 +26,7 @@ const routes: Routes = [
   {component: RegisterComponent, path:"register"},
   {component: AccommodationListComponent, path:"accommodation-list"},
   {component: AccommodationDetailsComponent, path:"accommodation-details/:accommodationId"},
-  {component: EditAccountComponent, path:"edit-account"},
+  {component: EditAccountComponent, path:"edit-account/:id"},
   {component: EmailSentComponent, path:"email-sent"},
   {component: RegistrationConfirmComponent, path:"registration-confirmation"},
   {component: HostProfileComponent, path:"host-profile"},

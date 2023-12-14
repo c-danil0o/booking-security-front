@@ -10,6 +10,4 @@ export interface Host extends Account {
   address: Address;
   properties: Accommodation[];
   hostReviews: Review[];
-
-
 }
