@@ -21,9 +21,6 @@ export class AccountService {
   getAll(): Observable<Account[]>{
     return  this.httpClient.get<Account[]>(environment.apiHost + 'api/hosts/all')
   }
-  findById(id: number): Observable<Account>{
-    return this.httpClient.get<Account>(environment.apiHost + 'api/hosts/' + id)
-  }
   register(account: NewAccount): Observable<any>{
     return this.httpClient.post(environment.apiHost + 'api/register', account, {
       responseType: "text",

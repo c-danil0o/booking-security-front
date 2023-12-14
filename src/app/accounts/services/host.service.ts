@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
 import {Host} from "../../model/host-model";
 import {environment} from "../../../env/env";
 import {Email} from "../../model/Email";
@@ -8,9 +8,6 @@ import {Email} from "../../model/Email";
   providedIn: 'root'
 })
 export class HostService {
-  private hosts: Host[] = [];
-
-
   constructor(private httpClient: HttpClient ) {
   }
   getAll(): Observable<Host[]>{

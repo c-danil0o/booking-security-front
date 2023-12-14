@@ -8,8 +8,7 @@ export interface Host extends Account {
   lastName: string;
   phone: string;
   address: Address;
+  country: string;
   properties: Accommodation[];
   hostReviews: Review[];
-
-
 }

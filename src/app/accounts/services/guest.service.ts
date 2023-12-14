@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Guest} from "../../model/guest-model";
 import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
 import {Host} from "../../model/host-model";
 import {environment} from "../../../env/env";
 import {Email} from "../../model/Email";
@@ -11,8 +11,6 @@ import {Accommodation} from "../../model/accommodation-model";
   providedIn: 'root'
 })
 export class GuestService {
-  private guests: Guest[] = [];
-
   constructor(private httpClient: HttpClient) { }
 
   getAll(): Observable<Guest[]>{
@@ -28,5 +26,4 @@ export class GuestService {
   getFavorites(id: number): Observable<Accommodation[]>{
     return this.httpClient.get<Accommodation[]>(environment.apiHost+'api/guests/favorites/'+id);
   }
-
 }
