@@ -40,32 +40,12 @@ export class EditAccountComponent {
       } if(this.authService.getRole().toUpperCase() === 'ROLE_HOST') {
         this.account = this.hostService.findById(userId).subscribe(data => {
           this.account = data = data;
-
-          this.editAccountForm.patchValue({
-            firstname: this.account.firstName,
-            lastname: this.account.lastName,
-            phone: this.account.phone,
-            selectedCountry: this.account.address.country,
-            street: this.account.address.street,
-            city: this.account.address.city,
-            number: this.account.address.number,
-            email: this.account.email,
-          })
+          this.patchEditAccountForm();
         });        
       } else {
         this.account = this.guestService.findById(userId).subscribe(data => {
           this.account = data = data;
-
-          this.editAccountForm.patchValue({
-            firstname: this.account.firstName,
-            lastname: this.account.lastName,
-            phone: this.account.phone,
-            selectedCountry: this.account.address.country,
-            street: this.account.address.street,
-            city: this.account.address.city,
-            number: this.account.address.number,
-            email: this.account.email,
-          })
+          this.patchEditAccountForm();
         });
       }
     });
@@ -76,7 +56,7 @@ export class EditAccountComponent {
 
   onSubmit(): void {
     if(this.editAccountForm.valid) {
-      // update with new info
+      // update current account object with new info
       const addressId = this.account.address.id;
       this.account.address = {
         // country: this.editAccountForm.value.selectedCountry,
@@ -91,6 +71,7 @@ export class EditAccountComponent {
       this.account.email = this.editAccountForm.value.email;
       
 
+      // update on server
       if(this.authService.getRole().toUpperCase() === 'ROLE_ADMIN') {
         // update admin
       } if(this.authService.getRole().toUpperCase() === 'ROLE_HOST') {
@@ -117,5 +98,23 @@ export class EditAccountComponent {
         }
       }
     }
+  }
+
+  onCancel(): void {
+    this.editAccountForm.reset();
+    this.patchEditAccountForm();
+  }
+
+  patchEditAccountForm(): void {
+    this.editAccountForm.patchValue({
+      firstname: this.account.firstName,
+      lastname: this.account.lastName,
+      phone: this.account.phone,
+      selectedCountry: this.account.address.country,
+      street: this.account.address.street,
+      city: this.account.address.city,
+      number: this.account.address.number,
+      email: this.account.email,
+    })
   }
 }
