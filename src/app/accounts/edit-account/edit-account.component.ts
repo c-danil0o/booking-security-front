@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, RouterModule, Routes } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule, Routes } from '@angular/router';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { HostService } from '../services/host.service';
 import { GuestService } from '../services/guest.service';
@@ -7,6 +7,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { countries } from '../register/countries';
 import { Address } from 'src/app/model/address-model';
 import { E } from '@angular/cdk/keycodes';
+import { AccountService } from '../services/account.service';
 
 @Component({
   selector: 'app-edit-account',
@@ -17,39 +18,8 @@ export class EditAccountComponent {
   account: any;
   editAccountForm: FormGroup;
 
-  constructor(private authService: AuthService, private route: ActivatedRoute, private hostService: HostService, private guestService: GuestService) {}
+  constructor(private router: Router, private authService: AuthService, private route: ActivatedRoute, private accountService: AccountService, private hostService: HostService, private guestService: GuestService) {}
 
-  // ngOnInit() {
-  //   this.editAccountForm = new FormGroup({
-  //     firstname: new FormControl('', [Validators.required, Validators.max(30)]),
-  //     lastname: new FormControl('', [Validators.required, Validators.max(30)]),
-  //     phone: new FormControl('', [Validators.required, Validators.pattern("^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\\s\\./0-9]*$")]),
-  //     selectedCountry: new FormControl('', Validators.required),
-  //     street: new FormControl('', Validators.required),
-  //     city: new FormControl('', Validators.required),
-  //     number: new FormControl('', Validators.required),
-  //     email: new FormControl('', [Validators.required, Validators.email]),
-  //     // oldpassword: new FormControl('', Validators.required),
-  //     // newpassword: new FormControl('', [Validators.required, Validators.minLength(6)]),
-  //   })//, [confirmPasswordValidator])
-    
-  //   // read coresponding data and patch to the form
-  //   this.route.params.subscribe(params => {
-  //     const userId = params['id'];
-  //     if(this.authService.getRole().toUpperCase() === 'ROLE_ADMIN') {
-  //     } if(this.authService.getRole().toUpperCase() === 'ROLE_HOST') {
-  //       this.account = this.hostService.findById(userId).subscribe(data => {
-  //         this.account = data = data;
-  //         this.patchEditAccountForm();
-  //       });        
-  //     } else {
-  //       this.account = this.guestService.findById(userId).subscribe(data => {
-  //         this.account = data = data;
-  //         this.patchEditAccountForm();
-  //       });
-  //     }
-  //   });
-  // }
 
   ngOnInit() {
     this.initializeEditAccountForm();
@@ -107,15 +77,38 @@ export class EditAccountComponent {
 
 
       const updateService = this.authService.getRole().toUpperCase() === 'ROLE_HOST' ? this.hostService : this.guestService;
-      updateService.update(updatedAccountData).subscribe(
-        successfulUpdate => {
-          console.log('Successfully updated');
-          this.account = updatedAccountData;
-        },
-        error => console.error(`Error updating account: ${error}`)
-      );
+      if(this.account.email === updatedAccountData.email) {
+        updateService.update(updatedAccountData).subscribe(
+          () => {
+            this.account = updatedAccountData;
+            alert('Account updated successfully');
+          },
+          error => {
+            alert("An error occurred while updating, we're sorry for inconvenience");
+            console.error(`Error updating account: ${error}`)
+          }
+        )
+      } else {
+        this.authService.logout().subscribe({
+          next: (_) => {
+            localStorage.removeItem('user');
+            this.authService.setUser();
+          }
+        })
+        updateService.update(updatedAccountData).subscribe(
+          () => {
+            this.account = updatedAccountData;
+            alert('Account successfully updated. You will be logged out, so log in with new credentials.');
+            this.router.navigate(['/login']);
+          },
+          error => {
+            alert("An error occurred while updating, we're sorry for inconvenience");
+            console.error(`Error updating account: ${error}`)
+          }
+        )  
+      }
     } else {
-      console.log('Invalid form');
+      alert('Invalid form');
   
       // print all invalid fields in the console
       this.editAccountForm.markAllAsTouched();
@@ -143,5 +136,28 @@ export class EditAccountComponent {
       number: this.account.address.number,
       email: this.account.email,
     })
+  }
+
+
+  onDelete(): void {
+    if(confirm('Are you sure you want to delete your account?')) {
+      const deleteService = this.authService.getRole().toUpperCase() === 'ROLE_HOST' ? this.hostService : this.guestService;
+      this.authService.logout().subscribe({
+        next: (_) => {
+          localStorage.removeItem('user');
+          this.authService.setUser();
+        }
+      })
+      deleteService.deleteAccount(this.account.id).subscribe(
+        () => {
+          alert("Account successfully deleted");
+          this.router.navigate(['/']);
+        }, 
+        error => {
+          console.log("Error deleting account " + JSON.stringify(error))
+          alert("An error has occurred while trying to delete your account, we're sorry for inconvenience");
+        }
+      )
+    }
   }
 }

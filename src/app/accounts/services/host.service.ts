@@ -8,19 +8,25 @@ import {Email} from "../../model/Email";
   providedIn: 'root'
 })
 export class HostService {
-  constructor(private httpClient: HttpClient ) {
-  }
+  constructor(private httpClient: HttpClient ) {}
+
   getAll(): Observable<Host[]>{
     return  this.httpClient.get<Host[]>(environment.apiHost + 'api/hosts/all')
   }
+
   findById(id: number): Observable<Host>{
     return this.httpClient.get<Host>(environment.apiHost + 'api/hosts/' + id)
   }
+  
   findByEmail(email: Email): Observable<Host>{
     return this.httpClient.post<Host>(environment.apiHost + 'api/hosts/email', email)
   }
-  update(host: Host): Observable<Host>{
-    console.log("putuj2")
+
+  update(host: Host): Observable<Host>{  
     return this.httpClient.put<Host>(environment.apiHost + 'api/hosts/update', host)
+  }
+
+  deleteAccount(id: number): Observable<void> {
+    return this.httpClient.delete<void>(environment.apiHost+ 'api/hosts/' + id);
   }
 }
