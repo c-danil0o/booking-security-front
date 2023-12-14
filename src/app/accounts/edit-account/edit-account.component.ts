@@ -19,7 +19,57 @@ export class EditAccountComponent {
 
   constructor(private authService: AuthService, private route: ActivatedRoute, private hostService: HostService, private guestService: GuestService) {}
 
+  // ngOnInit() {
+  //   this.editAccountForm = new FormGroup({
+  //     firstname: new FormControl('', [Validators.required, Validators.max(30)]),
+  //     lastname: new FormControl('', [Validators.required, Validators.max(30)]),
+  //     phone: new FormControl('', [Validators.required, Validators.pattern("^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\\s\\./0-9]*$")]),
+  //     selectedCountry: new FormControl('', Validators.required),
+  //     street: new FormControl('', Validators.required),
+  //     city: new FormControl('', Validators.required),
+  //     number: new FormControl('', Validators.required),
+  //     email: new FormControl('', [Validators.required, Validators.email]),
+  //     // oldpassword: new FormControl('', Validators.required),
+  //     // newpassword: new FormControl('', [Validators.required, Validators.minLength(6)]),
+  //   })//, [confirmPasswordValidator])
+    
+  //   // read coresponding data and patch to the form
+  //   this.route.params.subscribe(params => {
+  //     const userId = params['id'];
+  //     if(this.authService.getRole().toUpperCase() === 'ROLE_ADMIN') {
+  //     } if(this.authService.getRole().toUpperCase() === 'ROLE_HOST') {
+  //       this.account = this.hostService.findById(userId).subscribe(data => {
+  //         this.account = data = data;
+  //         this.patchEditAccountForm();
+  //       });        
+  //     } else {
+  //       this.account = this.guestService.findById(userId).subscribe(data => {
+  //         this.account = data = data;
+  //         this.patchEditAccountForm();
+  //       });
+  //     }
+  //   });
+  // }
+
   ngOnInit() {
+    this.initializeEditAccountForm();
+    this.route.params.subscribe(params => {
+      const userId = params['id'];
+      if (this.authService.getRole().toUpperCase() === 'ROLE_HOST') {
+        this.account = this.hostService.findById(userId).subscribe(data => {
+          this.account = data;
+          this.patchEditAccountForm();
+        });
+      } else {
+        this.account = this.guestService.findById(userId).subscribe(data => {
+          this.account = data;
+          this.patchEditAccountForm();
+        });
+      }
+    });
+  }
+  
+  private initializeEditAccountForm(): void {
     this.editAccountForm = new FormGroup({
       firstname: new FormControl('', [Validators.required, Validators.max(30)]),
       lastname: new FormControl('', [Validators.required, Validators.max(30)]),
@@ -31,70 +81,47 @@ export class EditAccountComponent {
       email: new FormControl('', [Validators.required, Validators.email]),
       // oldpassword: new FormControl('', Validators.required),
       // newpassword: new FormControl('', [Validators.required, Validators.minLength(6)]),
-    })//, [confirmPasswordValidator])
-    
-    // read coresponding data and patch to the form
-    this.route.params.subscribe(params => {
-      const userId = params['id'];
-      if(this.authService.getRole().toUpperCase() === 'ROLE_ADMIN') {
-      } if(this.authService.getRole().toUpperCase() === 'ROLE_HOST') {
-        this.account = this.hostService.findById(userId).subscribe(data => {
-          this.account = data = data;
-          this.patchEditAccountForm();
-        });        
-      } else {
-        this.account = this.guestService.findById(userId).subscribe(data => {
-          this.account = data = data;
-          this.patchEditAccountForm();
-        });
-      }
     });
   }
+  
   
   selectedCountry = {"name": "12", "code": "23"};
   protected readonly countries = countries;
 
   onSubmit(): void {
     if(this.editAccountForm.valid) {
-      // update current account object with new info
-      const addressId = this.account.address.id;
-      this.account.address = {
-        // country: this.editAccountForm.value.selectedCountry,
-        id: addressId,
-        street: this.editAccountForm.value.street,
-        number: this.editAccountForm.value.number,
-        city: this.editAccountForm.value.city,
+      const updatedAccountData = {
+        ...this.account,
+        firstName: this.editAccountForm.value.firstname,
+        lastName: this.editAccountForm.value.lastname,
+        phone: this.editAccountForm.value.phone,
+        email: this.editAccountForm.value.email,
+        address: {
+          ...this.account.address,
+          street: this.editAccountForm.value.street,
+          city: this.editAccountForm.value.city,
+          number: this.editAccountForm.value.number,
+          // country: this.editAccountForm.value.country
+        }
       };
-      this.account.firstName = this.editAccountForm.value.firstname;
-      this.account.lastName = this.editAccountForm.value.lastname;
-      this.account.phone = this.editAccountForm.value.phone;
-      this.account.email = this.editAccountForm.value.email;
-      
 
-      // update on server
-      if(this.authService.getRole().toUpperCase() === 'ROLE_ADMIN') {
-        // update admin
-      } if(this.authService.getRole().toUpperCase() === 'ROLE_HOST') {
-        this.hostService.update(this.account).subscribe(
-          error => console.error('Error updating host: ' + error)
-        );
-      } else {
-        this.guestService.update(this.account).subscribe(
-          error => console.error('Error updating guest: ' + error)
-        );
-      }
+
+      const updateService = this.authService.getRole().toUpperCase() === 'ROLE_HOST' ? this.hostService : this.guestService;
+      updateService.update(updatedAccountData).subscribe(
+        successfulUpdate => {
+          console.log('Successfully updated');
+          this.account = updatedAccountData;
+        },
+        error => console.error(`Error updating account: ${error}`)
+      );
     } else {
-      console.log("invalid")
+      console.log('Invalid form');
+  
       // print all invalid fields in the console
       this.editAccountForm.markAllAsTouched();
       for (const key of Object.keys(this.editAccountForm.controls)) {
-        if(this.editAccountForm.controls[key].value == null || this.editAccountForm.controls[key].value.length === 0) {
-          this.editAccountForm.controls[key].markAsDirty();
-          
-          const control = this.editAccountForm.controls[key];
-          if (control.invalid) {
-            console.log(`${key}:`, control.errors);
-          }
+        if (this.editAccountForm.controls[key].invalid) {
+          console.log(`${key}:`, this.editAccountForm.controls[key].errors);
         }
       }
     }
