@@ -26,4 +26,8 @@ export class GuestService {
   getFavorites(id: number): Observable<Accommodation[]>{
     return this.httpClient.get<Accommodation[]>(environment.apiHost+'api/guests/favorites/'+id);
   }
+
+  update(host: Host): Observable<Host>{
+    return this.httpClient.put<Host>(environment.apiHost + 'api/hosts/update', host)
+  }
 }

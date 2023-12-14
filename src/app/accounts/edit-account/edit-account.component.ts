@@ -41,7 +41,6 @@ export class EditAccountComponent {
         this.account = this.hostService.findById(userId).subscribe(data => {
           this.account = data = data;
 
-          console.log(JSON.stringify(data))
           this.editAccountForm.patchValue({
             firstname: this.account.firstName,
             lastname: this.account.lastName,
@@ -77,6 +76,7 @@ export class EditAccountComponent {
 
   onSubmit(): void {
     if(this.editAccountForm.valid) {
+      // update with new info
       const addressId = this.account.address.id;
       this.account.address = {
         // country: this.editAccountForm.value.selectedCountry,
@@ -90,19 +90,21 @@ export class EditAccountComponent {
       this.account.phone = this.editAccountForm.value.phone;
       this.account.email = this.editAccountForm.value.email;
       
+
       if(this.authService.getRole().toUpperCase() === 'ROLE_ADMIN') {
         // update admin
       } if(this.authService.getRole().toUpperCase() === 'ROLE_HOST') {
         this.hostService.update(this.account).subscribe(
-          updated => {
-            console.log("Host updated successfully", this.account)
-          }, error => console.error('Error updating host: ' + error)
+          error => console.error('Error updating host: ' + error)
         );
       } else {
-
+        this.guestService.update(this.account).subscribe(
+          error => console.error('Error updating guest: ' + error)
+        );
       }
     } else {
       console.log("invalid")
+      // print all invalid fields in the console
       this.editAccountForm.markAllAsTouched();
       for (const key of Object.keys(this.editAccountForm.controls)) {
         if(this.editAccountForm.controls[key].value == null || this.editAccountForm.controls[key].value.length === 0) {
