@@ -6,8 +6,8 @@
     </div>
 
     <div class="outer-main-section">
-      <form class="fields" [formGroup]="editAccountForm">
-        <div class="inner-main-section">
+      <div class="inner-main-section">
+        <form class="fields" [formGroup]="editAccountForm" (ngSubmit)="onSubmit()">
           <h2>Basic info:</h2>
           <div class="outer-info-segment">
             <div class="inner-info-segment"> <ul> <li>First Name</li> </ul> </div>
@@ -26,7 +26,7 @@
 
           <div class="outer-info-segment">
             <div class="inner-info-segment"> <ul> <li>Country</li> </ul> </div>
-            <p-dropdown class="info-input" [style]="{'width':'100%'}" [options]="countries" formControlName="selectedCountry" placeholder="Country" optionLabel="name" [filter]="true" [filterBy]="selectedCountry.name"/>
+            <p-dropdown class="info-input" [style]="{'width':'100%'}" [options]="countries" formControlName="selectedCountry" placeholder="{{ account.address?.country }}" optionLabel="name" [filter]="true" [filterBy]="selectedCountry.name"/>
           </div>
 
           <div class="outer-info-segment">
@@ -51,22 +51,22 @@
 
 
           <div class="button-actions">
-            <button pButton type="button" class="apply-button">Apply changes</button>
+            <button pButton type="submit" class="apply-button">Apply changes</button>
             <button pButton type="button" class="cancel-button">Cancel</button>
             <button pButton type="button" class="delete-button">Delete account</button>
           </div>
-        </div>
+        </form>
 
         <div class="outer-change-password-container">
           <div class="inner-change-password-container">
             <span class="change-pass-text">Change password:</span>
 
-            <p-password class="change-password" placeholder="Old password" [toggleMask]="true" formControlName="oldpassword"></p-password>
-            <p-password class="change-password" placeholder="New password" [toggleMask]="true" formControlName="newpassword"></p-password>
+            <p-password class="change-password" placeholder="Old password" [toggleMask]="true"/>
+            <p-password class="change-password" placeholder="New password" [toggleMask]="true"/>
             <button pButton type="button" class="change-pass-button">Change</button>
           </div>
         </div>
-      </form>
+      </div>
     </div>
   </div>
 </div>

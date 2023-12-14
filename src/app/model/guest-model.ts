@@ -10,6 +10,5 @@ export interface Guest extends Account {
     phone: string;
     timesCancelled: number;
     address: Address;
-    country: string;
     favorites: Accommodation[];
 }

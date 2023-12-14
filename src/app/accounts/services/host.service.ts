@@ -19,4 +19,8 @@ export class HostService {
   findByEmail(email: Email): Observable<Host>{
     return this.httpClient.post<Host>(environment.apiHost + 'api/hosts/email', email)
   }
+  update(host: Host): Observable<Host>{
+    console.log("putuj2")
+    return this.httpClient.put<Host>(environment.apiHost + 'api/hosts/update', host)
+  }
 }
