@@ -4,6 +4,8 @@
     <span class="accommodation-description">
                 {{ accommodation.description }}
               </span>
+    <span class="accommodation-description"> Total Price : {{accommodation.price}} €</span>
+    <span class="accommodation-description"> Total Price Per Night : {{accommodation.pricePerNight}} €</span>
     <div class="accommodation-detail">
       <span class="pi pi-map-marker"></span>
       <span class="accommodation-data">
@@ -13,10 +15,12 @@
       <span class="accommodation-data">
                   {{ accommodation.minGuests }} - {{ accommodation.maxGuests }}
                 </span>
+
       <span class="pi pi-star"></span>
       <div class="accommodation-data">
         {{ accommodation.averageGrade }}
       </div>
+
     </div>
     <button
       class="more-about-accommodation"

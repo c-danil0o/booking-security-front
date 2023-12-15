@@ -12,7 +12,7 @@ export interface Accommodation {
     maxGuests: number;
     minGuests: number;
     photos: Array<string>;
-    pricePerGuest: boolean;
+    isPricePerGuest: boolean;
     cancellationDeadline: number;
     autoApproval: boolean;
     averageGrade: number;
@@ -20,6 +20,6 @@ export interface Accommodation {
     reviews: Review[];
     address: Address;
     host: Host;
-
-
+    price: number;
+    pricePerNight: number;
 }

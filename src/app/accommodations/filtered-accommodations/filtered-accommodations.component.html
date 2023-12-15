@@ -1,0 +1,96 @@
+<div class="main-container">
+  <span class="p-input-icon-left">
+    <i class="pi pi-search"></i>
+    <input type="text" pInputText [(ngModel)]="search_text"/>
+</span>
+  <div class="accommodations-filters">
+    <span class="filter-text">Filters:</span>
+    <div class="filter-accommodation-container">
+      <div  class="fields-checkbox">
+        <div class="checkbox-field">
+          <div class="checkbox-field" *ngFor="let type of accommodationTypes">
+            <p-checkbox name="group" [value]="type" (onChange)="onCheckTypeChange($event, type)" [inputId]="type"></p-checkbox>
+            <label class="label" [for]="type">{{ type }}</label>
+          </div>
+        </div>
+        <hr>
+        <div class="checkbox-field">
+          <div class="checkbox-field" *ngFor="let amenity of amenities">
+            <p-checkbox name="group" [value]="amenity" (onChange)="onCheckAmenityChange($event, amenity)" [inputId]="amenity"></p-checkbox>
+            <label class="label" [for]="amenity">{{ amenity }}</label>
+          </div>
+        </div>
+
+      </div>
+<!--      <p-listbox-->
+
+<!--        [options]="items"-->
+<!--        [(ngModel)]="selectedItems"-->
+<!--        [selectAll]="selectAll"-->
+<!--        optionLabel="label"-->
+<!--        [style]="{ width: '15rem' }"-->
+<!--        [virtualScroll]="true"-->
+<!--        [filter]="true"-->
+<!--        [virtualScrollItemSize]="43"-->
+<!--        [multiple]="true"-->
+<!--        [checkbox]="true"-->
+<!--        [showToggleAll]="false"-->
+<!--        [metaKeySelection]="false"-->
+<!--        [showToggleAll]="true"-->
+<!--        (onSelectAllChange)="onSelectAllChange($event)"-->
+<!--        (onChange)="onChange($event)"-->
+<!--        [listStyle]="{ 'max-height': '220px' }"-->
+<!--      ></p-listbox>-->
+      <div
+        class="accommodations"
+        *ngIf="accommodations && accommodations.length > 0"
+      >
+        <div
+          class="accommodation-outside-container"
+          *ngFor="let accommodation of paginatedAccommodations"
+        >
+          <app-accommodation-card (clicked)="onAccommodationClicked($event)"
+                                  [accommodation]="accommodation"></app-accommodation-card>
+        </div>
+        <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="totalItems"
+                     [rowsPerPageOptions]="[3, 5, 10, 20, 30]"></p-paginator>
+        <!--<div class="pagination">
+          <span class="pagination-text">
+            Showing {{ (currentPage - 1) * itemsPerPage + 1 }} to
+            {{
+              currentPage === totalPages
+                ? totalItems
+                : currentPage * itemsPerPage
+            }}
+            of {{ totalItems }} entries
+          </span>
+          <button *ngIf="currentPage > 1" (click)="changePage(1)">
+            &laquo;
+          </button>
+          <button *ngIf="currentPage > 1" (click)="changePage(currentPage - 1)">
+            &lsaquo;
+          </button>
+          <button
+            *ngFor="let page of totalPagesArray()"
+            (click)="changePage(page)"
+            [class.active]="isActive(page)"
+          >
+            {{ page }}
+          </button>
+          <button
+            *ngIf="currentPage < totalPages"
+            (click)="changePage(currentPage + 1)"
+          >
+            &rsaquo;
+          </button>
+          <button
+            *ngIf="currentPage < totalPages"
+            (click)="changePage(totalPages)"
+          >
+            &raquo;
+          </button>
+        </div>-->
+      </div>
+    </div>
+  </div>
+</div>

@@ -5,6 +5,11 @@ import {HomeComponent} from './home/home.component';
 import {NavbarComponent} from './navbar/navbar.component';
 import {ButtonModule} from "primeng/button";
 import {RouterModule} from "@angular/router";
+import {InputNumberModule} from "primeng/inputnumber";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {CalendarModule} from "primeng/calendar";
+import {InputTextModule} from "primeng/inputtext";
+import {AccommodationsModule} from "../accommodations/accommodations.module";
 
 
 @NgModule({
@@ -20,7 +25,13 @@ import {RouterModule} from "@angular/router";
   imports: [
     CommonModule,
     ButtonModule,
-    RouterModule
+    RouterModule,
+    InputNumberModule,
+    ReactiveFormsModule,
+    CalendarModule,
+    InputTextModule,
+    FormsModule,
+    AccommodationsModule
   ]
 })
 export class LayoutModule {
