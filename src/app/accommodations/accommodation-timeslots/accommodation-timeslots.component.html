@@ -46,7 +46,8 @@
         </div>
         <p-inputNumber [inputStyle]="{'width':'100%'}" inputId="stacked" placeholder="Cancellation deadline (days)"
                        currency="EUR" [min]="1"  [(ngModel)]="cancellationDeadline" ></p-inputNumber>
-        <button pButton type="button" label="Done" class="p-button-primary" (click)="send()"></button>
+        <button pButton *ngIf="!updating" type="button" label="Done" class="p-button-primary" (click)="send()"></button>
+        <button pButton *ngIf="updating" type="button" label="Update" class="p-button-primary" (click)="update()"></button>
 
 
 

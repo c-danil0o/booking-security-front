@@ -9,6 +9,7 @@ import {ReviewService} from "../../reviews/review.service";
 import {PhotoService} from "../../shared/photo.service";
 import {Host} from "../../model/host-model";
 import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
+import {Timeslot} from "../../model/timeslot-model";
 
 
 interface Image{
@@ -36,7 +37,6 @@ const emptyHost: Host = {
 const emptyAccommodation: Accommodation = {
   id: 0,
   name: "",
-  hostId: 0,
   description: "",
   amenities: [],
   maxGuests: 0,
@@ -50,6 +50,9 @@ const emptyAccommodation: Accommodation = {
   roomNumber: 0,
   address: {street: "", number: "", city: "", country: ""},
   host: emptyHost,
+  availability: [],
+  accommodationType: "",
+  approved: false
 }
 @Component({
   selector: 'app-accommodation-details',
