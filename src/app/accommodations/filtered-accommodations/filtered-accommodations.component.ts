@@ -16,6 +16,7 @@ export class FilteredAccommodationsComponent {
   // @Input() props = {startDate: new Date(), endDate: new Date()};
 
   accommodations: Accommodation[];
+  filteredAccommodations: Accommodation[];
   currentPage: number = 1;
   rows: number = 3;
   first: number = 0;
@@ -25,8 +26,11 @@ export class FilteredAccommodationsComponent {
   selectedTypes: string[] = [];
   amenities: string[] = ["TV", "Parking", "AC", "Fridge", "Lift", "Pet Friendly"];
   selected_amenities: string[] = [];
-
-
+  rangeValues: number[] = [10,200];
+  place: string;
+  startDate: Date= new Date();
+  endDate: Date = new Date();
+  guests: number;
   constructor(private service: AccommodationService, private searchFormService: SearchFormService){
   }
 
@@ -36,26 +40,57 @@ export class FilteredAccommodationsComponent {
         this.searchForm = data;
       }
     })
+    this.place = this.searchForm.place;
+    this.startDate = this.searchForm.startDate;
+    this.endDate = this.searchForm.endDate;
+    this.guests = this.searchForm.guests;
     this.service.searchAccommodations(this.searchForm).subscribe({
       next:(data: Accommodation[]) => {
-        console.log(data);
         this.accommodations = data;
+        this.filteredAccommodations=data;
         this.totalItems = data.length
         this.first = (this.currentPage -1 ) * this.rows
       },
       error: (_) => {console.log("error!")}
     })
   }
+
+  search(){
+    this.searchForm ={
+      place:this.place,
+      startDate:this.startDate,
+      endDate:this.endDate,
+      guests:this.guests
+    };
+    this.service.searchAccommodations(this.searchForm).subscribe({
+      next:(data: Accommodation[]) => {
+        this.accommodations = data;
+        this.filteredAccommodations=data;
+        this.totalItems = data.length
+        this.first = (this.currentPage -1 ) * this.rows
+      },
+      error: (_) => {console.log("error!")}
+    })
+  }
+
   search_text: string;
   items: any;
   selectedItems: any;
   selectAll: any;
 
-  get paginatedAccommodations(): Array<Accommodation> {
-    return this.accommodations.slice(this.first, this.first + this.rows
-    );
+  protected readonly length = length;
+  onPriceRangeChange() {
+    this.filteredAccommodations = this.accommodations;
+    this.filterByPrice();
+    this.filterByType();
+    this.filterByAmenities();
   }
 
+
+  get paginatedAccommodations(): Array<Accommodation> {
+    return this.filteredAccommodations.slice(this.first, this.first + this.rows
+    );
+  }
 
   onPageChange($event: PaginatorState) {
     if ($event.page != null) {
@@ -67,7 +102,6 @@ export class FilteredAccommodationsComponent {
     if ($event.first != null){
       this.first = $event.first
     }
-
   }
 
   onAccommodationClicked($event: Accommodation) {
@@ -81,28 +115,72 @@ export class FilteredAccommodationsComponent {
   onChange($event: ListboxChangeEvent) {
 
   }
-
   onCheckTypeChange($event: CheckboxChangeEvent, type: string) {
     if ($event.checked.length === 1) {
       this.selectedTypes.push(type)
     } else {
+      this.filteredAccommodations = this.accommodations;
+      this.filterByAmenities();
       const index = this.selectedTypes.indexOf(type, 0);
       if (index > -1) {
         this.selectedTypes.splice(index, 1);
       }
     }
-    console.log(this.selectedTypes)
+    this.filterByType();
 
   }
+
   onCheckAmenityChange($event: CheckboxChangeEvent, amenity: string) {
     if ($event.checked.length === 1) {
       this.selected_amenities.push(amenity)
     } else {
+      this.filteredAccommodations = this.accommodations;
+      this.filterByType();
       const index = this.selected_amenities.indexOf(amenity, 0);
       if (index > -1) {
         this.selected_amenities.splice(index, 1);
       }
     }
-    console.log(this.selected_amenities)
+    this.filterByAmenities();
   }
+
+  filterByType(){
+    if(this.selectedTypes.length==0)
+      return;
+    let newAccommodatins: Accommodation[] = [];
+    for(let i=0; i<this.filteredAccommodations.length;i++){
+      if (this.selectedTypes.includes(this.filteredAccommodations[i].accommodationType)){
+        newAccommodatins.push(this.filteredAccommodations[i]);
+      }
+    }
+    this.filteredAccommodations = newAccommodatins;
+  }
+
+  filterByAmenities(){
+    let newAccommodatins: Accommodation[] = [];
+    for(let i=0; i<this.filteredAccommodations.length;i++){
+      let isValid: boolean = true;
+      for (let amenity of this.selected_amenities) {
+        if(!this.filteredAccommodations[i].amenities.includes(amenity)){
+          isValid=false;
+          break;
+        }
+      }
+      if (isValid)
+        newAccommodatins.push(this.filteredAccommodations[i]);
+    }
+    this.filteredAccommodations = newAccommodatins;
+  }
+
+  filterByPrice(){
+    let newAccommodatins: Accommodation[] = [];
+    for(let i=0; i<this.filteredAccommodations.length;i++){
+      let price: number = this.filteredAccommodations[i].pricePerNight;
+      if (price>=this.rangeValues[0] && price <= this.rangeValues[1]){
+        newAccommodatins.push(this.filteredAccommodations[i]);
+      }
+    }
+    this.filteredAccommodations = newAccommodatins;
+  }
+
 }

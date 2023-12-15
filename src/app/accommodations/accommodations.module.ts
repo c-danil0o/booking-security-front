@@ -22,6 +22,7 @@ import {CalendarModule} from "primeng/calendar";
 import {TableModule} from "primeng/table";
 import {InputSwitchModule} from "primeng/inputswitch";
 import { FilteredAccommodationsComponent } from './filtered-accommodations/filtered-accommodations.component';
+import {SliderModule} from "primeng/slider";
 
 
 
@@ -40,7 +41,7 @@ import { FilteredAccommodationsComponent } from './filtered-accommodations/filte
     FilteredAccommodationsComponent
   ],
   imports: [
-    CommonModule, RouterModule, HttpClientModule, CardModule, PaginatorModule, InputTextModule, ListboxModule, ReactiveFormsModule, CheckboxModule, FileUploadModule, StyleClassModule, SharedModule, InputTextareaModule, CalendarModule, TableModule, InputSwitchModule
+    CommonModule, RouterModule, HttpClientModule, CardModule, PaginatorModule, InputTextModule, ListboxModule, ReactiveFormsModule, CheckboxModule, FileUploadModule, StyleClassModule, SharedModule, InputTextareaModule, CalendarModule, TableModule, InputSwitchModule, SliderModule
   ]
 })
 export class AccommodationsModule { }

@@ -22,4 +22,5 @@ export interface Accommodation {
     host: Host;
     price: number;
     pricePerNight: number;
+    accommodationType: string;
 }
