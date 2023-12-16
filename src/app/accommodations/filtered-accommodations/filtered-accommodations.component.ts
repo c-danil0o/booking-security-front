@@ -121,6 +121,7 @@ export class FilteredAccommodationsComponent {
     } else {
       this.filteredAccommodations = this.accommodations;
       this.filterByAmenities();
+      this.filterByPrice();
       const index = this.selectedTypes.indexOf(type, 0);
       if (index > -1) {
         this.selectedTypes.splice(index, 1);
@@ -136,6 +137,7 @@ export class FilteredAccommodationsComponent {
     } else {
       this.filteredAccommodations = this.accommodations;
       this.filterByType();
+      this.filterByPrice();
       const index = this.selected_amenities.indexOf(amenity, 0);
       if (index > -1) {
         this.selected_amenities.splice(index, 1);
