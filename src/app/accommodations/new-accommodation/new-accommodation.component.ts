@@ -31,7 +31,7 @@ export class NewAccommodationComponent implements OnInit {
   progress: number = 0;
   upload_done: boolean = false;
 
-  constructor(private fileUpload: UploadService, private router: Router, private accommodationService: AccommodationService, private formsService: FormsService) {
+  constructor(private router: Router, private accommodationService: AccommodationService, private formsService: FormsService) {
   }
 
   ngOnInit() {
@@ -78,7 +78,6 @@ export class NewAccommodationComponent implements OnInit {
         name: this.new_accommodation_form.value.name,
         amenities: this.selected_amenities,
         description: this.new_accommodation_form.value.description,
-        files: this.new_accommodation_form.value.files,
         minGuests: this.new_accommodation_form.value.minGuests,
         maxGuests: this.new_accommodation_form.value.maxGuests,
         accommodationType: this.new_accommodation_form.value.selectedType.name,

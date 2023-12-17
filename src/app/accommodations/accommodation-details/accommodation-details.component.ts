@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import accommodationData from '../accommodation-data.json';
 import {Accommodation} from '../../model/accommodation-model';
 import {Address} from 'src/app/model/address-model';

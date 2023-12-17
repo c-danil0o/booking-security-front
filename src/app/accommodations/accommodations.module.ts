@@ -22,6 +22,7 @@ import {CalendarModule} from "primeng/calendar";
 import {TableModule} from "primeng/table";
 import {InputSwitchModule} from "primeng/inputswitch";
 import {GalleriaModule} from "primeng/galleria";
+import { EditAccommodationComponent } from './edit-accommodation/edit-accommodation.component';
 
 
 
@@ -32,6 +33,7 @@ import {GalleriaModule} from "primeng/galleria";
     AccommodationCardComponent,
     NewAccommodationComponent,
     AccommodationTimeslotsComponent,
+    EditAccommodationComponent,
   ],
   exports: [
     AccommodationCardComponent,

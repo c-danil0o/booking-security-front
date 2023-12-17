@@ -1,0 +1,61 @@
+<div class="wrapper">
+  <div class="header-card">
+    <span class="pi pi-building icon"></span>
+    <span class="title">Edit property</span>
+  </div>
+  <div class="central-panel">
+    <div class="forms-up">
+      <div class="left-forms">
+        <ng-form class="form" [formGroup]="new_accommodation_form">
+
+          <input class="field" type="text" pInputText placeholder="Name" formControlName="name"/>
+          <p-dropdown formControlName="selectedType" [options]="types" optionLabel="name"
+                      placeholder="Property type:" [style]="{'width':'100%'}"></p-dropdown>
+          <div class="guests">
+            <p-inputNumber [inputStyle]="{'width':'100%'}" [showButtons]="true" inputId="stacked" placeholder="Min Guests" formControlName="minGuests"> </p-inputNumber>
+            <p-inputNumber [inputStyle]="{'width':'100%'}" [showButtons]="true" inputId="stacked" placeholder="Max Guests" formControlName="maxGuests"> </p-inputNumber>
+          </div>
+          <span class="amenities">Amenities:</span>
+          <div  class="fields-checkbox">
+            <div class="checkbox-field" *ngFor="let amentity of amenities">
+              <p-checkbox  [binary]="true" [ngModel]="checked_amenities" [ngModelOptions]="{standalone:true}"  [value]="amentity" (onChange)="onCheckChange($event, amentity)"
+                          [inputId]="amentity"  ></p-checkbox>
+              <label class="label" [for]="amentity">{{ amentity }}</label></div>
+            <input class="new_amenity" type="text" pInputText placeholder="Add amenity" formControlName="newAmenity" (keyup.enter)="addAmenity($any($event).target.value)"/>
+          </div>
+          <span class="amenities">Photos:</span>
+          <p-fileUpload class="file_upload" [files]="uploadedFiles" (onError)="onError($event)" (onSend)="onSend($event)"  (onUpload)="onUpload($event)" [multiple]="true"   name="file" [style]="{'width': '100%'}" url="http://localhost:8080/upload"  accept="image/*" [maxFileSize]="10000000">
+            <ng-template pTemplate="content">
+              <ul *ngIf="images.length">
+                <li class="image_li" *ngFor="let file of images"><img [src]="file.url" height="80px" width="80px"/> {{ file.name }} <p-button icon="pi pi-times" [rounded]="true" [text]="true" severity="danger" (onClick)="removeImage(file.name)"></p-button> </li>
+              </ul>
+            </ng-template>
+          </p-fileUpload>
+
+        </ng-form>
+      </div>
+      <div class="right_forms">
+        <app-google-map (address)="GetData($event)" ></app-google-map>
+        <ng-form [formGroup]="new_accommodation_form"  class="under_map">
+          <div class="address_forms">
+            <input  type="text" pInputText placeholder="City" formControlName="city"/>
+            <input  type="text" pInputText placeholder="Country" formControlName="country"/>
+            <div class="address">
+              <input type="text" class="address_field" pInputText placeholder="Street" formControlName="street" />
+              <input class="number_field" type="text" pInputText placeholder="Number" formControlName="number"/>
+            </div>
+          </div>
+
+
+        </ng-form>
+
+
+      </div>
+    </div>
+    <ng-form [formGroup]="new_accommodation_form"  class="description">
+      <textarea rows="5" cols="30" pInputTextarea [autoResize]="true" [style]="{'width':'100%'}" placeholder="Description" formControlName="description"></textarea>
+      <button pButton type="button" label="Done" class="p-button-primary next_button" (click)="next()"></button>
+    </ng-form>
+  </div>
+
+</div>

@@ -5,7 +5,7 @@ import {
   HttpEvent,
   HttpInterceptor,
 } from '@angular/common/http';
-import {catchError, Observable, throwError} from 'rxjs';
+import {catchError, EMPTY, Observable, of, throwError} from 'rxjs';
 import {AuthService} from "./auth.service";
 import {Router} from "@angular/router";
 
@@ -30,11 +30,24 @@ export class Interceptor implements HttpInterceptor {
     }
     return next.handle(req).pipe(catchError(err => {
       console.log("checking for errors!", err)
-      if (err.status === 401) {
-        this.logOut()
+      const error = (err.error ? err.error.message : null) || err.statusText;
+      switch (err.status) {
+        case 401: {
+          // token expired -> goto login, dont return error
+          this.logOut()
+          return of(error);      // <-- return observable using `of`
+        }
+
+        case 500: {
+          return throwError(error);
+        }
+
+        default: {
+          console.log("no error")
+          return EMPTY;      // <-- return observable using `of`
+        }
       }
-      const error = err.error.message || err.statusText;
-      return throwError(error)
+
     }));
   }
 
