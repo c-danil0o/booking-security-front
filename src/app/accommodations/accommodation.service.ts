@@ -40,6 +40,11 @@ export class AccommodationService {
     return this.httpClient.post<SearchedAccommodation[]>(environment.apiHost + 'api/accommodations/search', searchModel);
   }
 
+  updateAccommodation(accommodation: Accommodation):Observable<Accommodation>{
+    return this.httpClient.put<Accommodation>(environment.apiHost + 'api/accommodations/update', accommodation);
+
+  }
+
 
 
   // ngOnInit() {

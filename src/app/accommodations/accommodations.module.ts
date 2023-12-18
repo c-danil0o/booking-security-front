@@ -25,6 +25,10 @@ import { FilteredAccommodationsComponent } from './filtered-accommodations/filte
 import {SliderModule} from "primeng/slider";
 import { SearchedAccommodationCardComponent } from './searched-accommodation-card/searched-accommodation-card.component';
 
+import {GalleriaModule} from "primeng/galleria";
+import { EditAccommodationComponent } from './edit-accommodation/edit-accommodation.component';
+
+
 
 
 @NgModule({
@@ -35,7 +39,6 @@ import { SearchedAccommodationCardComponent } from './searched-accommodation-car
     NewAccommodationComponent,
     AccommodationTimeslotsComponent,
     FilteredAccommodationsComponent,
-    SearchedAccommodationCardComponent,
   ],
   exports: [
     AccommodationCardComponent,
@@ -43,7 +46,7 @@ import { SearchedAccommodationCardComponent } from './searched-accommodation-car
     FilteredAccommodationsComponent
   ],
   imports: [
-    CommonModule, RouterModule, HttpClientModule, CardModule, PaginatorModule, InputTextModule, ListboxModule, ReactiveFormsModule, CheckboxModule, FileUploadModule, StyleClassModule, SharedModule, InputTextareaModule, CalendarModule, TableModule, InputSwitchModule, SliderModule
+    CommonModule, RouterModule, HttpClientModule, CardModule, PaginatorModule, InputTextModule, ListboxModule, ReactiveFormsModule, CheckboxModule, FileUploadModule, StyleClassModule, SharedModule, InputTextareaModule, CalendarModule, TableModule, InputSwitchModule, SliderModule, GalleriaModule
   ]
 })
 export class AccommodationsModule { }

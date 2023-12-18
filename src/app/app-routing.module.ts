@@ -21,6 +21,7 @@ import {GuestReservationsComponent} from "./reservations/guest-reservations/gues
 import {
   FilteredAccommodationsComponent
 } from "./accommodations/filtered-accommodations/filtered-accommodations.component";
+import {EditAccommodationComponent} from "./accommodations/edit-accommodation/edit-accommodation.component";
 
 
 const routes: Routes = [
@@ -41,6 +42,7 @@ const routes: Routes = [
   {component: GuestReservationsComponent, path:"guest-reservations"},
   {component: HostReservationsComponent, path:"host-reservations"},
   {component: GuestProfileComponent, path:"guest-profile"},
+  {component: EditAccommodationComponent, path:"edit-accommodation/:accId"}
   ];
 
 @NgModule({
