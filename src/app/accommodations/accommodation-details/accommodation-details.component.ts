@@ -66,6 +66,7 @@ export class AccommodationDetailsComponent implements OnInit {
   accommodation: Accommodation = emptyAccommodation;
   hostName: string
   images: Image[] = [];
+  imagesAreLoaded: boolean = false;
    responsiveOptions: any[] = [
     {
       breakpoint: '1024px',
@@ -80,6 +81,7 @@ export class AccommodationDetailsComponent implements OnInit {
       numVisible: 1
     }
   ];
+  accommodationLoaded: boolean = false;
 
   constructor(private sanitizer: DomSanitizer, private route: ActivatedRoute, private accommodationService: AccommodationService, private reviewService: ReviewService, private photoService: PhotoService) {
   }
@@ -90,14 +92,19 @@ export class AccommodationDetailsComponent implements OnInit {
       this.accommodationService.findById(id).subscribe({
         next: (data: Accommodation) => {
           this.accommodation = data
+          this.accommodationLoaded = true;
           for (let i =0; i<this.accommodation.photos.length; i++){
             this.photoService.getImage(this.accommodation.photos[i]).subscribe({
               next: value => {
                 let objectURL = URL.createObjectURL(value);
                 this.images.push({url: this.sanitizer.bypassSecurityTrustUrl(objectURL), thumbnail:""});
+                if (this.images.length === this.accommodation.photos.length){
+                  this.imagesAreLoaded = true
+                }
               }
             })
           }
+
           this.hostName = this.accommodation.host.firstName +" "+  this.accommodation.host.lastName;
           this.reviewService.findByAccommodationId(this.accommodation.id).subscribe({
             next: (data: Review[]) => {

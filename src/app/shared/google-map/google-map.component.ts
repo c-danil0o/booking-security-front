@@ -1,23 +1,10 @@
-
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  EventEmitter,
-  NgZone,
-  OnInit,
-  Output,
-  ViewChild,
-  ViewChildren
-} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, EventEmitter, Input, NgZone, Output, ViewChild} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {catchError, map, Observable, of} from "rxjs";
 import {environment} from "../../../env/env";
-import { Loader } from '@googlemaps/js-api-loader';
 import {GoogleMap, MapInfoWindow, MapMarker} from "@angular/google-maps";
 import {Address} from "../../model/address-model";
 import {GoogleAddressParser} from "./parser";
-
 
 
 @Component({
@@ -47,6 +34,10 @@ export class GoogleMapComponent implements AfterViewInit{
   @Output()
   address = new EventEmitter<Address>();
   newAddress: Address;
+  @Input()
+  addingAddress: boolean = false
+  @Input()
+  inputAddress: Address
 
 
   constructor(httpClient: HttpClient, private ngZone: NgZone) {
@@ -64,46 +55,64 @@ export class GoogleMapComponent implements AfterViewInit{
   }
   ngAfterViewInit(): void {
     // Binding autocomplete to search input control
-    let autocomplete = new google.maps.places.Autocomplete(
-      this.search.nativeElement
-    );
-    autocomplete.addListener('place_changed', () => {
-      this.ngZone.run(() => {
-        //get the place result
-        let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+    if (this.addingAddress){
+      let autocomplete = new google.maps.places.Autocomplete(
+        this.search.nativeElement
+      );
+      autocomplete.addListener('place_changed', () => {
+        this.ngZone.run(() => {
+          //get the place result
+          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+          console.log(autocomplete.getPlace())
 
-        //verify result
-        if (place.geometry === undefined || place.geometry === null) {
-          return;
-        }
+          //verify result
+          if (place.geometry === undefined || place.geometry === null) {
+            return;
+          }
 
-        console.log({ place }, place.geometry.location?.lat());
+          console.log({ place }, place.geometry.location?.lat());
 
-        //set latitude, longitude and zoom
-        this.latitude = place.geometry.location?.lat();
-        this.longitude = place.geometry.location?.lng();
-        this.center = {
-          lat: this.latitude,
-          lng: this.longitude,
-        };
-        this.map.panTo(this.center);
-        this.map.zoom = 20;
-        this.markerInfoContent = place.formatted_address;
+          //set latitude, longitude and zoom
+          this.latitude = place.geometry.location?.lat();
+          this.longitude = place.geometry.location?.lng();
+          this.center = {
+            lat: this.latitude,
+            lng: this.longitude,
+          };
+          this.map.panTo(this.center);
+          this.map.zoom = 20;
+          this.markerInfoContent = place.formatted_address;
 
-        this.markerOptions = {
-          draggable: false,
-          animation: google.maps.Animation.DROP,
-        };
-        this.openInfoWindow(this.mapMarker);
-        if (place.address_components){
-          this.newAddress = new GoogleAddressParser(place.address_components).result()
-          this.postData()
-        }
+          this.markerOptions = {
+            draggable: false,
+            animation: google.maps.Animation.DROP,
+          };
+          this.openInfoWindow(this.mapMarker);
+          if (place.address_components){
+            this.newAddress = new GoogleAddressParser(place.address_components).result()
+            this.newAddress.latitude = this.latitude
+            this.newAddress.longitude = this.longitude
+            this.postData()
+          }
 
 
 
+        });
       });
-    });
+    }else{
+      this.center = {
+        lat: this.inputAddress.latitude || 45,
+        lng: this.inputAddress.longitude || 45,
+      }
+      this.map.panTo(this.center);
+      this.map.zoom = 20;
+
+      // this.markerOptions = {
+      //   draggable: false,
+      //   animation: google.maps.Animation.DROP,
+      // };
+    }
+
   }
 
 
