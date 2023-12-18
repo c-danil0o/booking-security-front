@@ -137,6 +137,7 @@ export class EditAccommodationComponent {
       this.accommodation.maxGuests = this.new_accommodation_form.value.maxGuests
       this.accommodation.accommodationType = this.new_accommodation_form.value.selectedType.name
       this.accommodation.photos = this.images.map((file) => file.name)
+      this.accommodation.status = 1
       this.accommodationService.updateAccommodation(this.accommodation).subscribe({
         next: (data: Accommodation) => {
           console.log("susccesfull update: ", data)

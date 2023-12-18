@@ -52,7 +52,7 @@ const emptyAccommodation: Accommodation = {
   host: emptyHost,
   availability: [],
   accommodationType: "",
-  approved: false
+  status: 0
 }
 @Component({
   selector: 'app-accommodation-details',

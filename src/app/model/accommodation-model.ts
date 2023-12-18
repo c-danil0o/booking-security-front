@@ -3,6 +3,7 @@ import { Review } from "./review-model";
 import {Address} from "./address-model";
 import {Host} from "./host-model";
 import {Timeslot} from "./timeslot-model";
+import {AccommodationStatus} from "./accommodation-status-model";
 
 export interface Accommodation {
   id: number;
@@ -17,7 +18,7 @@ export interface Accommodation {
   cancellationDeadline: number;
   autoApproval: boolean;
   averageGrade: number;
-  approved: boolean;
+  status: AccommodationStatus;
   roomNumber: number;
   reviews: Review[];
   address: Address;
