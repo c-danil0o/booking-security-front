@@ -7,7 +7,7 @@
 <!--           <input type="date" for="dates" class="dates" value="Add dates">-->
         <p-calendar class="dates" placeholder="Start date" dateFormat="dd.mm.yy" [(ngModel)]="startDate" ></p-calendar>
         <p>/</p>
-        <p-calendar class="dates" placeholder="Start date" dateFormat="dd.mm.yy" [(ngModel)]="endDate" ></p-calendar>
+        <p-calendar class="dates" placeholder="End date" dateFormat="dd.mm.yy" [(ngModel)]="endDate" ></p-calendar>
         <p-inputNumber class="guests-input" [inputStyle]="{'width':'30%'}" [showButtons]="true" inputId="stacked" placeholder="Guests" [(ngModel)]="guests"> </p-inputNumber>
         <!--           <input type="number" for="guests" class="guest-number" placeholder="Guests" min="1" max="20">-->
          <button class="p-button-primary" label="Search" pButton type="button" (click)="search()"></button>
@@ -73,9 +73,10 @@
         >
           <app-accommodation-card (clicked)="onAccommodationClicked($event)"
                                   [accommodation]="accommodation"></app-accommodation-card>
-          <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="totalItems"
-                       [rowsPerPageOptions]="[3, 5, 10, 20, 30]"></p-paginator>
+
         </div>
+        <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="totalItems"
+                     [rowsPerPageOptions]="[3, 5, 10, 20, 30]"></p-paginator>
 
         <!--<div class="pagination">
           <span class="pagination-text">

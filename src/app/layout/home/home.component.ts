@@ -12,23 +12,33 @@ import {SearchModel} from "../../model/search-model";
 })
 export class HomeComponent {
   place: string;
-  startDate: Date= new Date();
-  endDate: Date = new Date();
+  startDate: Date;
+  endDate: Date;
   guests: number;
-  // myProps = {startDate: this.startDate, endDate: this.endDate};
 
   constructor(private router: Router, private searchFormService: SearchFormService) {
   }
 
 
   next(){
-    const model: SearchModel = {
-      place:this.place,
-      startDate:this.startDate,
-      endDate:this.endDate,
-      guests:this.guests
+    const today: number = Date.now()
+    if (this.startDate != null && this.endDate != null){
+      if (today.valueOf() > this.startDate.valueOf() || today.valueOf() > this.endDate.valueOf() || this.startDate.valueOf() >= this.endDate.valueOf()) {
+        alert("Invalid dates!");
+      }
+      else{
+        this.startDate.setHours(12,0);
+        this.endDate.setHours(12,0);
+        const model: SearchModel = {
+          place:this.place,
+          startDate:this.startDate,
+          endDate:this.endDate,
+          guests:this.guests
+        }
+        this.searchFormService.setForms(model);
+      }
     }
-    this.searchFormService.setForms(model);
+
 
   }
 }

@@ -24,12 +24,12 @@ export class FilteredAccommodationsComponent {
   searchForm: SearchModel;
   accommodationTypes: string[] = ["Room", "Apartment", "Hotel"]
   selectedTypes: string[] = [];
-  amenities: string[] = ["TV", "Parking", "AC", "Fridge", "Lift", "Pet Friendly"];
+  amenities: string[] = ["TV", "Parking", "AC", "Fridge", "Lift", "Pet Friendly", "Kitchen"];
   selected_amenities: string[] = [];
   rangeValues: number[] = [10,200];
   place: string;
-  startDate: Date= new Date();
-  endDate: Date = new Date();
+  startDate: Date;
+  endDate: Date;
   guests: number;
   constructor(private service: AccommodationService, private searchFormService: SearchFormService){
   }
@@ -56,21 +56,31 @@ export class FilteredAccommodationsComponent {
   }
 
   search(){
-    this.searchForm ={
-      place:this.place,
-      startDate:this.startDate,
-      endDate:this.endDate,
-      guests:this.guests
-    };
-    this.service.searchAccommodations(this.searchForm).subscribe({
-      next:(data: Accommodation[]) => {
-        this.accommodations = data;
-        this.filteredAccommodations=data;
-        this.totalItems = data.length
-        this.first = (this.currentPage -1 ) * this.rows
-      },
-      error: (_) => {console.log("error!")}
-    })
+    const today: number = Date.now();
+    if (this.startDate != null && this.endDate != null) {
+      if (today.valueOf() > this.startDate.valueOf() || today.valueOf() > this.endDate.valueOf() || this.startDate.valueOf() >= this.endDate.valueOf()) {
+        alert("Invalid dates!");
+      }
+      else {
+        this.startDate.setHours(12,0);
+        this.endDate.setHours(12,0);
+        this.searchForm ={
+          place:this.place,
+          startDate:this.startDate,
+          endDate:this.endDate,
+          guests:this.guests
+        };
+        this.service.searchAccommodations(this.searchForm).subscribe({
+          next:(data: Accommodation[]) => {
+            this.accommodations = data;
+            this.filteredAccommodations=data;
+            this.totalItems = data.length
+            this.first = (this.currentPage -1 ) * this.rows
+          },
+          error: (_) => {console.log("error!")}
+        })
+      }
+    }
   }
 
   search_text: string;
@@ -117,8 +127,12 @@ export class FilteredAccommodationsComponent {
   }
   onCheckTypeChange($event: CheckboxChangeEvent, type: string) {
     if ($event.checked.length === 1) {
-      this.selectedTypes.push(type)
+      this.selectedTypes.push(type);
+      this.filteredAccommodations = this.accommodations;
+      this.filterByAmenities();
+      this.filterByPrice();
     } else {
+      console.log("usao");
       this.filteredAccommodations = this.accommodations;
       this.filterByAmenities();
       this.filterByPrice();
@@ -133,7 +147,7 @@ export class FilteredAccommodationsComponent {
 
   onCheckAmenityChange($event: CheckboxChangeEvent, amenity: string) {
     if ($event.checked.length === 1) {
-      this.selected_amenities.push(amenity)
+      this.selected_amenities.push(amenity);
     } else {
       this.filteredAccommodations = this.accommodations;
       this.filterByType();
@@ -181,6 +195,9 @@ export class FilteredAccommodationsComponent {
       if (price>=this.rangeValues[0] && price <= this.rangeValues[1]){
         newAccommodatins.push(this.filteredAccommodations[i]);
       }
+      else if (this.rangeValues[1]==200 && price >200)
+        newAccommodatins.push(this.filteredAccommodations[i]);
+
     }
     this.filteredAccommodations = newAccommodatins;
   }
