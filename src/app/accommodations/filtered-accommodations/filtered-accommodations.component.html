@@ -71,8 +71,8 @@
           class="accommodation-outside-container"
           *ngFor="let accommodation of paginatedAccommodations"
         >
-          <app-accommodation-card (clicked)="onAccommodationClicked($event)"
-                                  [accommodation]="accommodation"></app-accommodation-card>
+          <app-searched-accommodation-card (clicked)="onAccommodationClicked($event)"
+                                  [accommodation]="accommodation"></app-searched-accommodation-card>
 
         </div>
         <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="totalItems"

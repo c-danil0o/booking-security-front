@@ -23,6 +23,7 @@ import {TableModule} from "primeng/table";
 import {InputSwitchModule} from "primeng/inputswitch";
 import { FilteredAccommodationsComponent } from './filtered-accommodations/filtered-accommodations.component';
 import {SliderModule} from "primeng/slider";
+import { SearchedAccommodationCardComponent } from './searched-accommodation-card/searched-accommodation-card.component';
 
 
 
@@ -34,6 +35,7 @@ import {SliderModule} from "primeng/slider";
     NewAccommodationComponent,
     AccommodationTimeslotsComponent,
     FilteredAccommodationsComponent,
+    SearchedAccommodationCardComponent,
   ],
   exports: [
     AccommodationCardComponent,

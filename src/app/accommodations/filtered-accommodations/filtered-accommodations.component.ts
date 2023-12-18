@@ -6,6 +6,7 @@ import {ListboxChangeEvent, ListboxSelectAllChangeEvent} from "primeng/listbox";
 import {SearchFormService} from "../../shared/search-form.service";
 import {SearchModel} from "../../model/search-model";
 import {CheckboxChangeEvent} from "primeng/checkbox";
+import {SearchedAccommodation} from "../../model/searched-accommodation-model";
 
 @Component({
   selector: 'app-filtered-accommodations',
@@ -15,8 +16,8 @@ import {CheckboxChangeEvent} from "primeng/checkbox";
 export class FilteredAccommodationsComponent {
   // @Input() props = {startDate: new Date(), endDate: new Date()};
 
-  accommodations: Accommodation[];
-  filteredAccommodations: Accommodation[];
+  accommodations: SearchedAccommodation[];
+  filteredAccommodations: SearchedAccommodation[];
   currentPage: number = 1;
   rows: number = 3;
   first: number = 0;
@@ -45,7 +46,7 @@ export class FilteredAccommodationsComponent {
     this.endDate = this.searchForm.endDate;
     this.guests = this.searchForm.guests;
     this.service.searchAccommodations(this.searchForm).subscribe({
-      next:(data: Accommodation[]) => {
+      next:(data: SearchedAccommodation[]) => {
         this.accommodations = data;
         this.filteredAccommodations=data;
         this.totalItems = data.length
@@ -71,7 +72,7 @@ export class FilteredAccommodationsComponent {
           guests:this.guests
         };
         this.service.searchAccommodations(this.searchForm).subscribe({
-          next:(data: Accommodation[]) => {
+          next:(data: SearchedAccommodation[]) => {
             this.accommodations = data;
             this.filteredAccommodations=data;
             this.totalItems = data.length
@@ -97,7 +98,7 @@ export class FilteredAccommodationsComponent {
   }
 
 
-  get paginatedAccommodations(): Array<Accommodation> {
+  get paginatedAccommodations(): Array<SearchedAccommodation> {
     return this.filteredAccommodations.slice(this.first, this.first + this.rows
     );
   }
@@ -114,7 +115,7 @@ export class FilteredAccommodationsComponent {
     }
   }
 
-  onAccommodationClicked($event: Accommodation) {
+  onAccommodationClicked($event: SearchedAccommodation) {
 
   }
 
@@ -163,7 +164,7 @@ export class FilteredAccommodationsComponent {
   filterByType(){
     if(this.selectedTypes.length==0)
       return;
-    let newAccommodatins: Accommodation[] = [];
+    let newAccommodatins: SearchedAccommodation[] = [];
     for(let i=0; i<this.filteredAccommodations.length;i++){
       if (this.selectedTypes.includes(this.filteredAccommodations[i].accommodationType)){
         newAccommodatins.push(this.filteredAccommodations[i]);
@@ -173,7 +174,7 @@ export class FilteredAccommodationsComponent {
   }
 
   filterByAmenities(){
-    let newAccommodatins: Accommodation[] = [];
+    let newAccommodatins: SearchedAccommodation[] = [];
     for(let i=0; i<this.filteredAccommodations.length;i++){
       let isValid: boolean = true;
       for (let amenity of this.selected_amenities) {
@@ -189,7 +190,7 @@ export class FilteredAccommodationsComponent {
   }
 
   filterByPrice(){
-    let newAccommodatins: Accommodation[] = [];
+    let newAccommodatins: SearchedAccommodation[] = [];
     for(let i=0; i<this.filteredAccommodations.length;i++){
       let price: number = this.filteredAccommodations[i].pricePerNight;
       if (price>=this.rangeValues[0] && price <= this.rangeValues[1]){
