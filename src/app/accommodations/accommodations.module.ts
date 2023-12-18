@@ -21,8 +21,13 @@ import { AccommodationTimeslotsComponent } from './accommodation-timeslots/accom
 import {CalendarModule} from "primeng/calendar";
 import {TableModule} from "primeng/table";
 import {InputSwitchModule} from "primeng/inputswitch";
+
 import { FilteredAccommodationsComponent } from './filtered-accommodations/filtered-accommodations.component';
 import {SliderModule} from "primeng/slider";
+
+import {GalleriaModule} from "primeng/galleria";
+import { EditAccommodationComponent } from './edit-accommodation/edit-accommodation.component';
+
 
 
 
@@ -34,14 +39,16 @@ import {SliderModule} from "primeng/slider";
     NewAccommodationComponent,
     AccommodationTimeslotsComponent,
     FilteredAccommodationsComponent,
+    EditAccommodationComponent,
   ],
   exports: [
     AccommodationCardComponent,
     AccommodationCardComponent,
     FilteredAccommodationsComponent
   ],
+
   imports: [
-    CommonModule, RouterModule, HttpClientModule, CardModule, PaginatorModule, InputTextModule, ListboxModule, ReactiveFormsModule, CheckboxModule, FileUploadModule, StyleClassModule, SharedModule, InputTextareaModule, CalendarModule, TableModule, InputSwitchModule, SliderModule
+    CommonModule, RouterModule, HttpClientModule, CardModule, PaginatorModule, InputTextModule, ListboxModule, ReactiveFormsModule, CheckboxModule, FileUploadModule, StyleClassModule, SharedModule, InputTextareaModule, CalendarModule, TableModule, InputSwitchModule, SliderModule, GalleriaModule
   ]
 })
 export class AccommodationsModule { }

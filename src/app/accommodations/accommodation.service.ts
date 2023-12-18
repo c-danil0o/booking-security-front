@@ -35,8 +35,14 @@ export class AccommodationService {
     return this.httpClient.post<any>(environment.apiHost + 'api/accommodations', accommodation);
   }
 
+
   searchAccommodations(searchModel: SearchModel): Observable<Accommodation[]>{
     return this.httpClient.post<Accommodation[]>(environment.apiHost + 'api/accommodations/search', searchModel);
+  } 
+    
+  updateAccommodation(accommodation: Accommodation):Observable<Accommodation>{
+    return this.httpClient.put<Accommodation>(environment.apiHost + 'api/accommodations/update', accommodation);
+
   }
 
 

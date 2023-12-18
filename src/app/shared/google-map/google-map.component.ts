@@ -48,6 +48,7 @@ export class GoogleMapComponent implements AfterViewInit{
   address = new EventEmitter<Address>();
   newAddress: Address;
 
+
   constructor(httpClient: HttpClient, private ngZone: NgZone) {
     // If you're using the `<map-heatmap-layer>` directive, you also have to include the `visualization` library
     // when loading the Google Maps API. To do so, you can add `&libraries=visualization` to the script URL:
