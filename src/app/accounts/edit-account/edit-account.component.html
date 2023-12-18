@@ -26,7 +26,7 @@
 
           <div class="outer-info-segment">
             <div class="inner-info-segment"> <ul> <li>Country</li> </ul> </div>
-            <p-dropdown class="info-input" [style]="{'width':'100%'}" [options]="countries" formControlName="selectedCountry" placeholder="{{ account.address?.country }}" optionLabel="name" [filter]="true" [filterBy]="selectedCountry.name"/>
+            <input type="email" class="info-input" value="{{ account.address?.country }}" formControlName="selectedCountry"/>
           </div>
 
           <div class="outer-info-segment">
@@ -46,7 +46,7 @@
 
           <div class="outer-info-segment">
             <div class="inner-info-segment"> <ul> <li>Phone</li> </ul> </div>
-            <input type="text" class="info-input" value="{{ account.phone }}" formControlName="phone"/> 
+            <input type="text" class="info-input" value="{{ account.phone }}" formControlName="phone"/>
           </div>
 
 

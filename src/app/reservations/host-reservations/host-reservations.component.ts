@@ -35,15 +35,17 @@ export class HostReservationsComponent implements OnInit{
 
   ngOnInit(): void {
     this.route.params.subscribe((params)=>{
+      const hostId = +params
+      console.log(hostId)
       this.reservationService.getAll().subscribe({
         next: (data: Reservation[]) =>{
           data.forEach((reservation)=>{
             // @ts-ignore
             let numbers: number[] = reservation.startDate as number[];
-            reservation.startDate=new Date(numbers[0],numbers[1],numbers[2], numbers[3], numbers[4]);
+            reservation.startDate=new Date(numbers[0],numbers[1]-1,numbers[2], numbers[3], numbers[4]);
             // @ts-ignore
             numbers = reservation.endDate as number[];
-            reservation.endDate=new Date(numbers[0],numbers[1],numbers[2], numbers[3], numbers[4]);
+            reservation.endDate=new Date(numbers[0],numbers[1]-1,numbers[2], numbers[3], numbers[4]);
           })
           this.reservations=data;
           this.filteredReservations=data;

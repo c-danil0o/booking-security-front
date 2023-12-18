@@ -1,8 +1,7 @@
 <div class="properties-wrapper">
   <div class="header-card">
-    <h1>
-      <i class="pi pi-calendar-times"></i> Current Reservations
-    </h1>
+    <span class="pi pi-calendar icon"></span>
+    <span class="title">Current reservations</span>
   </div>
   <div class="central-panel">
     <div class="reservations-table">
@@ -24,13 +23,15 @@
         <ng-template pTemplate="header">
           <tr>
             <th pSortableColumn="property" style="width:20%">Property <p-sortIcon field="property"></p-sortIcon></th>
-            <th pSortableColumn="guest" style="width:20%">Guest <p-sortIcon field="guest"></p-sortIcon></th>
+            <th pFrozenColumn="guest" style="width:15%">Guest</th>
 <!--            <th pFrozenColumn="guest" style="width:20%">Location </th>-->
-            <th pSortableColumn="start date" style="width:20%">Start Date <p-sortIcon></p-sortIcon></th>
-            <th pSortableColumn="end date" style="width:20%">End Date <p-sortIcon></p-sortIcon></th>
-            <th pSortableColumn="price" style="width:15%">Price <p-sortIcon></p-sortIcon></th>
-            <th pSortableColumn="status" style="width:15%">Status <p-sortIcon field="status"></p-sortIcon></th>
-            <th pFrozenColumn="Accept/Reject" style="width:20%">View or Edit</th>
+            <th pSortableColumn="start date" style="width:15%">Start Date <p-sortIcon></p-sortIcon></th>
+            <th pSortableColumn="end date" style="width:15%">End Date <p-sortIcon></p-sortIcon></th>
+            <th pSortableColumn="price" style="width:10%">Price <p-sortIcon></p-sortIcon></th>
+            <th pFrozenColumn="numberOfGuests">Guests</th>
+
+            <th pFrozenColumn="status" style="width:15%">Status</th>
+            <th pFrozenColumn="Accept/Reject" style="width:30%">View or Edit</th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-reservation>
@@ -40,11 +41,12 @@
             <td>{{reservation.startDate | date : 'dd-MM-yyyy'}}</td>
             <td>{{reservation.endDate | date : 'dd-MM-yyyy'}}</td>
             <td>{{reservation.price}}</td>
+            <td>{{reservation.numberOfGuests}}</td>
             <td>{{reservation.reservationStatus}}</td>
 
             <td><div class="buttons">
-              <button pButton type="button" label="Approve" class="p-button-primary option-button" (click)="acceptReservation(reservation.id)" [disabled]="reservation.reservationStatus.toString() == 'Done' || reservation.reservationStatus.toString() == 'Active' || reservation.reservationStatus.toString() == 'Canceled'"></button>
-              <button pButton type="button" label="Deny" class="p-button-danger option-button" (click)="declineReservation(reservation.id)" [disabled]="reservation.reservationStatus.toString() == 'Done' || reservation.reservationStatus.toString() == 'Active' || reservation.reservationStatus.toString() == 'Canceled'"></button>
+              <button pButton type="button" label="Approve" class="p-button-primary option-button" (click)="acceptReservation(reservation.id)" [disabled]="reservation.reservationStatus.toString() == 'Done' || reservation.reservationStatus.toString() == 'Active' || reservation.reservationStatus.toString() == 'Canceled' || reservation.reservationStatus.toString() == 'Approved'"></button>
+              <button pButton type="button" label="Deny" class="p-button-danger option-button" (click)="declineReservation(reservation.id)" [disabled]="reservation.reservationStatus.toString() == 'Done' || reservation.reservationStatus.toString() == 'Active' || reservation.reservationStatus.toString() == 'Canceled'  || reservation.reservationStatus.toString() == 'Denied'"></button>
             </div></td>
           </tr>
         </ng-template>

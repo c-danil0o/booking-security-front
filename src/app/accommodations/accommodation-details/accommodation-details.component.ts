@@ -82,6 +82,7 @@ export class AccommodationDetailsComponent implements OnInit {
     }
   ];
   accommodationLoaded: boolean = false;
+  reviewsLoaded: boolean = false;
 
   constructor(private sanitizer: DomSanitizer, private route: ActivatedRoute, private accommodationService: AccommodationService, private reviewService: ReviewService, private photoService: PhotoService) {
   }
@@ -109,6 +110,7 @@ export class AccommodationDetailsComponent implements OnInit {
           this.reviewService.findByAccommodationId(this.accommodation.id).subscribe({
             next: (data: Review[]) => {
               this.accommodation.reviews = data
+              this.reviewsLoaded = true;
             }
           })
 

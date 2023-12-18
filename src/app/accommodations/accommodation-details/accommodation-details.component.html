@@ -25,7 +25,7 @@
           </div>
 
           <div class="description">{{ accommodation.description }}</div>
-          <div class="averageGrade">
+          <div class="averageGrade" *ngIf="reviewsLoaded">
             <div class="star-rating">
               <i class="fa fa-star" *ngFor="let star of stars"></i>
               <i class="fa fa-star-half" *ngIf="accommodation.averageGrade % 1 !== 0"></i>
@@ -75,7 +75,7 @@
       <app-google-map *ngIf="accommodationLoaded" [inputAddress]="accommodation.address" [style]="{'margin':'20px auto'}"></app-google-map>
     </div>
 
-    <div class="reviews-container" *ngIf="accommodation.reviews && accommodation.reviews.length > 0">
+    <div class="reviews-container" *ngIf="reviewsLoaded && accommodation.reviews.length > 0">
       <span class="review-text"> Guest reviews: </span>
       <div class="reviews" *ngFor="let review of accommodation.reviews">
         <div class="single-review">
