@@ -6,6 +6,9 @@ import {environment} from "../../env/env";
 import {A} from "@angular/cdk/keycodes";
 import {HostProperty} from "../model/hostproperty-model";
 import {New_accommodation} from "../model/new_accommodation-model";
+import {SearchFormService} from "../shared/search-form.service";
+import {SearchModel} from "../model/search-model";
+import {SearchedAccommodation} from "../model/searched-accommodation-model";
 
 @Injectable({
   providedIn: 'root'
@@ -33,8 +36,13 @@ export class AccommodationService {
     return this.httpClient.post<any>(environment.apiHost + 'api/accommodations', accommodation);
   }
 
+  searchAccommodations(searchModel: SearchModel): Observable<SearchedAccommodation[]>{
+    return this.httpClient.post<SearchedAccommodation[]>(environment.apiHost + 'api/accommodations/search', searchModel);
+  }
+
   updateAccommodation(accommodation: Accommodation):Observable<Accommodation>{
     return this.httpClient.put<Accommodation>(environment.apiHost + 'api/accommodations/update', accommodation);
+
   }
 
 

@@ -1,0 +1,120 @@
+<div class="main-container">
+  <span class="p-input-icon-left">
+
+<!--        <input for="location" class="location" placeholder="Where to?" >-->
+      <div class="filtering-options">
+        <input class="field" type="text" pInputText placeholder="Place" [(ngModel)]="place"/>
+<!--           <input type="date" for="dates" class="dates" value="Add dates">-->
+        <p-calendar class="dates" placeholder="Start date" dateFormat="dd.mm.yy" [(ngModel)]="startDate" ></p-calendar>
+        <p>/</p>
+        <p-calendar class="dates" placeholder="End date" dateFormat="dd.mm.yy" [(ngModel)]="endDate" ></p-calendar>
+        <p-inputNumber class="guests-input" [inputStyle]="{'width':'30%'}" [showButtons]="true" inputId="stacked" placeholder="Guests" [(ngModel)]="guests"> </p-inputNumber>
+        <!--           <input type="number" for="guests" class="guest-number" placeholder="Guests" min="1" max="20">-->
+         <button class="p-button-primary" label="Search" pButton type="button" (click)="search()"></button>
+      </div>
+</span>
+  <div class="accommodations-filters">
+    <h2>Filters</h2>
+<!--    <span class="filter-text">Filters:</span>-->
+    <div class="filter-accommodation-container">
+      <div  class="fields-checkbox">
+        <div class="checkbox-field">
+          <h5>Filter by type</h5>
+          <div class="checkbox-field" *ngFor="let type of accommodationTypes">
+            <p-checkbox name="group" [value]="type" (onChange)="onCheckTypeChange($event, type)" [inputId]="type"></p-checkbox>
+            <label class="label" [for]="type">{{ type }}</label>
+          </div>
+        </div>
+        <hr>
+        <div class="checkbox-field">
+          <h5>Filter by amenities</h5>
+          <div class="checkbox-field" *ngFor="let amenity of amenities">
+            <p-checkbox name="group" [value]="amenity" (onChange)="onCheckAmenityChange($event, amenity)" [inputId]="amenity"></p-checkbox>
+            <label class="label" [for]="amenity">{{ amenity }}</label>
+          </div>
+        </div>
+        <hr>
+
+        <div class="price-filter">
+          <h6>Range for price per night</h6>
+          <h5>Price range from {{rangeValues[0]}} to {{rangeValues[1]}}</h5>
+          <p-slider [(ngModel)]="rangeValues" [range]="true" (onSlideEnd)="onPriceRangeChange()" [min]="10" [max]="200"></p-slider>
+          <p>{{ rangeValues[0] }} - {{ rangeValues[1] }}</p>
+        </div>
+
+      </div>
+<!--      <p-listbox-->
+
+<!--        [options]="items"-->
+<!--        [(ngModel)]="selectedItems"-->
+<!--        [selectAll]="selectAll"-->
+<!--        optionLabel="label"-->
+<!--        [style]="{ width: '15rem' }"-->
+<!--        [virtualScroll]="true"-->
+<!--        [filter]="true"-->
+<!--        [virtualScrollItemSize]="43"-->
+<!--        [multiple]="true"-->
+<!--        [checkbox]="true"-->
+<!--        [showToggleAll]="false"-->
+<!--        [metaKeySelection]="false"-->
+<!--        [showToggleAll]="true"-->
+<!--        (onSelectAllChange)="onSelectAllChange($event)"-->
+<!--        (onChange)="onChange($event)"-->
+<!--        [listStyle]="{ 'max-height': '220px' }"-->
+<!--      ></p-listbox>-->
+      <div class="comment-text" *ngIf="filteredAccommodations.length === 0">No accommodations</div>
+      <div
+        class="accommodations"
+        *ngIf="accommodations && accommodations.length > 0"
+      >
+        <div
+          class="accommodation-outside-container"
+          *ngFor="let accommodation of paginatedAccommodations"
+        >
+          <app-searched-accommodation-card (clicked)="onAccommodationClicked($event)"
+                                  [accommodation]="accommodation"></app-searched-accommodation-card>
+
+        </div>
+        <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="totalItems"
+                     [rowsPerPageOptions]="[3, 5, 10, 20, 30]"></p-paginator>
+
+        <!--<div class="pagination">
+          <span class="pagination-text">
+            Showing {{ (currentPage - 1) * itemsPerPage + 1 }} to
+            {{
+              currentPage === totalPages
+                ? totalItems
+                : currentPage * itemsPerPage
+            }}
+            of {{ totalItems }} entries
+          </span>
+          <button *ngIf="currentPage > 1" (click)="changePage(1)">
+            &laquo;
+          </button>
+          <button *ngIf="currentPage > 1" (click)="changePage(currentPage - 1)">
+            &lsaquo;
+          </button>
+          <button
+            *ngFor="let page of totalPagesArray()"
+            (click)="changePage(page)"
+            [class.active]="isActive(page)"
+          >
+            {{ page }}
+          </button>
+          <button
+            *ngIf="currentPage < totalPages"
+            (click)="changePage(currentPage + 1)"
+          >
+            &rsaquo;
+          </button>
+          <button
+            *ngIf="currentPage < totalPages"
+            (click)="changePage(totalPages)"
+          >
+            &raquo;
+          </button>
+        </div>-->
+      </div>
+    </div>
+  </div>
+</div>

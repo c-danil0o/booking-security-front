@@ -7,10 +7,16 @@
         <span style="color: rgba(245, 189, 79, 1)">memorable</span>
      </div>
      <div class="filtering-options">
-        <input for="location" class="location" placeholder="Where to?">
+<!--        <input class="field" type="text" pInputText placeholder="Name" formControlName="name"/>-->
+        <input for="location" class="location" placeholder="Where to?" [(ngModel)]="place">
         <div class="date-number-container">
-           <input type="date" for="dates" class="dates" value="Add dates">
-           <input type="number" for="guests" class="guest-number" placeholder="Guests" min="1" max="20">
+
+<!--           <input type="date" for="dates" class="dates" value="Add dates">-->
+          <p-calendar class="dates" placeholder="Start date" dateFormat="dd.mm.yy" [(ngModel)]="startDate"></p-calendar>
+          <p-calendar class="dates" placeholder="Start date" dateFormat="dd.mm.yy" [(ngModel)]="endDate"></p-calendar>
+          <p-inputNumber class="guests-input" [inputStyle]="{'width':'30%'}" [showButtons]="true" inputId="stacked" placeholder="Guests" [(ngModel)]="guests"> </p-inputNumber>
+<!--           <input type="number" for="guests" class="guest-number" placeholder="Guests" min="1" max="20">-->
+           <button class="p-button-primary" label="Search" pButton type="button" (click)="next()" [routerLink]="['/filtered-accommodations']"></button>
         </div>
      </div>
   </div>

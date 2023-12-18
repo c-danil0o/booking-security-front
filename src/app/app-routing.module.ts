@@ -18,6 +18,9 @@ import {
 import {HostReservationsComponent} from "./reservations/host-reservations/host-reservations.component";
 import {GuestProfileComponent} from "./profile/guest-profile/guest-profile.component";
 import {GuestReservationsComponent} from "./reservations/guest-reservations/guest-reservations.component";
+import {
+  FilteredAccommodationsComponent
+} from "./accommodations/filtered-accommodations/filtered-accommodations.component";
 import {EditAccommodationComponent} from "./accommodations/edit-accommodation/edit-accommodation.component";
 
 
@@ -26,6 +29,7 @@ const routes: Routes = [
   {component: LoginComponent, path:"login"},
   {component: RegisterComponent, path:"register"},
   {component: AccommodationListComponent, path:"accommodation-list"},
+  {component: FilteredAccommodationsComponent, path:"filtered-accommodations"},
   {component: AccommodationDetailsComponent, path:"accommodation-details/:accommodationId"},
   {component: EditAccountComponent, path:"edit-account/:id"},
   {component: EmailSentComponent, path:"email-sent"},
