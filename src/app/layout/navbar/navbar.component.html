@@ -14,7 +14,7 @@
 -->
     <button *ngIf="role != null && role=='ROLE_Host'" pButton type="button" [routerLink]="['/host-profile']" routerLinkActive="active" label="My Account" class="p-button profile-button" icon="pi pi-user" iconPos="right"></button>
     <button *ngIf="role != null && role=='ROLE_Guest'" pButton type="button" [routerLink]="['/guest-profile']" routerLinkActive="active" label="My Account" class="p-button profile-button" icon="pi pi-user" iconPos="right"></button>
-
+    <button *ngIf="role != null && role=='ROLE_Admin'" pButton type="button" [routerLink]="['/admin-profile']" routerLinkActive="active" label="My Account" class="p-button profile-button" icon="pi pi-user" iconPos="right"></button>
   </div>
 
 

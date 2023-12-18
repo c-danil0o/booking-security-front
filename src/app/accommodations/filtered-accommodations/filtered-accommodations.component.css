@@ -84,7 +84,6 @@
   flex-direction: column;
   overflow: hidden;
   position: relative;
-  display: flex;
   min-height: 961px;
   width: 100%;
   align-items: center;

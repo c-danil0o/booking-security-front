@@ -22,6 +22,8 @@ import {
   FilteredAccommodationsComponent
 } from "./accommodations/filtered-accommodations/filtered-accommodations.component";
 import {EditAccommodationComponent} from "./accommodations/edit-accommodation/edit-accommodation.component";
+import {AdminProfileComponent} from "./profile/admin-profile/admin-profile.component";
+import {ApproveAccommodationsComponent} from "./accommodations/approve-accommodations/approve-accommodations.component";
 
 
 const routes: Routes = [
@@ -35,7 +37,9 @@ const routes: Routes = [
   {component: EmailSentComponent, path:"email-sent"},
   {component: RegistrationConfirmComponent, path:"registration-confirmation"},
   {component: HostProfileComponent, path:"host-profile"},
+  {component: AdminProfileComponent, path:"admin-profile"},
   {component: HostPropertiesComponent, path:"host-properties/:hostId"},
+  {component: ApproveAccommodationsComponent, path:"approve-accommodation"},
   {component: NewAccommodationComponent, path:"new-accommodation"},
   {component: AccommodationTimeslotsComponent, path: "accommodation-timeslots/:accId"},
   {component: HostProfileComponent, path:"host-profile"},

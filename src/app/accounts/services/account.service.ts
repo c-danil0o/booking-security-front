@@ -5,6 +5,8 @@ import {environment} from "../../../env/env";
 import {Account} from "../../model/account-model";
 import {NewAccount} from "../../model/register-model";
 import { NewPassword } from "src/app/model/password-change-model";
+import {Email} from "../../model/Email";
+import {Guest} from "../../model/guest-model";
 @Injectable({
   providedIn: 'root'
 })
@@ -22,6 +24,10 @@ export class AccountService {
 
   getAll(): Observable<Account[]>{
     return  this.httpClient.get<Account[]>(environment.apiHost + 'api/hosts/all')
+  }
+
+  findByEmail(email: Email): Observable<Account>{
+    return this.httpClient.post<Account>(environment.apiHost + 'api/accounts/email', email)
   }
 
   register(account: NewAccount): Observable<any>{

@@ -36,6 +36,8 @@ export class HomeComponent {
           guests:this.guests
         }
         this.searchFormService.setForms(model);
+        console.log("navigate");
+        this.router.navigate(['/filtered-accommodations']);
       }
     }
 
