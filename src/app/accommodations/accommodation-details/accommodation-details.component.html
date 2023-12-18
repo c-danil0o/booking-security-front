@@ -1,6 +1,6 @@
 <div class="main-container">
   <div class="main-part-container">
-    <div class="images">
+    <div class="images" *ngIf="imagesAreLoaded">
       <p-galleria [value]="images" [showItemNavigators]="true" [showIndicators]="true" [showThumbnails]="false"
                   [responsiveOptions]="responsiveOptions"
                   [containerStyle]="{'max-width':'950px' ,'margin':'15px auto' }">
@@ -9,8 +9,6 @@
         </ng-template>
       </p-galleria>
     </div>
-
-    <img [src]="images[0].url" class="hidden-image"/>
     <div class="about-accommodation-container">
       <div class="about">
         <div class="about-left">
@@ -69,6 +67,12 @@
         <span class="pi pi-check-circle"> </span>
         <span class="amenity"> {{ amenity }} </span>
       </div>
+    </div>
+
+    <div class="map-container">
+      <span class="map-text"> Address: </span>
+      <br/><br/><br/>
+      <app-google-map *ngIf="accommodationLoaded" [inputAddress]="accommodation.address" [style]="{'margin':'20px auto'}"></app-google-map>
     </div>
 
     <div class="reviews-container" *ngIf="accommodation.reviews && accommodation.reviews.length > 0">

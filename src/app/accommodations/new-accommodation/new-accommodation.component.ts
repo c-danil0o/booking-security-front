@@ -30,6 +30,8 @@ export class NewAccommodationComponent implements OnInit {
   search_text: string = "";
   progress: number = 0;
   upload_done: boolean = false;
+  lat: number;
+  long: number;
 
   constructor(private router: Router, private accommodationService: AccommodationService, private formsService: FormsService) {
   }
@@ -72,6 +74,8 @@ export class NewAccommodationComponent implements OnInit {
         street: this.new_accommodation_form.value.street,
         number: this.new_accommodation_form.value.number,
         city: this.new_accommodation_form.value.city,
+        latitude: this.lat,
+        longitude: this.long
       }
       const model: AccommodationForm1Model = {
         address: address,
@@ -104,6 +108,12 @@ export class NewAccommodationComponent implements OnInit {
     this.new_accommodation_form.controls['number'].setValue($event.number);
     this.new_accommodation_form.controls['city'].setValue($event.city);
     this.new_accommodation_form.controls['country'].setValue($event.country);
+    if ($event.latitude != null) {
+      this.lat = $event.latitude
+    }
+    if ($event.longitude != null) {
+      this.long = $event.longitude
+    }
 
   }
 

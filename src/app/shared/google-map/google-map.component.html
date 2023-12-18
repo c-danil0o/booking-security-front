@@ -1,6 +1,6 @@
-<div class="p-input-icon-right search">
+<div *ngIf="addingAddress" class="p-input-icon-right search">
   <i class="pi pi-search"></i>
-  <input #search pInputText type="text" [(ngModel)]="search_text"  class="search" placeholder="Search address:" />
+  <input  #search pInputText type="text" [(ngModel)]="search_text"  class="search" placeholder="Search address:" />
 </div>
 <div class="gmap" >
 

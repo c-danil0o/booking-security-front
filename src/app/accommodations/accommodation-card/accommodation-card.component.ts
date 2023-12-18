@@ -18,8 +18,8 @@ export class AccommodationCardComponent {
     console.log(this.accommodation.photos)
   }
 
-  getPhotoURI(): string[]{
-    return this.accommodation.photos.map(element => '../../../../../assets/' + element)
+  getPhotoURI(): string{
+    return environment.filesApi + this.accommodation.photos[0]
     //return this.accommodation.photos[0]
   }
 }

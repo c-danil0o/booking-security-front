@@ -35,7 +35,7 @@
         </ng-form>
       </div>
       <div class="right_forms">
-        <app-google-map (address)="GetData($event)" ></app-google-map>
+        <app-google-map (address)="GetData($event)" [addingAddress]="true" ></app-google-map>
         <ng-form [formGroup]="new_accommodation_form"  class="under_map">
           <div class="address_forms">
             <input  type="text" pInputText placeholder="City" formControlName="city"/>

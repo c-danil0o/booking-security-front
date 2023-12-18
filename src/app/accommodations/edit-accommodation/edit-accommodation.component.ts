@@ -34,6 +34,8 @@ export class EditAccommodationComponent {
   accommodation: Accommodation
   checked_amenities: boolean = true;
   images: Image[] = []
+  lat: number;
+  long: number;
 
   constructor(private sanitizer: DomSanitizer, private router: Router, private route: ActivatedRoute, private accommodationService: AccommodationService, private formsService: FormsService, private photoService: PhotoService) {
   }
@@ -58,6 +60,12 @@ export class EditAccommodationComponent {
       this.accommodationService.findById(id).subscribe({
         next: (acc: Accommodation) => {
           this.accommodation = acc;
+          if (this.accommodation.address.latitude != null) {
+            this.lat = this.accommodation.address.latitude
+          }
+          if (this.accommodation.address.longitude != null) {
+            this.long = this.accommodation.address.longitude
+          }
           this.amenities = [...this.accommodation.amenities]
           this.selected_amenities = this.accommodation.amenities
           this.loadData(this.accommodation)
@@ -118,6 +126,8 @@ export class EditAccommodationComponent {
         street: this.new_accommodation_form.value.street,
         number: this.new_accommodation_form.value.number,
         city: this.new_accommodation_form.value.city,
+        latitude: this.lat,
+        longitude: this.long
       }
 
       this.accommodation.name = this.new_accommodation_form.value.name
@@ -156,6 +166,12 @@ export class EditAccommodationComponent {
     this.new_accommodation_form.controls['number'].setValue($event.number);
     this.new_accommodation_form.controls['city'].setValue($event.city);
     this.new_accommodation_form.controls['country'].setValue($event.country);
+    if ($event.latitude != null) {
+      this.lat = $event.latitude
+    }
+    if ($event.longitude != null) {
+      this.long = $event.longitude
+    }
 
   }
 
