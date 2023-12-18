@@ -27,6 +27,7 @@ import { SearchedAccommodationCardComponent } from './searched-accommodation-car
 
 import {GalleriaModule} from "primeng/galleria";
 import { EditAccommodationComponent } from './edit-accommodation/edit-accommodation.component';
+import { ApproveAccommodationsComponent } from './approve-accommodations/approve-accommodations.component';
 
 
 
@@ -40,7 +41,8 @@ import { EditAccommodationComponent } from './edit-accommodation/edit-accommodat
     NewAccommodationComponent,
     AccommodationTimeslotsComponent,
     FilteredAccommodationsComponent,
-    EditAccommodationComponent
+    EditAccommodationComponent,
+    ApproveAccommodationsComponent
   ],
   exports: [
     AccommodationCardComponent,

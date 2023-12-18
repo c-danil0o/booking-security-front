@@ -12,13 +12,15 @@ import {RouterLink, RouterLinkActive} from "@angular/router";
 import {GuestProfileComponent} from './guest-profile/guest-profile.component';
 import {AccommodationsModule} from "../accommodations/accommodations.module";
 import {PaginatorModule} from "primeng/paginator";
+import { AdminProfileComponent } from './admin-profile/admin-profile.component';
 
 
 @NgModule({
   declarations: [
     HostProfileComponent,
     HostPropertiesComponent,
-    GuestProfileComponent
+    GuestProfileComponent,
+    AdminProfileComponent
   ],
   imports: [
     CommonModule,

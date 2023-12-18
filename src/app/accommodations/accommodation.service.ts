@@ -24,6 +24,10 @@ export class AccommodationService {
     return this.httpClient.get<Accommodation[]>(environment.apiHost + 'api/accommodations/all')
   }
 
+  getUnapproved(): Observable<HostProperty[]>{
+    return this.httpClient.get<HostProperty[]>(environment.apiHost + 'api/accommodations/unapproved');
+  }
+
   findById(id: number): Observable<Accommodation> {
     return this.httpClient.get<Accommodation>(environment.apiHost + 'api/accommodations/' + id)
   }
@@ -42,7 +46,14 @@ export class AccommodationService {
 
   updateAccommodation(accommodation: Accommodation):Observable<Accommodation>{
     return this.httpClient.put<Accommodation>(environment.apiHost + 'api/accommodations/update', accommodation);
+  }
 
+  approveAccommodation(id: number): Observable<Accommodation>{
+    return this.httpClient.patch<Accommodation>(environment.apiHost + 'api/accommodations/' + id + '/approve', {});
+  }
+
+  denyAccommodation(id: number): Observable<Accommodation>{
+    return this.httpClient.patch<Accommodation>(environment.apiHost + 'api/accommodations/' + id + '/deny', {});
   }
 
 

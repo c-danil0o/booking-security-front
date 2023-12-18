@@ -20,7 +20,8 @@ import {AccommodationsModule} from "../accommodations/accommodations.module";
   ],
   exports: [
     NavbarComponent,
-    HeaderComponent
+    HeaderComponent,
+    HomeComponent
   ],
   imports: [
     CommonModule,
