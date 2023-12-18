@@ -1,7 +1,16 @@
 <div class="main-container">
   <div class="main-part-container">
-    <img [src]="getPhotoURI()[0]" class="accommodation-image" />
+    <div class="images">
+      <p-galleria [value]="images" [showItemNavigators]="true" [showIndicators]="true" [showThumbnails]="false"
+                  [responsiveOptions]="responsiveOptions"
+                  [containerStyle]="{'max-width':'950px' ,'margin':'15px auto' }">
+        <ng-template pTemplate="item" let-item>
+          <img [src]="item.url" style="width: 100%; height: 100%; max-width: 100%" alt="image"/>
+        </ng-template>
+      </p-galleria>
+    </div>
 
+    <img [src]="images[0].url" class="hidden-image"/>
     <div class="about-accommodation-container">
       <div class="about">
         <div class="about-left">
@@ -51,7 +60,7 @@
 
     <div class="amenities-container" *ngIf="accommodation.amenities && accommodation.amenities.length > 0">
       <span class="amenities-text"> Amenities: </span>
-      <br /><br /><br />
+      <br/><br/><br/>
       <div
         *ngFor="let amenity of accommodation.amenities; let isEven = odd"
         class="amenity-item"
@@ -67,7 +76,7 @@
       <div class="reviews" *ngFor="let review of accommodation.reviews">
         <div class="single-review">
           <div class="reviewer-username-photo">
-            <img src="../../../assets/reviewer.jpg" class="reviewer-photo" />
+            <img src="../../../assets/reviewer.jpg" class="reviewer-photo"/>
             <div class="reviewer-username">{{ review.author.firstName + ' ' + review.author.lastName }}</div>
           </div>
 

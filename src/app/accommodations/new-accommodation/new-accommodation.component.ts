@@ -2,12 +2,13 @@ import {Component, OnInit} from '@angular/core';
 import {FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {AccommodationService} from "../accommodation.service";
-import {FileUploadEvent} from "primeng/fileupload";
+import {FileProgressEvent, FileUploadEvent, FileUploadHandlerEvent} from "primeng/fileupload";
 import {Address} from "../../model/address-model";
 import {Accommodation} from "../../model/accommodation-model";
 import {AccommodationForm1Model} from "../../model/accommodation-form1-model";
 import {FormsService} from "../../shared/forms.service";
 import {CheckboxChangeEvent} from "primeng/checkbox";
+import {UploadService} from "../../shared/upload.service";
 
 interface Type {
   name: string;
@@ -27,6 +28,8 @@ export class NewAccommodationComponent implements OnInit {
   am: string = "";
   uploadedFiles: File[] = [];
   search_text: string = "";
+  progress: number = 0;
+  upload_done: boolean = false;
 
   constructor(private router: Router, private accommodationService: AccommodationService, private formsService: FormsService) {
   }
@@ -55,7 +58,9 @@ export class NewAccommodationComponent implements OnInit {
   }
 
 
-  onUpload($event: FileUploadEvent) {
+  onUpload($event: FileUploadHandlerEvent) {
+    this.uploadedFiles = $event.files
+    this.upload_done = true
 
   }
 
@@ -73,11 +78,10 @@ export class NewAccommodationComponent implements OnInit {
         name: this.new_accommodation_form.value.name,
         amenities: this.selected_amenities,
         description: this.new_accommodation_form.value.description,
-        files: this.new_accommodation_form.value.files,
         minGuests: this.new_accommodation_form.value.minGuests,
         maxGuests: this.new_accommodation_form.value.maxGuests,
         accommodationType: this.new_accommodation_form.value.selectedType.name,
-        photos: ['file.txt']//to be implemented
+        photos: this.uploadedFiles.map((file)=> file.name)
       }
       this.formsService.setForms(model);
       console.log('first', model)
@@ -115,5 +119,9 @@ export class NewAccommodationComponent implements OnInit {
     }
     console.log(this.selected_amenities)
 
+  }
+
+  onProgress($event: FileProgressEvent) {
+      this.progress = $event.progress;
   }
 }
