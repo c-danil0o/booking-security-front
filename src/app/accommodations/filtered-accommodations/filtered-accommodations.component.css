@@ -16,14 +16,14 @@
 
 .filtering-options {
   box-shadow: 2px 4px 10px 0px rgba(0, 0, 0, 0.25);
-  background-color: var(--base-white, #fff);
-  align-self: stretch;
+  background-color: white;
+  width: 60%;
   display: flex;
-  width: 120%;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
-  gap: 1px;
+  gap: 20px;
   padding: 11px 17px 11px 12px;
+  border-radius: 10px;
 }
 @media (max-width: 1001px) {
   .filtering-options {
@@ -84,10 +84,10 @@
   flex-direction: column;
   overflow: hidden;
   position: relative;
-  min-height: 961px;
+  min-height: 100vh;
   width: 100%;
   align-items: center;
-  padding: 44px 80px 44px 50px;
+  padding: 20px;
   background-image: url("https://cdn.builder.io/api/v1/image/assets/TEMP/560e2ff3-c5db-4e1b-a093-3b7f13ec74bb?");
   background-repeat: no-repeat;
   background-size: cover;
@@ -110,14 +110,20 @@
   background-color: transparent;
 }
 .accommodations-filters {
-  position: relative;
   display: flex;
-  width: 100%;
-  max-width: 1470px;
-  flex-direction: column;
+  width: 80%;
+  flex-direction: row;
   align-items: flex-start;
-  margin: 6px 0 41px;
+  margin: 40px auto;
+
+
 }
+.main_view{
+  align-self: center;
+  margin: 20px;
+}
+
+
 @media (max-width: 991px) {
   .accommodations-filters {
     max-width: 100%;
@@ -138,7 +144,43 @@
 .filter-accommodation-container {
   gap: 20px;
   display: flex;
+  box-shadow: 2px 4px 10px 0px rgba(0, 0, 0, 0.25);
+  background-color: white;
+  border-radius: 10px;
+  width: 20%;
+  padding: 20px;
+  justify-content: center;
+
 }
+
+.fields-checkbox{
+  width: 80%;
+}
+.field-group{
+  display: flex;
+  flex-direction: column;
+  background-color: #f5f5f5;
+  border-radius: 15px;
+}
+.price-filter{
+  margin: 30px;
+}
+
+.checkbox-field{
+  width: 30%;
+  margin: 10px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/*width: 60%;
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 20px;
+padding: 11px 17px 11px 12px;*/
+
 @media (max-width: 991px) {
   .filter-accommodation-container {
     flex-direction: column;
@@ -397,4 +439,31 @@
 .comment-text{
   font-size: 28px;
   margin-left: 455px;
+}
+
+.location {
+  border-radius: 4px;
+  border: 2px solid rgba(245, 189, 79, 0.35);
+  font: 400 18px/24px Inter, sans-serif;
+  padding: 12px;
+  width: 40%;
+
+}
+.location:focus{
+  outline: none;
+}
+.guests-input{
+  width: 15%;
+  font: 400 18px/24px Inter, sans-serif;
+}
+.dates {
+  font: 400 16px/24px Inter, sans-serif;
+}
+.p-calendar > span{
+  height: 100%;
+}
+.search_button{
+  width: 120px;
+  font-size: 18px;
+  margin: 10px;
 }
