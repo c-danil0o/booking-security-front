@@ -36,14 +36,17 @@ import { EditAccommodationComponent } from './edit-accommodation/edit-accommodat
     AccommodationListComponent,
     AccommodationDetailsComponent,
     AccommodationCardComponent,
+    SearchedAccommodationCardComponent,
     NewAccommodationComponent,
     AccommodationTimeslotsComponent,
     FilteredAccommodationsComponent,
+    EditAccommodationComponent
   ],
   exports: [
     AccommodationCardComponent,
-    AccommodationCardComponent,
-    FilteredAccommodationsComponent
+    SearchedAccommodationCardComponent,
+    FilteredAccommodationsComponent,
+    EditAccommodationComponent
   ],
   imports: [
     CommonModule, RouterModule, HttpClientModule, CardModule, PaginatorModule, InputTextModule, ListboxModule, ReactiveFormsModule, CheckboxModule, FileUploadModule, StyleClassModule, SharedModule, InputTextareaModule, CalendarModule, TableModule, InputSwitchModule, SliderModule, GalleriaModule
