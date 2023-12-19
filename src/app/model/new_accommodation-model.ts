@@ -1,6 +1,7 @@
 import {Address} from "./address-model";
 import {Timeslot} from "./timeslot-model";
 import {Host} from "./host-model";
+import {AccommodationStatus} from "./accommodation-status-model";
 
 export interface New_accommodation{
   name: string;
@@ -12,7 +13,7 @@ export interface New_accommodation{
   minGuests: number;
   photos: string[];
   isPricePerGuest: boolean;
-  isApproved: boolean;
+  status: AccommodationStatus
   availability: Timeslot[];
   cancellationDeadline: number;
   isAutoApproval: boolean;

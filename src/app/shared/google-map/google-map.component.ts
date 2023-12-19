@@ -1,10 +1,21 @@
-import {AfterViewInit, Component, ElementRef, EventEmitter, Input, NgZone, Output, ViewChild} from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  NgZone,
+  Output,
+  ViewChild
+} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {catchError, map, Observable, of} from "rxjs";
 import {environment} from "../../../env/env";
 import {GoogleMap, MapInfoWindow, MapMarker} from "@angular/google-maps";
 import {Address} from "../../model/address-model";
 import {GoogleAddressParser} from "./parser";
+import MarkerOptions = google.maps.MarkerOptions;
 
 
 @Component({
@@ -25,12 +36,12 @@ export class GoogleMapComponent implements AfterViewInit{
     center: {lat:45.2396, lng:19.8227},
     zoom: 13,
   };
-  search_text: any;
+  search_text: string;
   latitude!: any;
   longitude!: any;
   center!: google.maps.LatLngLiteral;
-  markerOptions: any;
-  markerInfoContent: any;
+  markerOptions: MarkerOptions;
+  markerInfoContent: string;
   @Output()
   address = new EventEmitter<Address>();
   newAddress: Address;
@@ -40,7 +51,7 @@ export class GoogleMapComponent implements AfterViewInit{
   inputAddress: Address
 
 
-  constructor(httpClient: HttpClient, private ngZone: NgZone) {
+  constructor(httpClient: HttpClient, private ngZone: NgZone, private changeDetector: ChangeDetectorRef) {
     // If you're using the `<map-heatmap-layer>` directive, you also have to include the `visualization` library
     // when loading the Google Maps API. To do so, you can add `&libraries=visualization` to the script URL:
     // https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=visualization
@@ -81,7 +92,9 @@ export class GoogleMapComponent implements AfterViewInit{
           };
           this.map.panTo(this.center);
           this.map.zoom = 20;
-          this.markerInfoContent = place.formatted_address;
+          if (place.formatted_address != null) {
+            this.markerInfoContent = place.formatted_address;
+          }
 
           this.markerOptions = {
             draggable: false,
@@ -100,11 +113,15 @@ export class GoogleMapComponent implements AfterViewInit{
         });
       });
     }else{
-      this.center = {
+      let center = {
         lat: this.inputAddress.latitude || 45,
         lng: this.inputAddress.longitude || 45,
       }
-      this.map.panTo(this.center);
+      this.map.panTo(center);
+      this.center = center
+      this.markerInfoContent = this.inputAddress.street + ', ' + this.inputAddress.number + ', ' + this.inputAddress.city
+      this.openInfoWindow(this.mapMarker);
+      this.changeDetector.detectChanges();
       this.map.zoom = 20;
 
       // this.markerOptions = {

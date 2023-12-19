@@ -52,7 +52,7 @@ const emptyAccommodation: Accommodation = {
   host: emptyHost,
   availability: [],
   accommodationType: "",
-  approved: false
+  status: 0
 }
 @Component({
   selector: 'app-accommodation-details',
@@ -82,6 +82,7 @@ export class AccommodationDetailsComponent implements OnInit {
     }
   ];
   accommodationLoaded: boolean = false;
+  reviewsLoaded: boolean = false;
 
   constructor(private sanitizer: DomSanitizer, private route: ActivatedRoute, private accommodationService: AccommodationService, private reviewService: ReviewService, private photoService: PhotoService) {
   }
@@ -109,6 +110,7 @@ export class AccommodationDetailsComponent implements OnInit {
           this.reviewService.findByAccommodationId(this.accommodation.id).subscribe({
             next: (data: Review[]) => {
               this.accommodation.reviews = data
+              this.reviewsLoaded = true;
             }
           })
 

@@ -43,8 +43,8 @@ const routes: Routes = [
   {component: NewAccommodationComponent, path:"new-accommodation"},
   {component: AccommodationTimeslotsComponent, path: "accommodation-timeslots/:accId"},
   {component: HostProfileComponent, path:"host-profile"},
-  {component: GuestReservationsComponent, path:"guest-reservations"},
-  {component: HostReservationsComponent, path:"host-reservations"},
+  {component: GuestReservationsComponent, path:"guest-reservations/:guestId"},
+  {component: HostReservationsComponent, path:"host-reservations/:hostId"},
   {component: GuestProfileComponent, path:"guest-profile"},
   {component: EditAccommodationComponent, path:"edit-accommodation/:accId"}
   ];

@@ -90,6 +90,7 @@ export class AccommodationTimeslotsComponent implements OnInit {
             this.accommodation.pricePerGuest = this.isPricePerGuest;
             this.accommodation.autoApproval = this.isAutoApproval;
             this.accommodation.cancellationDeadline = this.cancellationDeadline;
+            this.accommodation.status = 1
             this.accommodationService.updateAccommodation(this.accommodation).subscribe({
                 next: (data: Accommodation) => {
                     console.log("updated accommodation: ", data)
@@ -162,7 +163,7 @@ export class AccommodationTimeslotsComponent implements OnInit {
                             isPricePerGuest: this.isPricePerGuest,
                             cancellationDeadline: this.cancellationDeadline,
                             availability: this.timeslots,
-                            isApproved: false,
+                            status: 1,
                             isAutoApproval: this.isAutoApproval,
                             host: data
                         }

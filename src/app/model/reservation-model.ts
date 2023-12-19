@@ -12,4 +12,5 @@ export interface Reservation{
   guestEmail: string;
   hostEmail: string
   reservationStatus:ReservationStatus;
+  numberOfGuests: number;
 }

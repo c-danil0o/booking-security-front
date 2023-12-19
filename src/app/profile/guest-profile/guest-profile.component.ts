@@ -24,6 +24,7 @@ export class GuestProfileComponent implements OnInit{
   rows: number = 3;
   first: number = 0;
   totalItems: number = 0
+  favoritesLoaded: boolean = false;
 
   constructor(private authService: AuthService, private router: Router, private guestService: GuestService, private accommodationService: AccommodationService) {
   }
@@ -42,6 +43,7 @@ export class GuestProfileComponent implements OnInit{
             this.guestService.getFavorites(this.user.id).subscribe({
               next: (data: Accommodation[]) =>{
                 this.user.favorites=data;
+                this.favoritesLoaded = true;
               },
               error: (_) =>{
                 console.log("error getting favorite accommodations")
@@ -80,8 +82,6 @@ export class GuestProfileComponent implements OnInit{
 
   }
 
-  protected readonly confirmPasswordValidator = confirmPasswordValidator;
-  protected readonly length = length;
 
   onAccommodationClicked($event: Accommodation) {
 

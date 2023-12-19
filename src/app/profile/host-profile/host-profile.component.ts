@@ -17,10 +17,11 @@ import { ConnectableObservable } from 'rxjs';
 })
 export class HostProfileComponent implements OnInit {
   user: Host;
+  reviewsLoaded: boolean = false;
 
   constructor(private authService: AuthService, private router: Router, private hostService: HostService, private reviewService: ReviewService) {
   }
-  
+
   that = this;
   ngOnInit() {
     const user_email: string | null = this.authService.getEmail();
@@ -38,6 +39,8 @@ export class HostProfileComponent implements OnInit {
             this.reviewService.findByHostId(this.user.id).subscribe({
               next: (data: Review[]) => {
                 this.user.hostReviews = data;
+                this.reviewsLoaded = true;
+
               },
               error: (_) =>{
                 console.log("error getting reviews for host")

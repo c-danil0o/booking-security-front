@@ -43,7 +43,7 @@
                         <td>{{reservation.reservationStatus}}</td>
 
                         <td><div class="buttons">
-                            <button pButton type="button" label="Cancel" class="p-button-primary option-button" (click)="cancelReservation(reservation.id)" [disabled]="reservation.reservationStatus.toString() != 'Pending' && reservation.reservationStatus.toString() != 'Approved'"></button>
+                            <button pButton type="button" label="Cancel" class="p-button-primary option-button" (click)="cancelReservation(reservation.id)" [disabled]="reservation.reservationStatus.toString() != 'Pending'"></button>
                         </div></td>
                     </tr>
                 </ng-template>
