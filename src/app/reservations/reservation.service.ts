@@ -17,6 +17,16 @@ export class ReservationService {
     return this.httpClient.get<Reservation[]>(environment.apiHost + 'api/reservations/all');
   }
 
+  getByHostId(id: number): Observable<Reservation[]> {
+    const url = `${environment.apiHost}api/reservations/host/${id}`;
+    return this.httpClient.get<Reservation[]>(url);
+  }
+
+  getByGuestId(id: number): Observable<Reservation[]> {
+    const url = `${environment.apiHost}api/reservations/guest/${id}`;
+    return this.httpClient.get<Reservation[]>(url);
+  }
+
   approveReservation(id: number): Observable<void> {
     const url = `${environment.apiHost}api/reservations/${id}/approve`;
     return this.httpClient.put<void>(url, {});

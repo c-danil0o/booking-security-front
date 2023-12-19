@@ -34,7 +34,8 @@ export class GuestReservationsComponent implements OnInit{
 
   ngOnInit(): void {
     this.route.params.subscribe((params)=>{
-      this.reservationService.getAll().subscribe({
+      const guestId = +params["guestId"];
+      this.reservationService.getByGuestId(guestId).subscribe({
         next: (data: Reservation[]) =>{
           data.forEach((reservation)=>{
             // @ts-ignore

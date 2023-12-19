@@ -35,9 +35,9 @@ export class HostReservationsComponent implements OnInit{
 
   ngOnInit(): void {
     this.route.params.subscribe((params)=>{
-      const hostId = +params
+      const hostId = +params["hostId"];
       console.log(hostId)
-      this.reservationService.getAll().subscribe({
+      this.reservationService.getByHostId(hostId).subscribe({
         next: (data: Reservation[]) =>{
           data.forEach((reservation)=>{
             // @ts-ignore
