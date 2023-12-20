@@ -45,7 +45,7 @@ export class RegisterComponent implements OnInit{
       if (this.registerForm.valid){
         console.log("valid")
         const address: Address = {
-          country: this.registerForm.value.selectedCountry,
+          country: this.registerForm.value.selectedCountry.name,
           street: this.registerForm.value.street,
           number: this.registerForm.value.number,
           city: this.registerForm.value.city,

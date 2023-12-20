@@ -43,7 +43,7 @@ export class EditAccountComponent {
       }
     });
   }
-  
+
   private initializeEditAccountForm(): void {
     this.editAccountForm = new FormGroup({
       firstname: new FormControl('', [Validators.required, Validators.max(30)]),
@@ -64,8 +64,8 @@ export class EditAccountComponent {
       confirmedpassword: new FormControl('', [Validators.required, Validators.minLength(6)]),
     });
   }
-  
-  
+
+
   selectedCountry = {"name": "12", "code": "23"};
   protected readonly countries = countries;
 
@@ -116,11 +116,11 @@ export class EditAccountComponent {
             alert("An error occurred while updating, we're sorry for inconvenience");
             console.error(`Error updating account: ${error}`)
           }
-        )  
+        )
       }
     } else {
       alert('Invalid data entered.\nPlease try again.');
-  
+
       // print all invalid fields in the console
       this.editAccountForm.markAllAsTouched();
       for (const key of Object.keys(this.editAccountForm.controls)) {
@@ -149,7 +149,7 @@ export class EditAccountComponent {
         () => {
           alert("Account successfully deleted");
           this.router.navigate(['/']);
-        }, 
+        },
         error => {
           console.log("Error deleting account " + JSON.stringify(error))
           alert("An error has occurred while trying to delete your account, we're sorry for inconvenience");
@@ -186,7 +186,7 @@ export class EditAccountComponent {
       )
     } else {
       alert('Incorrectly filled in data.\nPlease try again.');
-  
+
       // print all invalid fields in the console
       this.editAccountForm.markAllAsTouched();
       for (const key of Object.keys(this.editAccountForm.controls)) {

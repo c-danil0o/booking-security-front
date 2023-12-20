@@ -8,10 +8,11 @@ import {
 import {catchError, EMPTY, Observable, of, throwError} from 'rxjs';
 import {AuthService} from "./auth.service";
 import {Router} from "@angular/router";
+import {MessageService} from "primeng/api";
 
 @Injectable()
 export class Interceptor implements HttpInterceptor {
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private authService: AuthService, private router: Router, private messageService: MessageService) {
   }
 
   intercept(
@@ -20,7 +21,36 @@ export class Interceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     console.log("intercepting: ", req)
     const accessToken: any = localStorage.getItem('user');
-    if (req.headers.get('skip')) return next.handle(req);
+    if (req.headers.get('skip')) return next.handle(req).pipe(catchError(err => {
+      console.log("checking for errors!", err)
+      const error = (err.error ? err.error.message : null) || err.statusText;
+      switch (err.status) {
+        case 401: {
+          // token expired -> goto login, dont return error
+          this.logOut()
+          return of(error);      // <-- return observable using `of`
+        }
+        case 418:{
+          if (err.error && err.error[0] === '{'){
+            this.showToast(JSON.parse(err.error).message)
+          }else{
+            this.showToast(err.error.message)
+          }
+
+          return throwError(error)
+        }
+
+        case 500: {
+          return throwError(error);
+        }
+
+        default: {
+          console.log("no error")
+          return EMPTY;      // <-- return observable using `of`
+        }
+      }
+
+    }));
 
     if (accessToken) {
       req = req.clone({
@@ -37,6 +67,14 @@ export class Interceptor implements HttpInterceptor {
           this.logOut()
           return of(error);      // <-- return observable using `of`
         }
+        case 418:{
+          if (err.error && err.error[0] === '{'){
+            this.showToast(JSON.parse(err.error).message)
+          }else{
+            this.showToast(err.error.message)
+          }
+          return throwError(error)
+        }
 
         case 500: {
           return throwError(error);
@@ -51,6 +89,15 @@ export class Interceptor implements HttpInterceptor {
     }));
   }
 
+  showToast(message: string) {
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Error message',
+      key: 'bc',
+      detail: message,
+      life: 2000,
+    });
+  }
 
   logOut()
     :
