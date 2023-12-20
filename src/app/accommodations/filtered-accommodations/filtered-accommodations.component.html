@@ -53,7 +53,7 @@
 
       </div>
     </div>
-    <div class="main_view">
+    <div class="main_view" *ngIf="filteredAccommodations">
       <div class="comment-text" *ngIf="filteredAccommodations.length === 0">No accommodations</div>
       <div class="accommodations" *ngIf="accommodations && accommodations.length > 0">
         <div class="accommodation-outside-container" *ngFor="let accommodation of paginatedAccommodations">

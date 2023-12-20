@@ -48,4 +48,8 @@ export class AccountService {
     console.log(JSON.stringify(passwordAccount));
     return this.httpClient.post<void>(environment.apiHost + 'api/passwordChange', passwordAccount)
   }
+
+  deleteAccount(id: number): Observable<void> {
+    return this.httpClient.delete<void>(environment.apiHost+ 'api/accounts/' + id);
+  }
 }

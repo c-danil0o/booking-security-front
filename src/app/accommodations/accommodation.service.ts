@@ -29,7 +29,7 @@ export class AccommodationService {
   }
 
   findById(id: number): Observable<Accommodation> {
-    return this.httpClient.get<Accommodation>(environment.apiHost + 'api/accommodations/' + id)
+    return this.httpClient.get<Accommodation>(environment.apiHost + 'api/accommodations/get/' + id)
   }
 
   findByHostId(id: number): Observable<HostProperty[]> {
