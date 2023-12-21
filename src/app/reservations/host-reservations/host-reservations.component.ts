@@ -25,6 +25,7 @@ export class HostReservationsComponent implements OnInit{
     { label: 'Canceled', value: 'Canceled' },
     // Add more status options as needed
   ];
+  hostId: number;
 
   constructor(private route: ActivatedRoute, private reservationService: ReservationService) {
   }
@@ -36,6 +37,7 @@ export class HostReservationsComponent implements OnInit{
   ngOnInit(): void {
     this.route.params.subscribe((params)=>{
       const hostId = +params["hostId"];
+      this.hostId = hostId;
       console.log(hostId)
       this.reservationService.getByHostId(hostId).subscribe({
         next: (data: Reservation[]) =>{
@@ -92,7 +94,7 @@ export class HostReservationsComponent implements OnInit{
 
   refresh() {
     this.loading = true; // Optional: Set loading to true while fetching new data
-    this.reservationService.getAll().subscribe({
+    this.reservationService.getByHostId(this.hostId).subscribe({
       next: (data: Reservation[]) => {
         data.forEach((reservation)=>{
           // @ts-ignore

@@ -3,6 +3,7 @@ import {Accommodation} from "../../model/accommodation-model";
 import {SearchedAccommodation} from "../../model/searched-accommodation-model";
 import { AccommodationService } from '../accommodation.service';
 import { Router } from '@angular/router';
+import {environment} from "../../../env/env";
 
 @Component({
   selector: 'app-searched-accommodation-card',
@@ -32,8 +33,9 @@ export class SearchedAccommodationCardComponent {
     this.router.navigate(['/accommodation-details', this.accommodation.id]);
   }
 
-  getPhotoURI(): string[]{
-    return this.accommodation.photos.map(element => '../../../../../assets/' + element)
+  getPhotoURI(): string{
+    return environment.filesApi + this.accommodation.photos[0]
+
     //return this.accommodation.photos[0]
   }
 }

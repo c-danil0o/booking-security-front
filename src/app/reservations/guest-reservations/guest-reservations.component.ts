@@ -25,6 +25,7 @@ export class GuestReservationsComponent implements OnInit{
     { label: 'Done', value: 'Done' },
     { label: 'Cancelled', value: 'Cancelled' },
   ];
+  guestId: number;
 
   constructor(private route: ActivatedRoute, private reservationService: ReservationService) {
   }
@@ -35,6 +36,7 @@ export class GuestReservationsComponent implements OnInit{
   ngOnInit(): void {
     this.route.params.subscribe((params)=>{
       const guestId = +params["guestId"];
+      this.guestId = guestId
       this.reservationService.getByGuestId(guestId).subscribe({
         next: (data: Reservation[]) =>{
           data.forEach((reservation)=>{
@@ -73,7 +75,7 @@ export class GuestReservationsComponent implements OnInit{
 
   refresh() {
     this.loading = true; // Optional: Set loading to true while fetching new data
-    this.reservationService.getAll().subscribe({
+    this.reservationService.getByGuestId(this.guestId).subscribe({
       next: (data: Reservation[]) => {
         data.forEach((reservation)=>{
           // @ts-ignore
