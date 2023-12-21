@@ -3,6 +3,7 @@ import {Reservation} from "../model/reservation-model";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {environment} from "../../env/env";
+import { New_reservation } from '../model/new_reservation-model';
 
 @Injectable({
   providedIn: 'root'
@@ -42,5 +43,8 @@ export class ReservationService {
     return this.httpClient.put<void>(url, {});
   }
 
-
+  createReservation(reservation: New_reservation):Observable<New_reservation>{
+    console.log("ljubi brat");
+    return this.httpClient.post<any>(environment.apiHost + 'api/reservations', reservation);
+  }
 }

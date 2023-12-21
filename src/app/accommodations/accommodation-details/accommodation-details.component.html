@@ -51,6 +51,16 @@
             </svg>
             {{  hostName }}
           </div>
+          <form *ngIf="isGuest" class="form" [formGroup]="reservation_form" (ngSubmit)="onSubmit()">
+            <p-calendar [minDate]="minimumDate" [disabledDates]="disabledDates" [inputStyle]="{'height':'100%'}"  class="dates" placeholder="Start date" dateFormat="dd.mm.yy" formControlName="startDate"></p-calendar>
+            <p-calendar [minDate]="minimumDate" [disabledDates]="disabledDates" class="dates" placeholder="End date" dateFormat="dd.mm.yy" formControlName="endDate"></p-calendar>
+            <p-inputNumber class="guests-input" [inputStyle]="{'width':'30%'}" [showButtons]="true" inputId="stacked" placeholder="Guests" formControlName="guests"></p-inputNumber>
+
+            <!-- <span class="total-price-description"> Total Price : {{ totalPrice }} €</span> -->
+            <!-- <span class="price-night-description"> Price Per Night : {{ pricePerNight }} €</span> -->
+
+            <button class="p-button-primary search_button" label="Reserve" pButton type="submit"></button>
+          </form>
           <button pButton class="add-favorites">Add to favorites</button>
         </div>
       </div>

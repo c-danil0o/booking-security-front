@@ -45,6 +45,14 @@ export class FilteredAccommodationsComponent {
     this.startDate = this.searchForm.startDate;
     this.endDate = this.searchForm.endDate;
     this.guests = this.searchForm.guests;
+
+    const reservationDetails = { 
+      startDate: this.startDate,
+      endDate: this.endDate,
+      guests: this.guests
+    };
+    this.service.setFilteredAccommodationDetails(reservationDetails);
+    
     this.service.searchAccommodations(this.searchForm).subscribe({
       next:(data: SearchedAccommodation[]) => {
         this.accommodations = data;
@@ -201,6 +209,5 @@ export class FilteredAccommodationsComponent {
 
     }
     this.filteredAccommodations = newAccommodatins;
-  }
-
+  }  
 }

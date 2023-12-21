@@ -26,7 +26,7 @@
       class="more-about-accommodation"
       pButton
       type="button"
-      [routerLink]="['/accommodation-details', accommodation.id]"
+      (click)="onAccommodationDetailsClick()"
     >
       <span class="apartment-details">Details</span>
       <span class="arrow pi pi-arrow-right"></span>

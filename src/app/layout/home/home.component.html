@@ -10,7 +10,7 @@
       <input for="location" class="location" placeholder="Where to?" [(ngModel)]="place">
       <p-calendar [inputStyle]="{'height':'100%'}"  class="dates" placeholder="Start date"
                   dateFormat="dd.mm.yy" [(ngModel)]="startDate"></p-calendar>
-      <p-calendar class="dates" placeholder="Start date" dateFormat="dd.mm.yy" [(ngModel)]="endDate"></p-calendar>
+      <p-calendar class="dates" placeholder="End date" dateFormat="dd.mm.yy" [(ngModel)]="endDate"></p-calendar>
       <p-inputNumber class="guests-input" [inputStyle]="{'width':'30%'}" [showButtons]="true" inputId="stacked"
                      placeholder="Guests" [(ngModel)]="guests"></p-inputNumber>
       <button class="p-button-primary search_button" label="Search" pButton type="button" (click)="next()"></button>

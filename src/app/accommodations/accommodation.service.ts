@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {Accommodation} from "../model/accommodation-model";
 import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
 import {environment} from "../../env/env";
 import {A} from "@angular/cdk/keycodes";
 import {HostProperty} from "../model/hostproperty-model";
@@ -9,13 +9,14 @@ import {New_accommodation} from "../model/new_accommodation-model";
 import {SearchFormService} from "../shared/search-form.service";
 import {SearchModel} from "../model/search-model";
 import {SearchedAccommodation} from "../model/searched-accommodation-model";
+import { Timeslot } from "../model/timeslot-model";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccommodationService {
-  private accommodationList: Accommodation[] = [];
-
+  private filteredAccommodationDetails = new BehaviorSubject<any>(null); // info when searched (dates and guests)
+  private searchedAccommodationDetails = new BehaviorSubject<any>(null); // info about certain accommodation (totalPrice and pricePerGuest)
 
   constructor(private httpClient: HttpClient) {
   }
@@ -56,7 +57,21 @@ export class AccommodationService {
     return this.httpClient.patch<Accommodation>(environment.apiHost + 'api/accommodations/' + id + '/deny', {});
   }
 
+  setFilteredAccommodationDetails(details: any) {
+    this.filteredAccommodationDetails.next(details);
+  }
 
+  getFilteredAccommodationDetails() {
+    return this.filteredAccommodationDetails.asObservable();
+  }
+
+  setSearchedAccommodationDetails(details: any) {
+    this.searchedAccommodationDetails.next(details);
+  }
+
+  getSearchedAccommodationDetails() {
+    return this.searchedAccommodationDetails.asObservable();
+  }
 
   // ngOnInit() {
   //   this.route.params.subscribe((params)=>{
