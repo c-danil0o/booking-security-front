@@ -10,20 +10,21 @@ import {PhotoService} from "../../shared/photo.service";
 import {Host} from "../../model/host-model";
 import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
 import {Timeslot} from "../../model/timeslot-model";
-import { AuthService } from 'src/app/infrastructure/auth/auth.service';
-import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ReservationService } from 'src/app/reservations/reservation.service';
-import { New_reservation } from 'src/app/model/new_reservation-model';
-import { ReservationStatus } from 'src/app/model/ReservationStatus';
-import { GuestService } from 'src/app/accounts/services/guest.service';
-import { Email } from 'src/app/model/Email';
-import { Guest } from 'src/app/model/guest-model';
+import {AuthService} from 'src/app/infrastructure/auth/auth.service';
+import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
+import {ReservationService} from 'src/app/reservations/reservation.service';
+import {New_reservation} from 'src/app/model/new_reservation-model';
+import {ReservationStatus} from 'src/app/model/ReservationStatus';
+import {GuestService} from 'src/app/accounts/services/guest.service';
+import {Email} from 'src/app/model/Email';
+import {Guest} from 'src/app/model/guest-model';
 
 
-interface Image{
+interface Image {
   url: SafeUrl;
   thumbnail: string;
 }
+
 const emptyHost: Host = {
   firstName: "",
   lastName: "",
@@ -39,8 +40,7 @@ const emptyHost: Host = {
   id: undefined,
   email: "",
   isBlocked: false,
-  profilePictureUrl: "",
-  password: ""
+  profilePictureUrl: ""
 };
 const emptyAccommodation: Accommodation = {
   id: 0,
@@ -62,12 +62,12 @@ const emptyAccommodation: Accommodation = {
   accommodationType: "",
   status: 0
 }
+
 @Component({
   selector: 'app-accommodation-details',
   templateUrl: './accommodation-details.component.html',
   styleUrls: ['./accommodation-details.component.css']
 })
-
 
 
 export class AccommodationDetailsComponent implements OnInit {
@@ -76,7 +76,7 @@ export class AccommodationDetailsComponent implements OnInit {
   hostName: string
   images: Image[] = [];
   imagesAreLoaded: boolean = false;
-   responsiveOptions: any[] = [
+  responsiveOptions: any[] = [
     {
       breakpoint: '1024px',
       numVisible: 5
@@ -100,7 +100,8 @@ export class AccommodationDetailsComponent implements OnInit {
   disabledDates: Date[] = [];
   activeTimeslots: Timeslot[] = [];
 
-  constructor(private sanitizer: DomSanitizer, private route: ActivatedRoute, private accommodationService: AccommodationService, private reviewService: ReviewService, private photoService: PhotoService, private authService: AuthService, private reservationService: ReservationService, private guestService: GuestService, private router: Router) {}
+  constructor(private sanitizer: DomSanitizer, private route: ActivatedRoute, private accommodationService: AccommodationService, private reviewService: ReviewService, private photoService: PhotoService, private authService: AuthService, private reservationService: ReservationService, private guestService: GuestService, private router: Router) {
+  }
 
   ngOnInit() {
     console.log(this.accommodation.maxGuests + " " + this.accommodation.minGuests)
@@ -117,7 +118,7 @@ export class AccommodationDetailsComponent implements OnInit {
           this.accommodation = data
           console.log(JSON.stringify(this.accommodation));
           this.accommodationLoaded = true;
-          
+
           this.activeTimeslots = this.accommodation.availability;
 
           this.reservation_form.get('guests')?.setValidators([
@@ -127,22 +128,22 @@ export class AccommodationDetailsComponent implements OnInit {
           ]);
           this.reservation_form.get('guests')?.updateValueAndValidity();
 
-          for (let i =0; i<this.accommodation.photos.length; i++){
+          for (let i = 0; i < this.accommodation.photos.length; i++) {
             this.photoService.getImage(this.accommodation.photos[i]).subscribe({
               next: value => {
                 let objectURL = URL.createObjectURL(value);
-                this.images.push({url: this.sanitizer.bypassSecurityTrustUrl(objectURL), thumbnail:""});
-                if (this.images.length === this.accommodation.photos.length){
+                this.images.push({url: this.sanitizer.bypassSecurityTrustUrl(objectURL), thumbnail: ""});
+                if (this.images.length === this.accommodation.photos.length) {
                   this.imagesAreLoaded = true
                 }
               }
             })
           }
-          
-          if(this.isGuest) {
+
+          if (this.isGuest) {
             // info about searched dates and guest number
             this.accommodationService.getSearchedAccommodationDetails().subscribe((searchDetails) => {
-              if(searchDetails) {
+              if (searchDetails) {
                 this.totalPrice = searchDetails.totalPrice;
                 this.pricePerNight = searchDetails.pricePerNight;
               }
@@ -150,7 +151,7 @@ export class AccommodationDetailsComponent implements OnInit {
 
             // info about prices
             this.accommodationService.getFilteredAccommodationDetails().subscribe((filterDetails) => {
-              if(filterDetails) {
+              if (filterDetails) {
                 console.log(JSON.stringify(filterDetails));
                 this.reservation_form.patchValue({
                   startDate: filterDetails.startDate,
@@ -161,8 +162,8 @@ export class AccommodationDetailsComponent implements OnInit {
             })
           }
 
-          
-          this.hostName = this.accommodation.host.firstName +" "+  this.accommodation.host.lastName;
+
+          this.hostName = this.accommodation.host.firstName + " " + this.accommodation.host.lastName;
           this.reviewService.findByAccommodationId(this.accommodation.id).subscribe({
             next: (data: Review[]) => {
               this.accommodation.reviews = data
@@ -191,71 +192,61 @@ export class AccommodationDetailsComponent implements OnInit {
   validateDateRange(control: AbstractControl): { [key: string]: boolean } | null {
     const startDate = control.get('startDate')?.value;
     const endDate = control.get('endDate')?.value;
-  
+
     if (startDate && endDate) {
       const startDateObj = new Date(startDate);
       const endDateObj = new Date(endDate);
-  
-      const currentDate = new Date(); 
-  
+
+      const currentDate = new Date();
+
       // one in past
       if (startDateObj <= currentDate || endDateObj <= currentDate) {
-        return { 'invalidDateRange': true, 'pastDate': true };
+        return {'invalidDateRange': true, 'pastDate': true};
       }
-  
+
       // end after start
       if (endDateObj <= startDateObj) {
-        return { 'invalidDateRange': true, 'endDateBeforeStartDate': true };
+        return {'invalidDateRange': true, 'endDateBeforeStartDate': true};
       }
     }
     return null;
   }
-  
+
 
   onSubmit(): void {
     if (this.reservation_form.valid) {
       const userEmail = this.authService.getEmail();
-  
+
       if (userEmail !== null) {
-        const emailObj: Email = { email: userEmail };
-  
-        this.guestService.findByEmail(emailObj).subscribe(
-          (user: Guest) => {
-            console.log("usao 1");
-            if (this.reservation_form.valid) {
-              const { startDate, endDate, guests } = this.reservation_form.value;  
-              
-              let days = Math.floor((endDate - startDate) / (1000 * 60 * 60 * 24));
-              const newReservation: New_reservation = {
-                startDate,
-                days: days,
-                price: this.pricePerNight * days,
-                reservationStatus: this.accommodation.autoApproval ? ReservationStatus.Approved : ReservationStatus.Pending,
-                accommodationId: this.accommodation.id,
-                guest: user,
-                numberOfGuests: guests
-              };
-  
-              console.log(this.pricePerNight +  " " + this.totalPrice);
-              // creating reservation
-              this.reservationService.createReservation(newReservation).subscribe(
-                (reservationData: any) => {
-                  console.log("usao 2");
-                  alert('Reservation created successfully')
-                  this.router.navigate([''])
-                },
-                (error: any) => {
-                  console.error('Error creating reservation:', error);
-                  alert('An error occurred')
-                }
-              ); 
-            }
+        const emailObj: Email = {email: userEmail};
+        const {startDate, endDate, guests} = this.reservation_form.value;
+
+        let days = Math.floor((endDate - startDate) / (1000 * 60 * 60 * 24));
+        const newReservation: New_reservation = {
+          startDate,
+          days: days,
+          price: this.pricePerNight * days,
+          reservationStatus: this.accommodation.autoApproval ? ReservationStatus.Approved : ReservationStatus.Pending,
+          accommodationId: this.accommodation.id,
+          guestEmail: emailObj.email,
+          hostEmail: this.accommodation.host.email,
+          numberOfGuests: guests
+        };
+
+        console.log(this.pricePerNight + " " + this.totalPrice);
+        // creating reservation
+        this.reservationService.createReservation(newReservation).subscribe(
+          (reservationData: any) => {
+            console.log("usao 2");
+            alert('Reservation created successfully')
+            this.router.navigate([''])
           },
-          (error) => {
-            console.error('Error fetching data:', error);
+          (error: any) => {
+            console.error('Error creating reservation:', error);
             alert('An error occurred')
           }
         );
+
       }
     } else {
       console.error('Form is invalid. Please check your inputs.');
@@ -268,4 +259,3 @@ export class AccommodationDetailsComponent implements OnInit {
     }
   }
 }
-  
