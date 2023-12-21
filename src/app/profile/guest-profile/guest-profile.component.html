@@ -1,0 +1,41 @@
+<div class="profile-wrapper">
+  <div class="header-card">
+    <div class="cover-image"></div>
+    <div class="profile-info" *ngIf="user">
+      <div class="profile-photo"></div>
+      <div class="about">
+        <div class="name_role"><span class="name">{{this.user.firstName + ' ' + this.user.lastName}}</span><span
+          class="role">GUEST</span></div>
+
+        <span class="city">{{user.address.city}}</span>
+      </div>
+      <div class="buttons">
+        <button pButton type="button" label="Log Out" (click)="logOut()" class="p-button-text logout"
+                icon="pi pi-sign-out"></button>
+        <button pButton type="button" label="Edit profile" [routerLink]="['/edit-account', user.id]"
+                class="p-button-primary edit-profile"></button>
+
+      </div>
+    </div>
+  </div>
+  <div class="central-panel">
+    <div class="option-buttons" *ngIf="user">
+      <button pButton type="button" label="Notifications" class="p-button-primary option-button"></button>
+      <button pButton type="button" [routerLink]="['/guest-reservations', user.id]" routerLinkActive="active" label="Reservations" class="p-button-primary option-button"></button>
+      <button pButton type="button" label="Reports" class="p-button-primary option-button"></button>
+
+    </div>
+    <span class="reviews-text">Favorite accommodations:</span>
+    <div class="accommodations" *ngIf="favoritesLoaded">
+      <div class="comment-text  " *ngIf="user.favorites.length === 0">No favorites</div>
+      <div class="accommodation-outside-container" *ngFor="let accommodation of user.favorites">
+        <app-accommodation-card  (clicked)="onAccommodationClicked($event)"
+                                [accommodation]="accommodation"></app-accommodation-card>
+<!--        </div>-->
+      </div>
+      <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="totalItems"
+                   [rowsPerPageOptions]="[3, 5, 10, 20, 30]"></p-paginator>
+    </div>
+
+  </div>
+</div>

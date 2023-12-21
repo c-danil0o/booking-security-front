@@ -1,0 +1,17 @@
+.wrapper{
+  width: 70%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  color: #575656;
+}
+
+.registration_confirm{
+  background-image: url("src/assets/login_backgroung.svg");
+  height: 100vh;
+  background-repeat: no-repeat;
+  background-size: cover;
+}

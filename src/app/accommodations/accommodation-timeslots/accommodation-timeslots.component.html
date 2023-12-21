@@ -1,0 +1,60 @@
+<div class="wrapper">
+  <div class="header-card">
+    <span class="pi pi-calendar icon"></span>
+    <span class="title">Availabilities:</span>
+  </div>
+  <div class="central-panel">
+    <div class="availability">
+      <span class="av">Add new availability slot:</span>
+      <div class="calendars">
+        <p-calendar placeholder="Start date" dateFormat="dd.mm.yy" [(ngModel)]="startDate"></p-calendar>
+        <p-calendar placeholder="End date" dateFormat="dd.mm.yy" [(ngModel)]="endDate"></p-calendar>
+        <p-inputNumber [inputStyle]="{'width':'100%'}" inputId="stacked" placeholder="Price" mode="currency"
+                       currency="EUR" [min]="1" [(ngModel)]="price" ></p-inputNumber>
+        <button pButton type="button" label="Add" class="p-button-secondary" (click)="add()"></button>
+      </div>
+      <div class="table">
+        <p-table [value]="timeslots" [tableStyle]="{'min-width': '50rem'}">
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th>Start date</th>
+              <th>End date</th>
+              <th>Price</th>
+              <th>Remove</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-timeslot let-columns="columns">
+            <tr>
+              <td>{{timeslot.startDate | date:'dd.MM.yyyy'}}</td>
+              <td>{{timeslot.endDate | date:'dd.MM.yyyy'}}</td>
+              <td>{{timeslot.price | currency:'EUR'}}</td>
+              <td>
+                <button pButton type="button" label="Remove" class="p-button-secondary" (click)="remove(timeslot.id)"></button>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+      <div class="other_forms">
+        <div class="switch">
+          <span class="switch_label">Price per guest:</span>
+          <p-inputSwitch [(ngModel)]="isPricePerGuest"></p-inputSwitch>
+        </div>
+        <div class="switch">
+          <span class="switch_label">Auto approval:</span>
+          <p-inputSwitch [(ngModel)]="isAutoApproval"></p-inputSwitch>
+        </div>
+        <p-inputNumber [inputStyle]="{'width':'100%'}" inputId="stacked" placeholder="Cancellation deadline (days)"
+                       currency="EUR" [min]="1"  [(ngModel)]="cancellationDeadline" ></p-inputNumber>
+        <button pButton *ngIf="!updating" type="button" label="Done" class="p-button-primary" (click)="send()"></button>
+        <button pButton *ngIf="updating" type="button" label="Update" class="p-button-primary" (click)="update()"></button>
+
+
+
+      </div>
+    </div>
+
+
+  </div>
+
+</div>

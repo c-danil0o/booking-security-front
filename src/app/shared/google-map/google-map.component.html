@@ -1,0 +1,17 @@
+<div *ngIf="addingAddress" class="p-input-icon-right search">
+  <i class="pi pi-search"></i>
+  <input  #search pInputText type="text" [(ngModel)]="search_text"  class="search" placeholder="Search address:" />
+</div>
+<div class="gmap" >
+
+  <google-map width="100%" height="100%" [options]="options" >
+    <map-marker
+      #marker="mapMarker"
+      [position]="center"
+      [options]="markerOptions"
+      (mapClick)="openInfoWindow(marker)">
+    </map-marker>
+    <map-info-window>{{ markerInfoContent }}</map-info-window>
+  </google-map>
+</div>
+

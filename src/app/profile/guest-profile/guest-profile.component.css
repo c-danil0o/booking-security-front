@@ -1,0 +1,347 @@
+.profile-wrapper{
+  width: 70%;
+  height: 100vh;
+  margin: 0 auto;
+}
+.header-card{
+  margin: 20px auto;
+  width: 100%;
+  height: 300px;
+  border-radius: 15px;
+  background-color: white;
+  box-shadow: 0px 17.54878px 35.09756px 0px rgba(171, 190, 209, 0.3);
+}
+
+.cover-image{
+  background-image:  url("src/assets/todd-kent-kW1P8R-UoWI-unsplash.jpg");
+  background-size: cover;
+  background-position: bottom;
+  background-repeat: no-repeat;
+  width: 100%;
+  border-radius: 15px 15px 0 0;
+  height: 60%;
+  position: relative;
+}
+.profile-photo{
+  background-image: url("src/assets/profile-photo.jpg");
+  background-size: contain;
+  border-radius: 100%;
+  border-width: 1px;
+  border-color: #575656;
+  border-style: solid;
+  width: 150px;
+  height: 150px;
+  position: absolute;
+  z-index: 1;
+  top: -75px;
+  left: 30px;
+}
+.profile-info {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 40%;
+  border-radius: 0 0 15px 15px;
+  align-items: center;
+  justify-content: space-between;
+}
+.about{
+  margin-left: 200px;
+}
+.name{
+  font-size: 23px;
+}
+.role{
+
+  margin-left: 20px;
+  padding: 3px;
+  border-radius: 6px;
+  background-color: #f5bd4f;
+  font-size: 14px;
+  color: white;
+  font-weight: bolder;
+}
+.name_role{
+  display: flex;
+  align-items: center;
+}
+.city{
+  display: block;
+  font-weight: lighter;
+  color: #909090;
+}
+
+.buttons{
+  height: fit-content;
+  display: flex;
+  gap: 10px;
+  margin-right: 30px;
+}
+.logout{
+  color: #5f5959;
+}
+.edit-profile{
+  color: white;
+}
+
+.central-panel{
+  margin: 20px auto;
+  width: 100%;
+  border-radius: 15px;
+  background-color: white;
+  box-shadow: 0px 17.54878px 35.09756px 0px rgba(171, 190, 209, 0.3);
+}
+.option-buttons{
+  height: 100px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.option-button{
+  background-color: #f5bd4f;
+}
+.reviews-text{
+  margin-left: 20px;
+}
+.reviews{
+  min-height: 400px;
+  justify-content: start;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+}
+.review{
+  margin: 20px;
+  width: 300px;
+  height: 500px;
+  border-radius: 15px;
+  background-color: #f5f5f5;
+  box-shadow: 0px 17.54878px 35.09756px 0px rgba(130, 135, 142, 0.3);
+  display: flex;
+  flex-direction: column;
+}
+.header-review{
+  margin-top: 30px;
+  margin-right: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.comment-author{
+  font-size: 18px;
+  font-weight: bold;
+}
+.reviewer-photo{
+  border-radius: 10px;
+}
+.comment-text{
+  margin: 40px 20px 20px 20px;
+  color: #5f5959;
+}
+.spacer{
+  flex: 1;
+}
+.comment-footer{
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.accommodations {
+  border-radius: 15px;
+  background: linear-gradient(180deg, #fff 0%, rgba(255, 255, 255, 0) 100%);
+
+  /*box-shadow: 0px 17.54878px 35.09756px 0px rgba(171, 190, 209, 0.3);*/
+  display: flex;
+  flex-direction: column;
+  line-height: normal;
+  width: 62%;
+  margin-left: 80px;
+  margin-top: 20px;
+}
+@media (max-width: 991px) {
+  .accommodations {
+    width: 100%;
+  }
+}
+.accommodation-outside-container {
+  border-radius: 10.968px;
+  flex-grow: 1;
+  width: 100%;
+  margin: 16px auto 0;
+  padding: 24px 32px;
+  margin-bottom: 2%;
+  background: linear-gradient(180deg, #fff 0%, rgba(255, 255, 255, 0) 100%);
+  box-shadow: 0px 17.54878px 35.09756px 0px rgba(171, 190, 209, 0.3);
+}
+@media (max-width: 991px) {
+  .accommodation-outside-container {
+    max-width: 100%;
+    margin-top: 40px;
+    padding: 0 20px;
+  }
+}
+.accommodation-inner-container {
+  gap: 20px;
+  display: flex;
+}
+@media (max-width: 991px) {
+  .accommodation-inner-container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0px;
+  }
+}
+.accommodation-info {
+  display: flex;
+  flex-direction: column;
+  line-height: normal;
+  width: 76%;
+  margin-left: 10px;
+}
+@media (max-width: 991px) {
+  .accommodation-info {
+    width: 100%;
+  }
+}
+.apartman-prvi {
+  z-index: 1;
+  display: flex;
+  margin-top: 10px;
+  flex-direction: column;
+}
+@media (max-width: 991px) {
+  .apartman-prvi {
+    max-width: 100%;
+    margin-top: 34px;
+  }
+}
+.accommodation-name {
+  color: var(--Black, #000);
+  font: 700 31px/39px Poppins, sans-serif;
+}
+@media (max-width: 991px) {
+  .accommodation-name {
+    max-width: 100%;
+  }
+}
+.accommodation-description {
+  color: var(--Black, #000);
+  margin-top: 9px;
+  font: 400 18px/26px Roboto, sans-serif;
+}
+@media (max-width: 991px) {
+  .accommodation-description {
+    max-width: 100%;
+  }
+}
+.accommodation-data {
+  align-self: flex-start;
+  display: flex;
+  width: 91px;
+  max-width: 100%;
+  flex-direction: column;
+  margin: 20px 0 0 10px;
+}
+.accommodation-detail {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 5%;
+}
+.accommodation-data {
+  color: #3a3d40;
+  align-self: flex-start;
+  flex-grow: 1;
+  font: 400 14px/26px Poppins, sans-serif;
+  margin-top: -1%;
+}
+@media (max-width: 991px) {
+  .accommodation-data {
+    white-space: initial;
+  }
+}
+.apartment-guest-limit {
+  display: flex;
+  margin-top: 11px;
+  justify-content: space-between;
+  gap: 13px;
+}
+.no-guests-icon {
+  aspect-ratio: 1.07;
+  object-fit: contain;
+  object-position: center;
+  width: 16px;
+  overflow: hidden;
+  max-width: 100%;
+  margin-left: 3%;
+}
+.max-guests {
+  color: #353739;
+  align-self: flex-start;
+  flex-grow: 1;
+  white-space: nowrap;
+  font: 400 16px/24px Poppins, sans-serif;
+}
+@media (max-width: 991px) {
+  .max-guests {
+    white-space: initial;
+  }
+}
+.apartment-cancelation {
+  align-self: flex-start;
+  display: flex;
+  margin-top: 9px;
+  width: 100%;
+  gap: 9px;
+}
+.more-about-accommodation {
+  justify-content: center;
+  border-radius: 5.484px;
+  border: 2.194px solid #f5c451;
+  background-color: #f5bd4f;
+  align-self: flex-start;
+  display: flex;
+  margin-top: 3em;
+  width: 25em;
+  max-width: 100%;
+  padding: 9px 22px;
+}
+@media (max-width: 991px) {
+  .more-about-accommodation {
+    margin-top: 40px;
+    padding: 0 20px;
+  }
+}
+.apartment-details {
+  color: #fff;
+  text-align: center;
+  flex-grow: 1;
+  white-space: nowrap;
+  font: 400 18px/26px Inter, sans-serif;
+}
+@media (max-width: 991px) {
+  .apartment-details {
+    white-space: initial;
+  }
+}
+.accommodation-picture {
+  object-fit: fill;
+  width: 35em;
+  height: 25em;
+  overflow: hidden;
+  border-radius: 1%;
+}
+@media (max-width: 791px) {
+  .accommodation-picture {
+    margin: 14px 0;
+    width:95%;
+  }
+}
+.accommodation-single{
+  background-color: #f6ebd6;
+}
+
+
