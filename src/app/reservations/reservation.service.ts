@@ -44,6 +44,7 @@ export class ReservationService {
   }
 
   createReservation(reservation: New_reservation):Observable<New_reservation>{
+    console.log("ljubi brat");
     return this.httpClient.post<any>(environment.apiHost + 'api/reservations', reservation);
   }
 }

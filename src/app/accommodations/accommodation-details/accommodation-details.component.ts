@@ -96,6 +96,9 @@ export class AccommodationDetailsComponent implements OnInit {
   reservation_form: FormGroup;
   totalPrice: number;
   pricePerNight: number;
+  minimumDate = new Date();
+  disabledDates: Date[] = [];
+  activeTimeslots: Timeslot[] = [];
 
   constructor(private sanitizer: DomSanitizer, private route: ActivatedRoute, private accommodationService: AccommodationService, private reviewService: ReviewService, private photoService: PhotoService, private authService: AuthService, private reservationService: ReservationService, private guestService: GuestService, private router: Router) {}
 
@@ -112,8 +115,11 @@ export class AccommodationDetailsComponent implements OnInit {
       this.accommodationService.findById(id).subscribe({
         next: (data: Accommodation) => {
           this.accommodation = data
+          console.log(JSON.stringify(this.accommodation));
           this.accommodationLoaded = true;
           
+          this.activeTimeslots = this.accommodation.availability;
+
           this.reservation_form.get('guests')?.setValidators([
             Validators.required,
             Validators.min(this.accommodation.minGuests),
@@ -215,21 +221,26 @@ export class AccommodationDetailsComponent implements OnInit {
   
         this.guestService.findByEmail(emailObj).subscribe(
           (user: Guest) => {
+            console.log("usao 1");
             if (this.reservation_form.valid) {
               const { startDate, endDate, guests } = this.reservation_form.value;  
+              
+              let days = Math.floor((endDate - startDate) / (1000 * 60 * 60 * 24));
               const newReservation: New_reservation = {
                 startDate,
-                days: Math.floor((endDate - startDate) / (1000 * 60 * 60 * 24)),
-                price: this.totalPrice,
+                days: days,
+                price: this.pricePerNight * days,
                 reservationStatus: this.accommodation.autoApproval ? ReservationStatus.Approved : ReservationStatus.Pending,
                 accommodationId: this.accommodation.id,
                 guest: user,
                 numberOfGuests: guests
               };
   
+              console.log(this.pricePerNight +  " " + this.totalPrice);
               // creating reservation
               this.reservationService.createReservation(newReservation).subscribe(
                 (reservationData: any) => {
+                  console.log("usao 2");
                   alert('Reservation created successfully')
                   this.router.navigate([''])
                 },
