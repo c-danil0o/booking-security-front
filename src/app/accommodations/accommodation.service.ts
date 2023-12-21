@@ -9,6 +9,7 @@ import {New_accommodation} from "../model/new_accommodation-model";
 import {SearchFormService} from "../shared/search-form.service";
 import {SearchModel} from "../model/search-model";
 import {SearchedAccommodation} from "../model/searched-accommodation-model";
+import { Timeslot } from "../model/timeslot-model";
 
 @Injectable({
   providedIn: 'root'
@@ -71,7 +72,6 @@ export class AccommodationService {
   getSearchedAccommodationDetails() {
     return this.searchedAccommodationDetails.asObservable();
   }
-
 
   // ngOnInit() {
   //   this.route.params.subscribe((params)=>{

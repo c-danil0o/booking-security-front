@@ -398,8 +398,7 @@
   box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.1);
 }
 
-.reservationSection {
-  /* height: 20em; */
+.form {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(3, auto);
