@@ -10,6 +10,7 @@ import {PhotoService} from "../../shared/photo.service";
 import {Host} from "../../model/host-model";
 import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
 import {Timeslot} from "../../model/timeslot-model";
+import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 
 
 interface Image{
@@ -63,6 +64,7 @@ const emptyAccommodation: Accommodation = {
 
 
 export class AccommodationDetailsComponent implements OnInit {
+  isGuest: boolean = this.authService.getRole() == "ROLE_Guest";
   accommodation: Accommodation = emptyAccommodation;
   hostName: string
   images: Image[] = [];
@@ -84,7 +86,14 @@ export class AccommodationDetailsComponent implements OnInit {
   accommodationLoaded: boolean = false;
   reviewsLoaded: boolean = false;
 
-  constructor(private sanitizer: DomSanitizer, private route: ActivatedRoute, private accommodationService: AccommodationService, private reviewService: ReviewService, private photoService: PhotoService) {
+  place: string;
+  startDate: Date;
+  endDate: Date;
+  guests: number;
+  totalPrice: number | undefined;
+  pricePerNight: number | undefined;
+
+  constructor(private sanitizer: DomSanitizer, private route: ActivatedRoute, private accommodationService: AccommodationService, private reviewService: ReviewService, private photoService: PhotoService, private authService: AuthService) {
   }
 
   ngOnInit() {
@@ -105,7 +114,31 @@ export class AccommodationDetailsComponent implements OnInit {
               }
             })
           }
+          
 
+          if(this.isGuest) {
+            // info about searched dates and guest number
+            this.accommodationService.getSearchedAccommodationDetails().subscribe((details) => {
+              console.log(JSON.stringify(details));
+              if(details) {
+                console.log("2 exists")
+                this.totalPrice = details.totalPrice;
+                this.pricePerNight = details.pricePerNight;
+              }
+            })
+
+            // info about prices
+            this.accommodationService.getFilteredAccommodationDetails().subscribe((details) => {
+              console.log(JSON.stringify(details));
+              if(details) {
+                this.startDate = details.startDate;
+                this.endDate = details.endDate;
+                this.guests = details.guests;
+              }
+            })
+          }
+
+          
           this.hostName = this.accommodation.host.firstName +" "+  this.accommodation.host.lastName;
           this.reviewService.findByAccommodationId(this.accommodation.id).subscribe({
             next: (data: Review[]) => {
@@ -132,4 +165,37 @@ export class AccommodationDetailsComponent implements OnInit {
     //return this.accommodation.photos[0]
   }
 
+
+  updatePrices() {
+    // const today: number = Date.now();
+    // if (this.startDate != null && this.endDate != null) {
+    //   if (today.valueOf() > this.startDate.valueOf() || today.valueOf() > this.endDate.valueOf() || this.startDate.valueOf() >= this.endDate.valueOf()) {
+    //     this.pricePerNight = undefined;
+    //     this.totalPrice = undefined;
+    //   } else {
+    //     this.startDate.setHours(12,0);
+    //     this.endDate.setHours(12,0);
+    //     this.accommodation.pricePerGuest
+    //     // this.searchForm ={
+    //     //   place:this.place,
+    //     //   startDate:this.startDate,
+    //     //   endDate:this.endDate,
+    //     //   guests:this.guests
+    //     // };
+    //     // this.service.searchAccommodations(this.searchForm).subscribe({
+    //     //   next:(data: SearchedAccommodation[]) => {
+    //     //     this.accommodations = data;
+    //     //     this.filteredAccommodations=data;
+    //     //     this.totalItems = data.length
+    //     //     this.first = (this.currentPage -1 ) * this.rows
+    //     //   },
+    //     //   error: (_) => {console.log("error!")}
+    //     // })
+    //   }
+    // }
+
+
+    // const totalNights = this.calculateTotalNights();
+
+  }
 }

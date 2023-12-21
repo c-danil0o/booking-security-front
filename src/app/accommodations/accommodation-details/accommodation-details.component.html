@@ -51,6 +51,17 @@
             </svg>
             {{  hostName }}
           </div>
+          <div *ngIf="isGuest" class="reservationSection">
+            <p-calendar [inputStyle]="{'height':'100%'}"  class="dates" placeholder="Start date" dateFormat="dd.mm.yy" [(ngModel)]="startDate" (ngModelChange)="updatePrices()"></p-calendar>
+            <p-calendar class="dates" placeholder="End date" dateFormat="dd.mm.yy" [(ngModel)]="endDate" (ngModelChange)="updatePrices()"></p-calendar>
+            <p-inputNumber class="guests-input" [inputStyle]="{'width':'30%'}" [showButtons]="true" inputId="stacked" placeholder="Guests" [(ngModel)]="guests" (ngModelChange)="updatePrices()"></p-inputNumber>
+
+            <span class="total-price-description"> Total Price : {{ totalPrice }} €</span>
+            <span class="price-night-description"> Price Per Night : {{ pricePerNight }} €</span>
+
+            <button class="p-button-primary search_button" label="Reserve" pButton type="button"></button>
+             <!-- (click)="next()"></button> -->
+          </div>
           <button pButton class="add-favorites">Add to favorites</button>
         </div>
       </div>
