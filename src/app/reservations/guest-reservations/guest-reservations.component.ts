@@ -39,14 +39,10 @@ export class GuestReservationsComponent implements OnInit{
       this.guestId = guestId
       this.reservationService.getByGuestId(guestId).subscribe({
         next: (data: Reservation[]) =>{
-         /* data.forEach((reservation)=>{
-            // @ts-ignore
-            let numbers: number[] = reservation.startDate as number[];
-            reservation.startDate=new Date(numbers[0],numbers[1],numbers[2], numbers[3], numbers[4]);
-            // @ts-ignore
-            numbers = reservation.endDate as number[];
-            reservation.endDate=new Date(numbers[0],numbers[1],numbers[2], numbers[3], numbers[4]);
-          })*/
+          data.forEach((reservation)=>{
+            reservation.startDate = new Date(reservation.startDate)
+            reservation.endDate = new Date(reservation.endDate)
+          })
           this.reservations=data;
           this.filteredReservations=data;
           this.loading=false;
