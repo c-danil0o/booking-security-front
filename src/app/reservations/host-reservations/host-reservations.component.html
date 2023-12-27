@@ -38,8 +38,8 @@
           <tr *ngIf="filteredReservations.includes(reservation)">
             <td>{{reservation.accommodationName}}</td>
             <td>{{reservation.guestEmail}}</td>
-            <td>{{reservation.startDate | date : 'dd-MM-yyyy'}}</td>
-            <td>{{reservation.endDate | date : 'dd-MM-yyyy'}}</td>
+            <td>{{reservation.startDate | date : 'dd.MM.yyyy'}}</td>
+            <td>{{reservation.endDate | date : 'dd.MM.yyyy'}}</td>
             <td>{{reservation.price}}</td>
             <td>{{reservation.numberOfGuests}}</td>
             <td>{{reservation.reservationStatus}}</td>

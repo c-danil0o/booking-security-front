@@ -52,22 +52,10 @@ export class AccommodationTimeslotsComponent implements OnInit {
                     next: (data: Accommodation) => {
                         this.accommodation = data;
                         for (let i = 0; i < this.accommodation.availability.length; i++) {
-                            // @ts-ignore
-                            let numbers: number[] = this.accommodation.availability[i].startDate as number[];
-                            let startDate: Date = new Date(numbers[0], numbers[1]-1, numbers[2], numbers[3], numbers[4]);
-                            // @ts-ignore
-                            numbers = this.accommodation.availability[i].endDate as number[];
-                            let endDate: Date = new Date(numbers[0], numbers[1]-1, numbers[2], numbers[3], numbers[4]);
-                            let timeslot: Timeslot = {
-                                startDate: startDate,
-                                endDate: endDate,
-                                isOccupied: this.accommodation.availability[i].isOccupied,
-                                price: this.accommodation.availability[i].price,
-                            }
                             if (!this.accommodation.availability[i].isOccupied) {
-                                this.timeslots.push(timeslot);
-                            } else if (timeslot.endDate.valueOf() >= Date.now().valueOf()) {
-                                this.occupied_timeslots.push(timeslot)
+                                this.timeslots.push(this.accommodation.availability[i]);
+                            } else if (this.accommodation.availability[i].endDate.valueOf() >= Date.now().valueOf()) {
+                                this.occupied_timeslots.push(this.accommodation.availability[i])
                             }
                         }
                         this.cancellationDeadline = this.accommodation.cancellationDeadline;

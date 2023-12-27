@@ -37,13 +37,13 @@
                     <tr *ngIf="filteredReservations.includes(reservation)">
                         <td>{{reservation.accommodationName}}</td>
                         <td>{{reservation.hostEmail}}</td>
-                        <td>{{reservation.startDate | date : 'dd-MM-yyyy'}}</td>
-                        <td>{{reservation.endDate | date : 'dd-MM-yyyy'}}</td>
+                        <td>{{reservation.startDate | date : 'dd.MM.yyyy'}}</td>
+                        <td>{{reservation.endDate | date : 'dd.MM.yyyy'}}</td>
                         <td>{{reservation.price}}</td>
                         <td>{{reservation.reservationStatus}}</td>
 
                         <td><div class="buttons">
-                            <button pButton type="button" label="Cancel" class="p-button-primary option-button" (click)="cancelReservation(reservation.id)" [disabled]="reservation.reservationStatus.toString() != 'Pending'"></button>
+                            <button pButton type="button" label="Cancel" class="p-button-primary option-button" (click)="cancelReservation(reservation.id)" [disabled]="reservation.reservationStatus.toString() != 'Pending' && reservation.reservationStatus.toString() != 'Approved'"></button>
                         </div></td>
                     </tr>
                 </ng-template>

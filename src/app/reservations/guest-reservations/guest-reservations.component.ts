@@ -39,14 +39,14 @@ export class GuestReservationsComponent implements OnInit{
       this.guestId = guestId
       this.reservationService.getByGuestId(guestId).subscribe({
         next: (data: Reservation[]) =>{
-          data.forEach((reservation)=>{
+         /* data.forEach((reservation)=>{
             // @ts-ignore
             let numbers: number[] = reservation.startDate as number[];
             reservation.startDate=new Date(numbers[0],numbers[1],numbers[2], numbers[3], numbers[4]);
             // @ts-ignore
             numbers = reservation.endDate as number[];
             reservation.endDate=new Date(numbers[0],numbers[1],numbers[2], numbers[3], numbers[4]);
-          })
+          })*/
           this.reservations=data;
           this.filteredReservations=data;
           this.loading=false;
@@ -67,7 +67,7 @@ export class GuestReservationsComponent implements OnInit{
           },
           (error) => {
             console.error('Failed to cancel reservation:', error);
-            alert('Failed to cancel reservation');
+           // alert('Failed to cancel reservation');
           });
     }
 
@@ -77,14 +77,14 @@ export class GuestReservationsComponent implements OnInit{
     this.loading = true; // Optional: Set loading to true while fetching new data
     this.reservationService.getByGuestId(this.guestId).subscribe({
       next: (data: Reservation[]) => {
-        data.forEach((reservation)=>{
+        /*data.forEach((reservation)=>{
           // @ts-ignore
           let numbers: number[] = reservation.startDate as number[];
           reservation.startDate=new Date(numbers[0],numbers[1],numbers[2], numbers[3], numbers[4]);
           // @ts-ignore
           numbers = reservation.endDate as number[];
           reservation.endDate=new Date(numbers[0],numbers[1],numbers[2], numbers[3], numbers[4]);
-        })
+        })*/
         this.reservations = data;
         this.filteredReservations=data;
         this.loading = false; // Optional: Set loading to false after data is fetched
