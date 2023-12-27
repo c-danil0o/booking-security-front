@@ -7,7 +7,7 @@ export class New_reservation {
     price: number;
     reservationStatus: ReservationStatus;
     accommodationId: number;
-    guestEmail: string;
-    hostEmail: string;
+    guestId: number;
+    hostId: number;
     numberOfGuests: number;
 }

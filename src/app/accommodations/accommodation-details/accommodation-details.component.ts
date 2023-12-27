@@ -215,10 +215,9 @@ export class AccommodationDetailsComponent implements OnInit {
 
   onSubmit(): void {
     if (this.reservation_form.valid) {
-      const userEmail = this.authService.getEmail();
+      const userId = this.authService.getId();
 
-      if (userEmail !== null) {
-        const emailObj: Email = {email: userEmail};
+      if (userId !== null) {
         const {startDate, endDate, guests} = this.reservation_form.value;
 
         let days = Math.floor((endDate - startDate) / (1000 * 60 * 60 * 24));
@@ -228,8 +227,8 @@ export class AccommodationDetailsComponent implements OnInit {
           price: this.pricePerNight * days,
           reservationStatus: this.accommodation.autoApproval ? ReservationStatus.Approved : ReservationStatus.Pending,
           accommodationId: this.accommodation.id,
-          guestEmail: emailObj.email,
-          hostEmail: this.accommodation.host.email,
+          guestId: userId,
+          hostId: this.accommodation.host.id || -1,
           numberOfGuests: guests
         };
 
