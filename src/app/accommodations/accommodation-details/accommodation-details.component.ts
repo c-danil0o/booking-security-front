@@ -99,8 +99,6 @@ export class AccommodationDetailsComponent implements OnInit {
   minimumDate = new Date();
   disabledDates: Date[] = [];
   activeTimeslots: Timeslot[] = [];
-  private originalStartDate: Date;
-  private originalEndDate: Date;
 
 
   constructor(private sanitizer: DomSanitizer, private route: ActivatedRoute, private accommodationService: AccommodationService, private reviewService: ReviewService, private photoService: PhotoService, private authService: AuthService, private reservationService: ReservationService, private guestService: GuestService, private router: Router) {
@@ -150,16 +148,11 @@ export class AccommodationDetailsComponent implements OnInit {
                 this.pricePerNight = searchDetails.pricePerNight;
               }
             })
-            aux : Date;
-
 
 
             // info about prices
             this.accommodationService.getFilteredAccommodationDetails().subscribe((filterDetails) => {
               if (filterDetails) {
-                this.originalStartDate = new Date(filterDetails.startDate);
-                this.originalEndDate = new Date(filterDetails.endDate);
-
                 this.reservation_form.patchValue({
                   startDate: filterDetails.startDate,
                   endDate: filterDetails.endDate,
