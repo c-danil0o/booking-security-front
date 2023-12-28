@@ -23,6 +23,7 @@
     "@angular/router": "^16.2.0",
     "@auth0/angular-jwt": "^5.2.0",
     "@googlemaps/js-api-loader": "^1.16.2",
+    "@js-joda/core": "^5.6.1",
     "@types/google-maps": "^3.2.6",
     "fa": "^1.0.1",
     "font-awesome": "^4.7.0",
