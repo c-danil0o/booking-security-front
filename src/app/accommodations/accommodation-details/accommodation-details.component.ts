@@ -230,13 +230,8 @@ export class AccommodationDetailsComponent implements OnInit {
 
       if (userId !== null) {
         let {startDate, endDate, guests} = this.reservation_form.value;
-        // changed data is for some reason is 1 day before entered so this is needed
-        if(!(this.originalStartDate && startDate.getTime() == this.originalStartDate.getTime()))
-          startDate = new Date(startDate.getTime() + (1000 * 60 * 60 * 24));
-
-        if(!(this.originalEndDate && endDate.getTime() == this.originalEndDate.getTime()))
-          endDate = new Date(endDate.getTime() + (1000 * 60 * 60 * 24));
-
+        startDate.setHours(12,0);
+        endDate.setHours(12,0);
 
         let days = Math.floor((endDate - startDate) / (1000 * 60 * 60 * 24));
         console.log(JSON.stringify(startDate));
