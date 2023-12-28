@@ -408,9 +408,6 @@
   background-color: #fbfbfb;
   padding: 32px 57px 32px 33px;
   
-  .guests-input {
-    grid-column: span 2;
-  }
   
   .total-price-description {
     grid-column: span 2;

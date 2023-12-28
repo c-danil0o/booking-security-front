@@ -16,8 +16,9 @@ import {ReservationService} from 'src/app/reservations/reservation.service';
 import {New_reservation} from 'src/app/model/new_reservation-model';
 import {ReservationStatus} from 'src/app/model/ReservationStatus';
 import {GuestService} from 'src/app/accounts/services/guest.service';
-import {Email} from 'src/app/model/Email';
-import {Guest} from 'src/app/model/guest-model';
+import {GetAvailabilityPrice} from 'src/app/model/get-availability-price-model';
+import {GottenAvailabilityPrice} from 'src/app/model/gotten-availability-price-model';
+import { error } from '@angular/compiler-cli/src/transformers/util';
 
 
 interface Image {
@@ -213,49 +214,77 @@ export class AccommodationDetailsComponent implements OnInit {
   }
 
 
-  onSubmit(): void {
-    let {startDate, endDate, guests} = this.reservation_form.value;
-    console.log(JSON.stringify(startDate));
-    console.log(JSON.stringify(endDate));
-    
+  onSubmit(): void { 
+    this.onCheck(); // check if all is good first
+    const userId = this.authService.getId();
+    if (userId !== null) {
+      let {startDate, endDate, guests} = this.reservation_form.value;
+      startDate.setHours(12,0);
+      endDate.setHours(12,0);
+      
+      let days = Math.floor((endDate - startDate) / (1000 * 60 * 60 * 24));
+      console.log(JSON.stringify(startDate));
+      console.log(JSON.stringify(endDate));
+      const newReservation: New_reservation = {
+        startDate,
+        days: days,
+        price: this.pricePerNight * days,
+        reservationStatus: this.accommodation.autoApproval ? ReservationStatus.Approved : ReservationStatus.Pending,
+        accommodationId: this.accommodation.id,
+        guestId: userId,
+        hostId: this.accommodation.host.id || -1,
+        numberOfGuests: guests
+      };
+      console.log(this.pricePerNight + " " + this.totalPrice);
+      // creating reservation
+      this.reservationService.createReservation(newReservation).subscribe(
+        (reservationData: any) => {
+          alert('Reservation created successfully')
+          this.router.navigate([''])
+        },
+        (error: any) => {
+          console.error('Error creating reservation:', error);
+          alert('An error occurred')
+        }
+      );
+    }
+  }
+
+  onCheck(): void  { 
     if (this.reservation_form.valid) {
-      const userId = this.authService.getId();
 
-      if (userId !== null) {
-        let {startDate, endDate, guests} = this.reservation_form.value;
-        startDate.setHours(12,0);
-        endDate.setHours(12,0);
+      let {startDate, endDate, guests} = this.reservation_form.value;
+      startDate.setHours(12,0);
+      endDate.setHours(12,0);
 
-        let days = Math.floor((endDate - startDate) / (1000 * 60 * 60 * 24));
-        console.log(JSON.stringify(startDate));
-        console.log(JSON.stringify(endDate));
-        const newReservation: New_reservation = {
-          startDate,
-          days: days,
-          price: this.pricePerNight * days,
-          reservationStatus: this.accommodation.autoApproval ? ReservationStatus.Approved : ReservationStatus.Pending,
-          accommodationId: this.accommodation.id,
-          guestId: userId,
-          hostId: this.accommodation.host.id || -1,
-          numberOfGuests: guests
-        };
-
-        console.log(this.pricePerNight + " " + this.totalPrice);
-        // creating reservation
-        this.reservationService.createReservation(newReservation).subscribe(
-          (reservationData: any) => {
-            alert('Reservation created successfully')
-            this.router.navigate([''])
-          },
-          (error: any) => {
-            console.error('Error creating reservation:', error);
-            alert('An error occurred')
-          }
-        );
-
+      let getAvailabilityPriceDetails: GetAvailabilityPrice = {
+        accommodationId: this.accommodation.id,
+        startDate: startDate,
+        endDate: endDate
       }
+
+      this.accommodationService.checkAvailabilityAndPrice(getAvailabilityPriceDetails).subscribe(
+        (gottenAvailabilityPrice: GottenAvailabilityPrice) => {
+          const { available, pricePerNight, totalPrice } = gottenAvailabilityPrice;
+          
+          if (available) {
+            this.updatePrices(pricePerNight, totalPrice);
+          } else {
+            alert("Accommodation is not available for the selected date.");
+          }
+        },
+        (error: any) => {
+          console.error('Error checking availability and price: ' + error.message);
+          alert('An error occurred while checking availability and price. Sorry for the inconvenience.');
+        }
+      );
+      
+
+
+
+      
     } else {
-      console.error('Form is invalid. Please check your inputs.');
+      alert('Form is invalid. Please check your inputs.');
       // print all invalid fields in the console
       this.reservation_form.markAllAsTouched();
       for (const key of Object.keys(this.reservation_form.controls)) {
@@ -263,5 +292,10 @@ export class AccommodationDetailsComponent implements OnInit {
           console.log(`${key}:`, this.reservation_form.controls[key].errors);
       }
     }
+  }
+
+  updatePrices(pricePerNight: number, totalPrice: number) {
+      this.pricePerNight = pricePerNight;
+      this.totalPrice = totalPrice;
   }
 }
