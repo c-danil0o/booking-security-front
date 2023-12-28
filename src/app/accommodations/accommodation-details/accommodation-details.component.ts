@@ -99,6 +99,9 @@ export class AccommodationDetailsComponent implements OnInit {
   minimumDate = new Date();
   disabledDates: Date[] = [];
   activeTimeslots: Timeslot[] = [];
+  private originalStartDate: Date;
+  private originalEndDate: Date;
+
 
   constructor(private sanitizer: DomSanitizer, private route: ActivatedRoute, private accommodationService: AccommodationService, private reviewService: ReviewService, private photoService: PhotoService, private authService: AuthService, private reservationService: ReservationService, private guestService: GuestService, private router: Router) {
   }
@@ -116,7 +119,6 @@ export class AccommodationDetailsComponent implements OnInit {
       this.accommodationService.findById(id).subscribe({
         next: (data: Accommodation) => {
           this.accommodation = data
-          console.log(JSON.stringify(this.accommodation));
           this.accommodationLoaded = true;
 
           this.activeTimeslots = this.accommodation.availability;
@@ -148,11 +150,16 @@ export class AccommodationDetailsComponent implements OnInit {
                 this.pricePerNight = searchDetails.pricePerNight;
               }
             })
+            aux : Date;
+
+
 
             // info about prices
             this.accommodationService.getFilteredAccommodationDetails().subscribe((filterDetails) => {
               if (filterDetails) {
-                console.log(JSON.stringify(filterDetails));
+                this.originalStartDate = new Date(filterDetails.startDate);
+                this.originalEndDate = new Date(filterDetails.endDate);
+
                 this.reservation_form.patchValue({
                   startDate: filterDetails.startDate,
                   endDate: filterDetails.endDate,
@@ -214,13 +221,26 @@ export class AccommodationDetailsComponent implements OnInit {
 
 
   onSubmit(): void {
+    let {startDate, endDate, guests} = this.reservation_form.value;
+    console.log(JSON.stringify(startDate));
+    console.log(JSON.stringify(endDate));
+    
     if (this.reservation_form.valid) {
       const userId = this.authService.getId();
 
       if (userId !== null) {
-        const {startDate, endDate, guests} = this.reservation_form.value;
+        let {startDate, endDate, guests} = this.reservation_form.value;
+        // changed data is for some reason is 1 day before entered so this is needed
+        if(!(this.originalStartDate && startDate.getTime() == this.originalStartDate.getTime()))
+          startDate = new Date(startDate.getTime() + (1000 * 60 * 60 * 24));
+
+        if(!(this.originalEndDate && endDate.getTime() == this.originalEndDate.getTime()))
+          endDate = new Date(endDate.getTime() + (1000 * 60 * 60 * 24));
+
 
         let days = Math.floor((endDate - startDate) / (1000 * 60 * 60 * 24));
+        console.log(JSON.stringify(startDate));
+        console.log(JSON.stringify(endDate));
         const newReservation: New_reservation = {
           startDate,
           days: days,
@@ -236,7 +256,6 @@ export class AccommodationDetailsComponent implements OnInit {
         // creating reservation
         this.reservationService.createReservation(newReservation).subscribe(
           (reservationData: any) => {
-            console.log("usao 2");
             alert('Reservation created successfully')
             this.router.navigate([''])
           },
