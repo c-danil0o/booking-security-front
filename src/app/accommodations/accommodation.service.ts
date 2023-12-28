@@ -10,6 +10,8 @@ import {SearchFormService} from "../shared/search-form.service";
 import {SearchModel} from "../model/search-model";
 import {SearchedAccommodation} from "../model/searched-accommodation-model";
 import { Timeslot } from "../model/timeslot-model";
+import { GetAvailabilityPrice } from "../model/get-availability-price-model";
+import { GottenAvailabilityPrice } from "../model/gotten-availability-price-model";
 
 @Injectable({
   providedIn: 'root'
@@ -71,6 +73,10 @@ export class AccommodationService {
 
   getSearchedAccommodationDetails() {
     return this.searchedAccommodationDetails.asObservable();
+  }
+  
+  checkAvailabilityAndPrice(getAvailabilityPrice: GetAvailabilityPrice): Observable<GottenAvailabilityPrice> {
+    return this.httpClient.post<GottenAvailabilityPrice>(environment.apiHost + 'api/accommodations/get-availability-price', getAvailabilityPrice);
   }
 
   // ngOnInit() {

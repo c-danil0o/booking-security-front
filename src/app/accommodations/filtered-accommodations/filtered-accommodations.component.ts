@@ -88,6 +88,15 @@ export class FilteredAccommodationsComponent {
           },
           error: (_) => {console.log("error!")}
         })
+    
+        // update details to be passed to accommodation details
+        const filteredAccommodationDetails = { 
+          startDate: this.startDate,
+          endDate: this.endDate,
+          guests: this.guests
+        };
+        this.service.setFilteredAccommodationDetails(filteredAccommodationDetails);
+        
       }
     }
   }
