@@ -26,4 +26,7 @@ export class ReviewService {
   findByHostId(id: number): Observable<Review[]>{
     return this.httpClient.get<Review[]>(environment.apiHost + 'api/reviews/host?hostId=' + id)
   }
+  saveNewReview(review: Review): Observable<Review>{
+    return this.httpClient.post<Review>(environment.apiHost + 'api/reviews', review);
+  }
 }

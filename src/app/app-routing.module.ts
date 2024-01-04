@@ -36,7 +36,7 @@ const routes: Routes = [
   {component: EditAccountComponent, path:"edit-account/:id"},
   {component: EmailSentComponent, path:"email-sent"},
   {component: RegistrationConfirmComponent, path:"registration-confirmation"},
-  {component: HostProfileComponent, path:"host-profile"},
+  {component: HostProfileComponent, path:"host-profile/:hostId/:viewOnly"},
   {component: AdminProfileComponent, path:"admin-profile"},
   {component: HostPropertiesComponent, path:"host-properties/:hostId"},
   {component: ApproveAccommodationsComponent, path:"approve-accommodation"},

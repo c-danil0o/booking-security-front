@@ -1,51 +1,64 @@
 import {Component, OnInit} from '@angular/core';
 import {Reservation} from "../../model/reservation-model";
 import {SelectItem} from "primeng/api";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {ReservationService} from "../reservation.service";
 import {Table} from "primeng/table";
 import {toNumbers} from "@angular/compiler-cli/src/version_helpers";
+import {HostService} from "../../accounts/services/host.service";
+import {ReviewService} from "../../reviews/review.service";
+import {Review} from "../../model/review-model";
+import {AccountService} from "../../accounts/services/account.service";
+import {Account} from "../../model/account-model";
 
 @Component({
   selector: 'app-guest-reservations',
   templateUrl: './guest-reservations.component.html',
   styleUrls: ['./guest-reservations.component.css']
 })
-export class GuestReservationsComponent implements OnInit{
+export class GuestReservationsComponent implements OnInit {
   reservations: Reservation[];
   loading: boolean = true;
   filteredReservations: Reservation[];
   selectedStatus: string = '';
   statusOptions: SelectItem[] = [
-    { label: 'All', value: null },
-    { label: 'Approved', value: 'Approved' },
-    { label: 'Pending', value: 'Pending' },
-    { label: 'Denied', value: 'Denied' },
-    { label: 'Active', value: 'Active' },
-    { label: 'Done', value: 'Done' },
-    { label: 'Cancelled', value: 'Cancelled' },
+    {label: 'All', value: null},
+    {label: 'Approved', value: 'Approved'},
+    {label: 'Pending', value: 'Pending'},
+    {label: 'Denied', value: 'Denied'},
+    {label: 'Active', value: 'Active'},
+    {label: 'Done', value: 'Done'},
+    {label: 'Cancelled', value: 'Cancelled'},
   ];
   guestId: number;
+  accommodationReviewVisible: boolean = false;
+  hostReviewVisible: boolean = false;
+  accommodationReview: string;
+  accommodation_rating_value: number = -1;
+  host_rating_value: number = -1;
+  hostReview: string;
+  reviewTooltip: string;
 
-  constructor(private route: ActivatedRoute, private reservationService: ReservationService) {
+  constructor(private route: ActivatedRoute, private reservationService: ReservationService, private router: Router, private reviewService: ReviewService) {
   }
-  clear(table: Table){
+
+  clear(table: Table) {
     table.clear();
   }
 
   ngOnInit(): void {
-    this.route.params.subscribe((params)=>{
+    this.route.params.subscribe((params) => {
       const guestId = +params["guestId"];
       this.guestId = guestId
       this.reservationService.getByGuestId(guestId).subscribe({
-        next: (data: Reservation[]) =>{
-          data.forEach((reservation)=>{
+        next: (data: Reservation[]) => {
+          data.forEach((reservation) => {
             reservation.startDate = new Date(reservation.startDate)
             reservation.endDate = new Date(reservation.endDate)
           })
-          this.reservations=data;
-          this.filteredReservations=data;
-          this.loading=false;
+          this.reservations = data;
+          this.filteredReservations = data;
+          this.loading = false;
         }
       })
     })
@@ -53,18 +66,18 @@ export class GuestReservationsComponent implements OnInit{
 
   cancelReservation(id: number) {
     const isConfirmed = window.confirm('Are you sure you want to cancel this reservation?');
-    if (isConfirmed){
+    if (isConfirmed) {
       this.reservationService.cancelReservation(id).subscribe(
-          () => {
-            console.log('Reservation canceled successfully');
-            alert('Reservation canceled successfully');
-            this.refresh();
-            // You can perform additional actions after approval if needed
-          },
-          (error) => {
-            console.error('Failed to cancel reservation:', error);
-           // alert('Failed to cancel reservation');
-          });
+        () => {
+          console.log('Reservation canceled successfully');
+          alert('Reservation canceled successfully');
+          this.refresh();
+          // You can perform additional actions after approval if needed
+        },
+        (error) => {
+          console.error('Failed to cancel reservation:', error);
+          // alert('Failed to cancel reservation');
+        });
     }
 
   }
@@ -82,7 +95,7 @@ export class GuestReservationsComponent implements OnInit{
           reservation.endDate=new Date(numbers[0],numbers[1],numbers[2], numbers[3], numbers[4]);
         })*/
         this.reservations = data;
-        this.filteredReservations=data;
+        this.filteredReservations = data;
         this.loading = false; // Optional: Set loading to false after data is fetched
       },
       error: (error) => {
@@ -100,4 +113,77 @@ export class GuestReservationsComponent implements OnInit{
     }
   }
 
+  goToHostProfile(hostId: number) {
+    this.router.navigate(['/host-profile', hostId, true])
+  }
+
+  goToAccommodation(accommodationId: number) {
+    this.router.navigate(['/accommodation-details', accommodationId])
+
+  }
+
+  addAccommodationReview(accommodationId: number) {
+    if (this.accommodationReview == "" || this.accommodation_rating_value == -1) {
+      return;
+    }
+    let review: Review = {
+      id: -1,
+      grade: this.accommodation_rating_value,
+      comment: this.accommodationReview,
+      approved: false,
+      date: new Date(),
+      author: {
+        accountId: this.guestId,
+      },
+      accommodationId: accommodationId
+    }
+    this.reviewService.saveNewReview(review).subscribe({
+      next: (rev) => console.log(rev),
+      error: (err) => console.log(err)
+    })
+    this.accommodationReviewVisible = false;
+    this.accommodationReview = ""
+    this.accommodation_rating_value = -1
+  }
+
+  addHostReview(hostId: number) {
+    if (this.hostReview == "" || this.host_rating_value == -1) {
+      return;
+    }
+    let review: Review = {
+      id: -1,
+      grade: this.host_rating_value,
+      comment: this.hostReview,
+      approved: true,
+      date: new Date(),
+      author: {
+        accountId: this.guestId,
+      },
+      hostId: hostId
+    }
+    this.reviewService.saveNewReview(review).subscribe({
+      next: (rev) => console.log(rev),
+      error: (err) => console.log(err)
+    })
+    this.hostReviewVisible = false;
+    this.hostReview = ""
+    this.host_rating_value= -1
+  }
+
+  showAccommodationModal() {
+    this.accommodationReviewVisible = true;
+  }
+
+  showHostModal() {
+    this.hostReviewVisible = true;
+
+  }
+
+  sevenDaysPassed(endDate: Date): boolean {
+    if (endDate.valueOf() + 604800000 < new Date().valueOf()){
+      this.reviewTooltip = "7 days passed after reservation!"
+      return true;
+    }
+    return false;
+  }
 }

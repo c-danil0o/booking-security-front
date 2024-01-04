@@ -82,33 +82,30 @@
 
     <div class="map-container">
       <span class="map-text"> Address: </span>
-      <br/><br/><br/>
       <app-google-map *ngIf="accommodationLoaded" [inputAddress]="accommodation.address" [style]="{'margin':'20px auto'}"></app-google-map>
     </div>
+    <div class="reviews-container">
+    <span class="review-text"> Guest reviews: </span>
+    <div class="reviews" *ngIf="reviewsLoaded && accommodation.reviews.length > 0">
 
-    <div class="reviews-container" *ngIf="reviewsLoaded && accommodation.reviews.length > 0">
-      <span class="review-text"> Guest reviews: </span>
-      <div class="reviews" *ngFor="let review of accommodation.reviews">
-        <div class="single-review">
-          <div class="reviewer-username-photo">
-            <img src="../../../assets/reviewer.jpg" class="reviewer-photo"/>
-            <div class="reviewer-username">{{ review.author.firstName + ' ' + review.author.lastName }}</div>
-          </div>
+      <div class="review" *ngFor="let review of accommodation.reviews">
+        <div class="header-review">
+          <img alt="commenter" height="80" width="80" src="assets/reviewer.jpg" class="reviewer-photo">
+          <div class="header-review-author">
+            <span class="comment-author">{{review.author.firstName + ' ' + review.author.lastName}}</span>
+            <span class="comment-date"> {{review.date |  date : 'dd.MM.yyyy HH:mm'}}</span>
 
-          <div class="review-desc">{{ review.comment }}</div>
 
-          <div class="stars-rated">
-            <i
-              class="fa fa-star"
-              *ngFor="let _ of [].constructor(review.grade)"
-            ></i>
           </div>
         </div>
-
-        <!-- <div class="div-55">
-          <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/8f27a6e9-381b-4da4-a0a9-54b0aca3cad2?"/>
-        </div> -->
+        <div class="comment-text">{{review.comment}}</div>
+        <div class="spacer"></div>
+        <div class="comment-date"></div>
+        <div class="comment-footer">
+          <p-rating [cancel]="false"  [(ngModel)]="review.grade" [readonly]="true"></p-rating>
+        </div>
       </div>
+    </div>
     </div>
   </div>
 </div>

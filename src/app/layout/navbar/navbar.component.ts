@@ -10,11 +10,13 @@ import {MessageService} from "primeng/api";
 })
 export class NavbarComponent implements OnInit{
   role: string = '';
+  id: number | null = -1;
   constructor(private authService: AuthService, private router: Router) {
   }
   ngOnInit(): void {
     this.authService.userState.subscribe((result) => {
       this.role = result;
+      this.id = this.authService.getId();
       console.log(this.role);
     })
   }
