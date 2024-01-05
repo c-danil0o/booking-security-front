@@ -4,6 +4,8 @@ import {ActivatedRoute} from "@angular/router";
 import {ReservationService} from "../reservation.service";
 import {Table} from "primeng/table";
 import {SelectItem} from "primeng/api";
+import {Report} from "../../model/report-model";
+import {ReportService} from "../../reports/report.service";
 
 @Component({
   selector: 'app-host-reservations',
@@ -26,8 +28,10 @@ export class HostReservationsComponent implements OnInit {
     // Add more status options as needed
   ];
   hostId: number;
+  guestReportVisible: boolean = false;
+  reportReason: string;
 
-  constructor(private route: ActivatedRoute, private reservationService: ReservationService) {
+  constructor(private route: ActivatedRoute, private reservationService: ReservationService, private reportService: ReportService) {
   }
 
   clear(table: Table) {
@@ -118,7 +122,28 @@ export class HostReservationsComponent implements OnInit {
 
   checkIfInPast(res: Reservation): boolean{
     return res.startDate.valueOf() < Date.now().valueOf();
+  }
 
+  showGuestReporting(){
+    this.guestReportVisible = true;
+  }
+
+  addGuestReport(guestId: number){
+    if (this.reportReason=="")
+      return;
+    let report: Report = {
+      id: -1,
+      reason: this.reportReason,
+      authorId: this.hostId,
+      reportedUserId: guestId,
+      date: new Date()
+    }
+    this.reportService.saveNewReport(report).subscribe({
+      next: (report) => console.log(report),
+      error: (err) => console.log(err)
+    })
+    this.guestReportVisible = false;
+    this.reportReason= "";
   }
 
 }

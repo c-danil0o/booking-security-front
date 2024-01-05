@@ -65,3 +65,17 @@
 .filter label{
   margin-right: 2.5em;
 }
+
+.report_window{
+  display: flex;
+  flex-direction: column;
+}
+
+.report-button{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  margin-top: 10px;
+}

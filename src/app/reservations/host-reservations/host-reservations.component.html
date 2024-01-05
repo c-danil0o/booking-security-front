@@ -37,7 +37,18 @@
         <ng-template pTemplate="body" let-reservation>
           <tr *ngIf="filteredReservations.includes(reservation)">
             <td>{{reservation.accommodationName}}</td>
-            <td>{{reservation.guestEmail}}</td>
+            <td>
+              <p>{{reservation.guestEmail}}</p>
+              <button pButton type="button" label="Report guest" class="p-button-primary option-button" (click)="showGuestReporting()" [disabled]="reservation.reservationStatus.toString() != 'Done'"></button>
+              <p-dialog header="Report your guest" [(visible)]="guestReportVisible" [modal]="true" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
+                <div class="report_window">
+                  <textarea rows="5" cols="30" pInputTextarea [autoResize]="true" [style]="{'width':'100%'}" placeholder="Write your reason for reporting" [(ngModel)]="reportReason"></textarea>
+                  <div class="report-button">
+                    <button pButton type="button" label="Submit" class="p-button-primary" (click)="addGuestReport(reservation.guestId)"></button>
+                  </div>
+                </div>
+              </p-dialog>
+            </td>
             <td>{{reservation.startDate | date : 'dd.MM.yyyy'}}</td>
             <td>{{reservation.endDate | date : 'dd.MM.yyyy'}}</td>
             <td>{{reservation.price}}</td>

@@ -10,6 +10,8 @@ import {ReviewService} from "../../reviews/review.service";
 import {Review} from "../../model/review-model";
 import {AccountService} from "../../accounts/services/account.service";
 import {Account} from "../../model/account-model";
+import {Report} from "../../model/report-model";
+import {ReportService} from "../../reports/report.service";
 
 @Component({
   selector: 'app-guest-reservations',
@@ -33,13 +35,15 @@ export class GuestReservationsComponent implements OnInit {
   guestId: number;
   accommodationReviewVisible: boolean = false;
   hostReviewVisible: boolean = false;
+  hostReportVisible: boolean = false;
   accommodationReview: string;
   accommodation_rating_value: number = -1;
   host_rating_value: number = -1;
   hostReview: string;
   reviewTooltip: string;
+  reportReason: string;
 
-  constructor(private route: ActivatedRoute, private reservationService: ReservationService, private router: Router, private reviewService: ReviewService) {
+  constructor(private route: ActivatedRoute, private reservationService: ReservationService, private router: Router, private reviewService: ReviewService, private reportService: ReportService) {
   }
 
   clear(table: Table) {
@@ -170,13 +174,34 @@ export class GuestReservationsComponent implements OnInit {
     this.host_rating_value= -1
   }
 
+  addHostReport(hostId: number){
+    if (this.reportReason=="")
+      return;
+    let report: Report = {
+      id: -1,
+      reason: this.reportReason,
+      authorId: this.guestId,
+      reportedUserId: hostId,
+      date: new Date()
+    }
+    this.reportService.saveNewReport(report).subscribe({
+      next: (report) => console.log(report),
+      error: (err) => console.log(err)
+    })
+    this.hostReportVisible = false;
+    this.reportReason= "";
+  }
+
   showAccommodationModal() {
     this.accommodationReviewVisible = true;
   }
 
   showHostModal() {
     this.hostReviewVisible = true;
+  }
 
+  showHostReporting(){
+    this.hostReportVisible = true;
   }
 
   sevenDaysPassed(endDate: Date): boolean {

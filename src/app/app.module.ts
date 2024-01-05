@@ -20,7 +20,7 @@ import {SharedModule} from "./shared/shared.module";
 import {GoogleMapsModule} from "@angular/google-maps";
 import {ToastModule} from "primeng/toast";
 import {ReviewsModule} from "./reviews/reviews.module";
-
+import {ReportsModule} from "./reports/reports.module";
 
 @NgModule({
   declarations: [
@@ -39,7 +39,8 @@ import {ReviewsModule} from "./reviews/reviews.module";
         ReservationsModule,
         ConfirmDialogModule,
         DropdownModule, ToastModule,
-        ReviewsModule
+        ReviewsModule,
+        ReportsModule
     ],
   providers:[{provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true},ConfirmationService, MessageService],
   bootstrap: [AppComponent]
