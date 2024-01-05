@@ -6,7 +6,7 @@
     </div>
     <div class="central-panel">
         <div class="reservations-table">
-            <p-table #dt1 [value]="reservations" [tableStyle]="{'min-width': '100rem'}"     [rows]="10"
+            <p-table #dt1 [value]="filteredReservations" [tableStyle]="{'min-width': '100rem'}"     [rows]="10"
                      [showCurrentPageReport]="true"
                      [rowsPerPageOptions]="[10, 25, 50]"
                      [paginator]="true"
@@ -34,7 +34,7 @@
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-reservation>
-                    <tr *ngIf="filteredReservations.includes(reservation)">
+                    <tr>
                       <td>
                         <div class="row-double"  >
                           <p class="clickable-p" [pTooltip]="reviewTooltip" (click)="goToAccommodation(reservation.accommodationId)">{{reservation.accommodationName}}</p>
