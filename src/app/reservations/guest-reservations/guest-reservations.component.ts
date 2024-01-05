@@ -1,17 +1,16 @@
 import {Component, OnInit} from '@angular/core';
 import {Reservation} from "../../model/reservation-model";
-import {SelectItem} from "primeng/api";
+import {MessageService, SelectItem} from "primeng/api";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ReservationService} from "../reservation.service";
 import {Table} from "primeng/table";
-import {toNumbers} from "@angular/compiler-cli/src/version_helpers";
-import {HostService} from "../../accounts/services/host.service";
 import {ReviewService} from "../../reviews/review.service";
 import {Review} from "../../model/review-model";
 import {AccountService} from "../../accounts/services/account.service";
 import {Account} from "../../model/account-model";
 import {Report} from "../../model/report-model";
 import {ReportService} from "../../reports/report.service";
+import {ReviewStatus} from "../../model/review-status-model";
 
 @Component({
   selector: 'app-guest-reservations',
@@ -43,7 +42,7 @@ export class GuestReservationsComponent implements OnInit {
   reviewTooltip: string;
   reportReason: string;
 
-  constructor(private route: ActivatedRoute, private reservationService: ReservationService, private router: Router, private reviewService: ReviewService, private reportService: ReportService) {
+  constructor(private route: ActivatedRoute, private reservationService: ReservationService, private router: Router, private reviewService: ReviewService, private reportService: ReportService, private messageService: MessageService) {
   }
 
   clear(table: Table) {
@@ -74,7 +73,13 @@ export class GuestReservationsComponent implements OnInit {
       this.reservationService.cancelReservation(id).subscribe(
         () => {
           console.log('Reservation canceled successfully');
-          alert('Reservation canceled successfully');
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            key: 'bc',
+            detail: 'Reservation cancelled successfully!',
+            life: 2000
+          })
           this.refresh();
           // You can perform additional actions after approval if needed
         },
@@ -134,7 +139,7 @@ export class GuestReservationsComponent implements OnInit {
       id: -1,
       grade: this.accommodation_rating_value,
       comment: this.accommodationReview,
-      approved: false,
+      status: ReviewStatus.Pending,
       date: new Date(),
       author: {
         accountId: this.guestId,
@@ -142,7 +147,13 @@ export class GuestReservationsComponent implements OnInit {
       accommodationId: accommodationId
     }
     this.reviewService.saveNewReview(review).subscribe({
-      next: (rev) => console.log(rev),
+      next: (_) => this.messageService.add({
+        severity: 'success',
+        summary: 'Success',
+        key: 'bc',
+        detail: 'Review added successfully!',
+        life: 2000
+      }),
       error: (err) => console.log(err)
     })
     this.accommodationReviewVisible = false;
@@ -158,7 +169,7 @@ export class GuestReservationsComponent implements OnInit {
       id: -1,
       grade: this.host_rating_value,
       comment: this.hostReview,
-      approved: true,
+      status: ReviewStatus.Approved,
       date: new Date(),
       author: {
         accountId: this.guestId,
@@ -166,12 +177,18 @@ export class GuestReservationsComponent implements OnInit {
       hostId: hostId
     }
     this.reviewService.saveNewReview(review).subscribe({
-      next: (rev) => console.log(rev),
+      next: (_) => this.messageService.add({
+        severity: 'success',
+        summary: 'Success',
+        key: 'bc',
+        detail: 'Review added successfully!',
+        life: 2000
+      }),
       error: (err) => console.log(err)
     })
     this.hostReviewVisible = false;
     this.hostReview = ""
-    this.host_rating_value= -1
+    this.host_rating_value = -1
   }
 
   addHostReport(hostId: number){
@@ -205,10 +222,35 @@ export class GuestReservationsComponent implements OnInit {
   }
 
   sevenDaysPassed(endDate: Date): boolean {
-    if (endDate.valueOf() + 604800000 < new Date().valueOf()){
+    if (endDate.valueOf() + 604800000 < new Date().valueOf()) {
       this.reviewTooltip = "7 days passed after reservation!"
       return true;
     }
     return false;
+  }
+
+  removeAccommodationReview(accommodationId: any) {
+    this.reviewService.deleteAccommodationReview(accommodationId, this.guestId).subscribe({
+      next: (_) => this.messageService.add({
+        severity: 'success',
+        summary: 'Success',
+        key: 'bc',
+        detail: 'Review removed successfully!',
+        life: 2000
+      })
+    });
+  }
+
+  removeHostReview(hostId: any) {
+    this.reviewService.deleteHostReview(hostId, this.guestId).subscribe({
+      next: (_) => this.messageService.add({
+        severity: 'success',
+        summary: 'Success',
+        key: 'bc',
+        detail: 'Review removed successfully!',
+        life: 2000
+      })
+    });
+
   }
 }

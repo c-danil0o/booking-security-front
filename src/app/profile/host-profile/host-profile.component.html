@@ -7,7 +7,7 @@
         <div class="name_role"><span class="name">{{this.user.firstName + ' ' + this.user.lastName}}</span><span
           class="role">HOST</span></div>
 
-        <span class="city">{{user.address.city}}</span>
+        <span class="city">{{user.address.city}}   <span class="pi pi-star rating-star">{{this.average_rating.toFixed(1)}}</span></span>
       </div>
       <div class="buttons" *ngIf="!viewOnly">
         <button pButton type="button" label="Log Out" (click)="logOut()" class="p-button-text logout"
@@ -43,7 +43,7 @@
         <div class="comment-date"></div>
         <div class="comment-footer">
           <p-rating [cancel]="false"  [(ngModel)]="review.grade" [readonly]="true"></p-rating>
-          <button *ngIf="!viewOnly" pButton type="button" label="Report" class="p-button-primary option-button"></button>
+          <button *ngIf="!viewOnly" pButton type="button" label="Report" class="p-button-primary option-button" (click)="reportReview(review.id)"></button>
         </div>
       </div>
     </div>

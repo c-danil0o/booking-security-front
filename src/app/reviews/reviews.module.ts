@@ -5,6 +5,8 @@ import {ButtonModule} from "primeng/button";
 import {InputTextModule} from "primeng/inputtext";
 import {SharedModule} from "primeng/api";
 import {TableModule} from "primeng/table";
+import {DropdownModule} from "primeng/dropdown";
+import {FormsModule} from "@angular/forms";
 
 
 
@@ -17,7 +19,9 @@ import {TableModule} from "primeng/table";
     ButtonModule,
     InputTextModule,
     SharedModule,
-    TableModule
+    TableModule,
+    DropdownModule,
+    FormsModule
   ]
 })
 export class ReviewsModule { }

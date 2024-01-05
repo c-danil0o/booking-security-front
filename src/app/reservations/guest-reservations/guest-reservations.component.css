@@ -79,6 +79,10 @@
 .review-modal{
   display: flex;
 }
+.buttons-row{
+  display: flex;
+  gap: 5px;
+}
 .review-modal-rating{
   width: 40%;
   display: flex;
