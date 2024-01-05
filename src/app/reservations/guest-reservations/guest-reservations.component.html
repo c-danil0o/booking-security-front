@@ -6,7 +6,7 @@
     </div>
     <div class="central-panel">
         <div class="reservations-table">
-            <p-table #dt1 [value]="reservations" [tableStyle]="{'min-width': '100rem'}"     [rows]="10"
+            <p-table #dt1 [value]="filteredReservations" [tableStyle]="{'min-width': '100rem'}"     [rows]="10"
                      [showCurrentPageReport]="true"
                      [rowsPerPageOptions]="[10, 25, 50]"
                      [paginator]="true"
@@ -34,7 +34,7 @@
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-reservation>
-                    <tr *ngIf="filteredReservations.includes(reservation)">
+                    <tr>
                       <td>
                         <div class="row-double"  >
                           <p class="clickable-p" [pTooltip]="reviewTooltip" (click)="goToAccommodation(reservation.accommodationId)">{{reservation.accommodationName}}</p>
@@ -65,11 +65,11 @@
                         <td>
                           <div class="row-double">
                             <p class="clickable-p" (click)="goToHostProfile(reservation.hostId)">{{reservation.hostEmail}}</p>
-                            <div class="buttons-row">
-                              <button pButton type="button" label="Add review" class="p-button-primary option-button" (click)="showHostModal()" [disabled]="reservation.reservationStatus.toString() != 'Done'"></button>
-                              <button pButton type="button" label="Remove" class="p-button-outlined option-button" (click)="removeHostReview(reservation.hostId)" [disabled]="reservation.reservationStatus.toString() != 'Done'"></button>
+                            <div>
+                              <button id="add-review-button" pButton type="button" label="Add review" class="p-button-primary option-button" (click)="showHostModal()" [disabled]="reservation.reservationStatus.toString() != 'Done'"></button>
+                              <button  pButton type="button" label="Report guest" class="p-button-primary option-button" (click)="showHostReporting()" [disabled]="reservation.reservationStatus.toString() != 'Done'"></button>
                             </div>
-                            <p-dialog header="Add host review" [(visible)]="hostReviewVisible" [modal]="true" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
+                             <p-dialog header="Add host review" [(visible)]="hostReviewVisible" [modal]="true" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
                               <div class="review-modal">
                                 <textarea rows="5" cols="30" pInputTextarea [autoResize]="true" [style]="{'width':'100%'}" placeholder="Add your review" [(ngModel)]="hostReview"></textarea>
                                 <div class="review-modal-rating">
@@ -77,9 +77,15 @@
                                     <span>Your rating: </span>
                                     <p-rating  [(ngModel)]="host_rating_value" [cancel]="false"></p-rating>
                                   </div>
-
                                   <button pButton type="button" label="Submit" class="p-button-primary" (click)="addHostReview(reservation.hostId)"></button>
-
+                                </div>
+                              </div>
+                            </p-dialog>
+                            <p-dialog header="Report your host" [(visible)]="hostReportVisible" [modal]="true" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
+                              <div class="report_window">
+                                <textarea rows="5" cols="30" pInputTextarea [autoResize]="true" [style]="{'width':'100%'}" placeholder="Write your reason for reporting" [(ngModel)]="reportReason"></textarea>
+                                <div class="report-button">
+                                  <button pButton type="button" label="Submit" class="p-button-primary" (click)="addHostReport(reservation.hostId)"></button>
                                 </div>
                               </div>
                             </p-dialog>

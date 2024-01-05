@@ -56,4 +56,8 @@ export class AccountService {
   deleteAccount(id: number): Observable<void> {
     return this.httpClient.delete<void>(environment.apiHost+ 'api/accounts/' + id);
   }
+
+  blockAccount(id: number): Observable<void>{
+    return this.httpClient.patch<void>(environment.apiHost+'api/accounts/'+id+"/block",null);
+  }
 }

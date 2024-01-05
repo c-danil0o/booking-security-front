@@ -29,10 +29,10 @@ export class HostProfileComponent implements OnInit {
   that = this;
   ngOnInit() {
     this.route.params.subscribe(params => {
-      if (params['viewOnly'] == "false"){
+      this.id = +params['hostId'];
+      if (this.authService.getId() == this.id){
         this.viewOnly = false;
       }
-      this.id = +params['hostId'];
       this.hostService.findById(this.id).subscribe({
         next: (data: Host) => {
           this.user = data;

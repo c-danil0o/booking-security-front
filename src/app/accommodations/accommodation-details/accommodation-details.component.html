@@ -103,6 +103,8 @@
         <div class="comment-date"></div>
         <div class="comment-footer">
           <p-rating [cancel]="false"  [(ngModel)]="review.grade" [readonly]="true"></p-rating>
+          <button *ngIf="!viewOnly" pButton type="button" label="Report" class="p-button-primary option-button" (click)="reportAccommodationReview(review.id)"></button>
+
         </div>
       </div>
     </div>

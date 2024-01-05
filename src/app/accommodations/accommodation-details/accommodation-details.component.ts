@@ -18,7 +18,8 @@ import {ReservationStatus} from 'src/app/model/ReservationStatus';
 import {GuestService} from 'src/app/accounts/services/guest.service';
 import {GetAvailabilityPrice} from 'src/app/model/get-availability-price-model';
 import {GottenAvailabilityPrice} from 'src/app/model/gotten-availability-price-model';
-import { error } from '@angular/compiler-cli/src/transformers/util';
+import {error} from '@angular/compiler-cli/src/transformers/util';
+import {MessageService} from "primeng/api";
 
 
 interface Image {
@@ -75,6 +76,7 @@ export class AccommodationDetailsComponent implements OnInit {
   isGuest: boolean = this.authService.getRole() == "ROLE_Guest";
   accommodation: Accommodation = emptyAccommodation;
   hostName: string
+  viewOnly: boolean = true;
   images: Image[] = [];
   imagesAreLoaded: boolean = false;
   responsiveOptions: any[] = [
@@ -102,7 +104,7 @@ export class AccommodationDetailsComponent implements OnInit {
   activeTimeslots: Timeslot[] = [];
 
 
-  constructor(private sanitizer: DomSanitizer, private route: ActivatedRoute, private accommodationService: AccommodationService, private reviewService: ReviewService, private photoService: PhotoService, private authService: AuthService, private reservationService: ReservationService, private guestService: GuestService, private router: Router) {
+  constructor(private sanitizer: DomSanitizer, private messageService: MessageService, private route: ActivatedRoute, private accommodationService: AccommodationService, private reviewService: ReviewService, private photoService: PhotoService, private authService: AuthService, private reservationService: ReservationService, private guestService: GuestService, private router: Router) {
   }
 
   ngOnInit() {
@@ -119,7 +121,9 @@ export class AccommodationDetailsComponent implements OnInit {
         next: (data: Accommodation) => {
           this.accommodation = data
           this.accommodationLoaded = true;
-
+          if (this.accommodation.host.id == this.authService.getId()) {
+            this.viewOnly = false;
+          }
           this.activeTimeslots = this.accommodation.availability;
 
           this.reservation_form.get('guests')?.setValidators([
@@ -219,8 +223,8 @@ export class AccommodationDetailsComponent implements OnInit {
     const userId = this.authService.getId();
     if (userId !== null) {
       let {startDate, endDate, guests} = this.reservation_form.value;
-      startDate.setHours(12,0);
-      endDate.setHours(12,0);
+      startDate.setHours(12, 0);
+      endDate.setHours(12, 0);
 
       let days = Math.floor((endDate - startDate) / (1000 * 60 * 60 * 24));
       console.log(JSON.stringify(startDate));
@@ -250,12 +254,12 @@ export class AccommodationDetailsComponent implements OnInit {
     }
   }
 
-  onCheck(): void  {
+  onCheck(): void {
     if (this.reservation_form.valid) {
 
       let {startDate, endDate, guests} = this.reservation_form.value;
-      startDate.setHours(12,0);
-      endDate.setHours(12,0);
+      startDate.setHours(12, 0);
+      endDate.setHours(12, 0);
 
       let getAvailabilityPriceDetails: GetAvailabilityPrice = {
         accommodationId: this.accommodation.id,
@@ -265,7 +269,7 @@ export class AccommodationDetailsComponent implements OnInit {
 
       this.accommodationService.checkAvailabilityAndPrice(getAvailabilityPriceDetails).subscribe(
         (gottenAvailabilityPrice: GottenAvailabilityPrice) => {
-          const { available, pricePerNight, totalPrice } = gottenAvailabilityPrice;
+          const {available, pricePerNight, totalPrice} = gottenAvailabilityPrice;
 
           if (available) {
             this.updatePrices(pricePerNight, totalPrice);
@@ -280,9 +284,6 @@ export class AccommodationDetailsComponent implements OnInit {
       );
 
 
-
-
-
     } else {
       alert('Form is invalid. Please check your inputs.');
       // print all invalid fields in the console
@@ -295,7 +296,22 @@ export class AccommodationDetailsComponent implements OnInit {
   }
 
   updatePrices(pricePerNight: number, totalPrice: number) {
-      this.pricePerNight = pricePerNight;
-      this.totalPrice = totalPrice;
+    this.pricePerNight = pricePerNight;
+    this.totalPrice = totalPrice;
+  }
+
+  reportAccommodationReview(id: number) {
+    this.reviewService.reportReview(id).subscribe({
+      next: (review) => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          key: 'bc',
+          detail: 'Review reported successfully!',
+          life: 2000
+        })
+      },
+      error: (err) => console.log(err)
+    })
   }
 }

@@ -109,6 +109,4 @@ export class ApproveReviewsComponent {
     }
   }
 
-  protected readonly ReviewService = ReviewService;
-  protected readonly ReviewStatus = ReviewStatus;
 }
