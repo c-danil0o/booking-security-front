@@ -7,5 +7,8 @@ export interface Review {
     comment: string;
     author: User;
     approved: boolean;
+    date: Date;
+    accommodationId?: number;
+    hostId?: number;
 
 }

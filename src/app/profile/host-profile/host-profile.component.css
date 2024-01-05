@@ -87,6 +87,7 @@
 .central-panel{
   margin: 20px auto;
   width: 100%;
+  padding: 20px;
   border-radius: 15px;
   background-color: white;
   box-shadow: 0px 17.54878px 35.09756px 0px rgba(171, 190, 209, 0.3);
@@ -102,6 +103,9 @@
 }
 .reviews-text{
   margin-left: 20px;
+  margin-top: 30px;
+  padding-top: 20px;
+  font-size: 18px;
 }
 .reviews{
   min-height: 400px;
@@ -127,6 +131,13 @@
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+}
+.header-review-author{
+  display: flex;
+  flex-direction: column;
+}
+.comment-date{
+  opacity: 70%;
 }
 .comment-author{
   font-size: 18px;

@@ -45,8 +45,8 @@
             <td>{{reservation.reservationStatus}}</td>
 
             <td><div class="buttons">
-              <button pButton type="button" label="Approve" class="p-button-primary option-button" (click)="acceptReservation(reservation.id)" [disabled]="reservation.reservationStatus.toString() == 'Done' || reservation.reservationStatus.toString() == 'Active' || reservation.reservationStatus.toString() == 'Canceled' || reservation.reservationStatus.toString() == 'Approved'"></button>
-              <button pButton type="button" label="Deny" class="p-button-danger option-button" (click)="declineReservation(reservation.id)" [disabled]="reservation.reservationStatus.toString() == 'Done' || reservation.reservationStatus.toString() == 'Active' || reservation.reservationStatus.toString() == 'Canceled'  || reservation.reservationStatus.toString() == 'Denied'"></button>
+              <button pButton type="button" label="Approve" class="p-button-primary option-button" (click)="acceptReservation(reservation.id)" [disabled]="reservation.reservationStatus.toString() == 'Done' || reservation.reservationStatus.toString() == 'Active' || reservation.reservationStatus.toString() == 'Canceled' || reservation.reservationStatus.toString() == 'Approved' || checkIfInPast(reservation)"></button>
+              <button pButton type="button" label="Deny" class="p-button-danger option-button" (click)="declineReservation(reservation.id)" [disabled]="reservation.reservationStatus.toString() == 'Done' || reservation.reservationStatus.toString() == 'Active' || reservation.reservationStatus.toString() == 'Canceled'  || reservation.reservationStatus.toString() == 'Denied' || checkIfInPast(reservation)"></button>
             </div></td>
           </tr>
         </ng-template>

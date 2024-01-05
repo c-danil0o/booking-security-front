@@ -116,6 +116,10 @@ export class HostReservationsComponent implements OnInit {
     }
   }
 
+  checkIfInPast(res: Reservation): boolean{
+    return res.startDate.valueOf() < Date.now().valueOf();
+
+  }
 
 }
 

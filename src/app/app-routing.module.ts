@@ -24,6 +24,7 @@ import {
 import {EditAccommodationComponent} from "./accommodations/edit-accommodation/edit-accommodation.component";
 import {AdminProfileComponent} from "./profile/admin-profile/admin-profile.component";
 import {ApproveAccommodationsComponent} from "./accommodations/approve-accommodations/approve-accommodations.component";
+import {ApproveReviewsComponent} from "./reviews/approve-reviews/approve-reviews.component";
 
 
 const routes: Routes = [
@@ -36,7 +37,7 @@ const routes: Routes = [
   {component: EditAccountComponent, path:"edit-account/:id"},
   {component: EmailSentComponent, path:"email-sent"},
   {component: RegistrationConfirmComponent, path:"registration-confirmation"},
-  {component: HostProfileComponent, path:"host-profile"},
+  {component: HostProfileComponent, path:"host-profile/:hostId/:viewOnly"},
   {component: AdminProfileComponent, path:"admin-profile"},
   {component: HostPropertiesComponent, path:"host-properties/:hostId"},
   {component: ApproveAccommodationsComponent, path:"approve-accommodation"},
@@ -46,7 +47,8 @@ const routes: Routes = [
   {component: GuestReservationsComponent, path:"guest-reservations/:guestId"},
   {component: HostReservationsComponent, path:"host-reservations/:hostId"},
   {component: GuestProfileComponent, path:"guest-profile"},
-  {component: EditAccommodationComponent, path:"edit-accommodation/:accId"}
+  {component: EditAccommodationComponent, path:"edit-accommodation/:accId"},
+  {component: ApproveReviewsComponent, path:"approve-reviews"}
   ];
 
 @NgModule({

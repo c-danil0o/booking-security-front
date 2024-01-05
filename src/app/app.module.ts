@@ -19,6 +19,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import {SharedModule} from "./shared/shared.module";
 import {GoogleMapsModule} from "@angular/google-maps";
 import {ToastModule} from "primeng/toast";
+import {ReviewsModule} from "./reviews/reviews.module";
 
 
 @NgModule({
@@ -38,6 +39,7 @@ import {ToastModule} from "primeng/toast";
         ReservationsModule,
         ConfirmDialogModule,
         DropdownModule, ToastModule,
+        ReviewsModule
     ],
   providers:[{provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true},ConfirmationService, MessageService],
   bootstrap: [AppComponent]
