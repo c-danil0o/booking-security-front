@@ -5,6 +5,8 @@ import {AccommodationService} from "../../accommodations/accommodation.service";
 import {Table} from "primeng/table";
 import {ReviewService} from "../review.service";
 import {Review} from "../../model/review-model";
+import {MessageService, SelectItem} from "primeng/api";
+import {ReviewStatus} from "../../model/review-status-model";
 
 @Component({
   selector: 'app-approve-reviews',
@@ -13,9 +15,17 @@ import {Review} from "../../model/review-model";
 })
 export class ApproveReviewsComponent {
   reviews: Review[];
+  filteredReviews: Review[];
   loading: boolean = true;
+  statusOptions: SelectItem[] = [
+    {label: 'All', value: null},
+    {label: 'Approved', value: 'Approved'},
+    {label: 'Pending', value: 'Pending'},
+    {label: 'Reported', value: 'Reported'},
+  ];
+  selectedStatus: string;
 
-  constructor(private route: ActivatedRoute, private reviewService: ReviewService) {
+  constructor(private route: ActivatedRoute, private reviewService: ReviewService, private messageService: MessageService) {
   }
 
   clear(table: Table) {
@@ -23,10 +33,11 @@ export class ApproveReviewsComponent {
   }
   ngOnInit() {
     this.route.params.subscribe((params)=>{
-      this.reviewService.getUnapproved().subscribe({
+      this.reviewService.getAll().subscribe({
         next: (data: Review[]) =>{
           console.log(data);
           this.reviews = data;
+          this.filteredReviews = data;
           this.loading = false;
         }
       })
@@ -38,7 +49,13 @@ export class ApproveReviewsComponent {
     if (isConfirmed) {
       this.reviewService.approveReview(id).subscribe(
         () => {
-          console.log('Review approved successfully');
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            key: 'bc',
+            detail: 'Review approved successfully!',
+            life: 2000
+          })
           this.refresh();
         },
         (error) => {
@@ -53,7 +70,13 @@ export class ApproveReviewsComponent {
     if (isConfirmed) {
       this.reviewService.deleteReview(id).subscribe(
         () => {
-          console.log('Review deleted successfully');
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            key: 'bc',
+            detail: 'Review deleted successfully!',
+            life: 2000
+          })
           this.refresh();
         },
         (error) => {
@@ -65,9 +88,10 @@ export class ApproveReviewsComponent {
 
   refresh() {
     this.loading = true; // Optional: Set loading to true while fetching new data
-    this.reviewService.getUnapproved().subscribe({
+    this.reviewService.getAll().subscribe({
       next: (data: Review[]) => {
         this.reviews = data;
+        this.filteredReviews = data;
         this.loading = false; // Optional: Set loading to false after data is fetched
       },
       error: (error) => {
@@ -77,4 +101,14 @@ export class ApproveReviewsComponent {
     });
   }
 
+  filterReviews(): void {
+    if (!this.selectedStatus) {
+      this.filteredReviews = this.reviews;
+    } else {
+      this.filteredReviews = this.reviews.filter(review => review.status.toString() == this.selectedStatus);
+    }
+  }
+
+  protected readonly ReviewService = ReviewService;
+  protected readonly ReviewStatus = ReviewStatus;
 }

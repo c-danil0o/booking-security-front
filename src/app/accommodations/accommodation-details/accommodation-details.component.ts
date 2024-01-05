@@ -214,14 +214,14 @@ export class AccommodationDetailsComponent implements OnInit {
   }
 
 
-  onSubmit(): void { 
+  onSubmit(): void {
     this.onCheck(); // check if all is good first
     const userId = this.authService.getId();
     if (userId !== null) {
       let {startDate, endDate, guests} = this.reservation_form.value;
       startDate.setHours(12,0);
       endDate.setHours(12,0);
-      
+
       let days = Math.floor((endDate - startDate) / (1000 * 60 * 60 * 24));
       console.log(JSON.stringify(startDate));
       console.log(JSON.stringify(endDate));
@@ -250,7 +250,7 @@ export class AccommodationDetailsComponent implements OnInit {
     }
   }
 
-  onCheck(): void  { 
+  onCheck(): void  {
     if (this.reservation_form.valid) {
 
       let {startDate, endDate, guests} = this.reservation_form.value;
@@ -266,7 +266,7 @@ export class AccommodationDetailsComponent implements OnInit {
       this.accommodationService.checkAvailabilityAndPrice(getAvailabilityPriceDetails).subscribe(
         (gottenAvailabilityPrice: GottenAvailabilityPrice) => {
           const { available, pricePerNight, totalPrice } = gottenAvailabilityPrice;
-          
+
           if (available) {
             this.updatePrices(pricePerNight, totalPrice);
           } else {
@@ -278,11 +278,11 @@ export class AccommodationDetailsComponent implements OnInit {
           alert('An error occurred while checking availability and price. Sorry for the inconvenience.');
         }
       );
-      
 
 
 
-      
+
+
     } else {
       alert('Form is invalid. Please check your inputs.');
       // print all invalid fields in the console

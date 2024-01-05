@@ -70,6 +70,9 @@
   font-weight: lighter;
   color: #909090;
 }
+.rating-star{
+  margin-left: 30px;
+}
 
 .buttons{
   height: fit-content;

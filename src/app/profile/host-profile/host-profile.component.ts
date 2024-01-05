@@ -9,6 +9,7 @@ import {error} from "@angular/compiler-cli/src/transformers/util";
 import {confirmPasswordValidator} from "../../accounts/register/password.validator";
 import {Email} from "../../model/Email";
 import { ConnectableObservable } from 'rxjs';
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-host-profile',
@@ -20,8 +21,9 @@ export class HostProfileComponent implements OnInit {
   reviewsLoaded: boolean = false;
   viewOnly: boolean = true;
   id: number;
+  average_rating: number= 0;
 
-  constructor(private route: ActivatedRoute, private authService: AuthService, private router: Router, private hostService: HostService, private reviewService: ReviewService) {
+  constructor(private route: ActivatedRoute, private authService: AuthService, private router: Router, private hostService: HostService, private reviewService: ReviewService, private messageService: MessageService) {
   }
 
   that = this;
@@ -40,8 +42,10 @@ export class HostProfileComponent implements OnInit {
                 this.user.hostReviews = data;
                 for (let i=0; i< data.length; i++){
                   this.user.hostReviews[i].date = new Date(this.user.hostReviews[i].date);
+                  this.average_rating = this.average_rating + this.user.hostReviews[i].grade;
                 }
                 this.reviewsLoaded = true;
+                this.average_rating = this.average_rating / this.user.hostReviews.length
 
               },
               error: (_) =>{
@@ -76,4 +80,19 @@ export class HostProfileComponent implements OnInit {
   protected readonly confirmPasswordValidator = confirmPasswordValidator;
   protected readonly length = length;
 
+  reportReview(id: number) {
+    this.reviewService.reportReview(id).subscribe({
+      next: (review) => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          key: 'bc',
+          detail: 'Review reported successfully!',
+          life: 2000
+        })
+      },
+      error: (err) => console.log(err)
+    })
+
+  }
 }
