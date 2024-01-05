@@ -39,4 +39,14 @@ export class ReviewService {
   deleteReview(id: number): Observable<any>{
     return this.httpClient.delete(environment.apiHost + 'api/reviews/' + id);
   }
+  deleteHostReview(hostId: number, userId: number): Observable<any>{
+    return this.httpClient.delete(environment.apiHost + 'api/reviews/deletehost/' +hostId + '/' + userId);
+  }
+
+  deleteAccommodationReview(accommodationId: number, userId: number): Observable<any>{
+    return this.httpClient.delete(environment.apiHost + 'api/reviews/deleteacc/' +accommodationId + '/' + userId);
+  }
+  reportReview(reviewId: number): Observable<Review>{
+    return this.httpClient.patch<Review>(environment.apiHost + 'api/reviews/' + reviewId + '/report', null);
+  }
 }

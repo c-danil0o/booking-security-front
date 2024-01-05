@@ -38,7 +38,11 @@
                       <td>
                         <div class="row-double"  >
                           <p class="clickable-p" [pTooltip]="reviewTooltip" (click)="goToAccommodation(reservation.accommodationId)">{{reservation.accommodationName}}</p>
-                          <button pButton type="button" label="Add review" class="p-button-primary option-button" (click)="showAccommodationModal()" [disabled]="reservation.reservationStatus.toString() != 'Done' || sevenDaysPassed(reservation.endDate)"></button>
+                          <div class="buttons-row">
+                            <button pButton type="button" label="Add review" class="p-button-primary option-button" (click)="showAccommodationModal()" [disabled]="reservation.reservationStatus.toString() != 'Done' || sevenDaysPassed(reservation.endDate)"></button>
+                            <button pButton type="button" label="Remove" class="p-button-outlined option-button" (click)="removeAccommodationReview(reservation.accommodationId)" [disabled]="reservation.reservationStatus.toString() != 'Done' || sevenDaysPassed(reservation.endDate)"></button>
+
+                          </div>
                           <p-dialog header="Add accommodation review" [(visible)]="accommodationReviewVisible" [modal]="true" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
                             <div class="review-modal">
                               <textarea rows="5" cols="30" pInputTextarea [autoResize]="true" [style]="{'width':'100%'}" placeholder="Add your review" [(ngModel)]="accommodationReview"></textarea>
@@ -61,7 +65,10 @@
                         <td>
                           <div class="row-double">
                             <p class="clickable-p" (click)="goToHostProfile(reservation.hostId)">{{reservation.hostEmail}}</p>
-                            <button pButton type="button" label="Add review" class="p-button-primary option-button" (click)="showHostModal()" [disabled]="reservation.reservationStatus.toString() != 'Done'"></button>
+                            <div class="buttons-row">
+                              <button pButton type="button" label="Add review" class="p-button-primary option-button" (click)="showHostModal()" [disabled]="reservation.reservationStatus.toString() != 'Done'"></button>
+                              <button pButton type="button" label="Remove" class="p-button-outlined option-button" (click)="removeHostReview(reservation.hostId)" [disabled]="reservation.reservationStatus.toString() != 'Done'"></button>
+                            </div>
                             <p-dialog header="Add host review" [(visible)]="hostReviewVisible" [modal]="true" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
                               <div class="review-modal">
                                 <textarea rows="5" cols="30" pInputTextarea [autoResize]="true" [style]="{'width':'100%'}" placeholder="Add your review" [(ngModel)]="hostReview"></textarea>
