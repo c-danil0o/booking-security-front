@@ -13,6 +13,8 @@ import {GuestProfileComponent} from './guest-profile/guest-profile.component';
 import {AccommodationsModule} from "../accommodations/accommodations.module";
 import {PaginatorModule} from "primeng/paginator";
 import { AdminProfileComponent } from './admin-profile/admin-profile.component';
+import {DialogModule} from "primeng/dialog";
+import {InputTextareaModule} from "primeng/inputtextarea";
 
 
 @NgModule({
@@ -22,22 +24,24 @@ import { AdminProfileComponent } from './admin-profile/admin-profile.component';
     GuestProfileComponent,
     AdminProfileComponent
   ],
-  imports: [
-    CommonModule,
-    CardModule,
-    ButtonModule,
-    NgOptimizedImage,
-    RatingModule,
-    FormsModule,
-    RouterLink,
-    TableModule,
-    InputTextModule,
+    imports: [
+        CommonModule,
+        CardModule,
+        ButtonModule,
+        NgOptimizedImage,
+        RatingModule,
+        FormsModule,
+        RouterLink,
+        TableModule,
+        InputTextModule,
 
 
-    RouterLinkActive,
-    AccommodationsModule,
-    PaginatorModule
-  ]
+        RouterLinkActive,
+        AccommodationsModule,
+        PaginatorModule,
+        DialogModule,
+        InputTextareaModule
+    ]
 })
 export class ProfileModule {
 }
