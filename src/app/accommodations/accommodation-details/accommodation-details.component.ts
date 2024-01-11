@@ -78,6 +78,7 @@ export class AccommodationDetailsComponent implements OnInit {
   hostName: string
   viewOnly: boolean = true;
   images: Image[] = [];
+  isFavorite: boolean = false;
   imagesAreLoaded: boolean = false;
   responsiveOptions: any[] = [
     {
@@ -146,6 +147,7 @@ export class AccommodationDetailsComponent implements OnInit {
           }
 
           if (this.isGuest) {
+            this.guestService.checkFavorite(this.accommodation.id, this.authService.getId() || -1).subscribe((fav) => this.isFavorite = fav );
             // info about searched dates and guest number
             this.accommodationService.getSearchedAccommodationDetails().subscribe((searchDetails) => {
               if (searchDetails) {
@@ -313,5 +315,41 @@ export class AccommodationDetailsComponent implements OnInit {
       },
       error: (err) => console.log(err)
     })
+  }
+
+  goToHostProfile(id: number | undefined) {
+    this.router.navigate(['/host-profile', id])
+
+  }
+
+  addToFavorites(accommodationId: number) {
+    this.guestService.addFavorite(accommodationId, this.authService.getId()||-1).subscribe({
+      next: (review) => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          key: 'bc',
+          detail: 'Accommodation added to favorites!',
+          life: 2000
+
+    })
+        this.isFavorite = true;
+
+  }})}
+
+  removeFavorite(id: number) {
+    this.guestService.removeFavorite(id, this.authService.getId()||-1).subscribe({
+      next: (review) => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          key: 'bc',
+          detail: 'Accommodation removed from favorites!',
+          life: 2000
+
+        })
+        this.isFavorite = false;
+
+      }})
   }
 }

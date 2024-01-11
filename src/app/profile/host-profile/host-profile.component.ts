@@ -21,7 +21,7 @@ export class HostProfileComponent implements OnInit {
   reviewsLoaded: boolean = false;
   viewOnly: boolean = true;
   id: number;
-  average_rating: number= 0;
+  average_rating: number = 0;
 
   constructor(private route: ActivatedRoute, private authService: AuthService, private router: Router, private hostService: HostService, private reviewService: ReviewService, private messageService: MessageService) {
   }
@@ -95,4 +95,7 @@ export class HostProfileComponent implements OnInit {
     })
 
   }
+
+  protected readonly NaN = NaN;
+  protected readonly isNaN = isNaN;
 }

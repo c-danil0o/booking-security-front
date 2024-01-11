@@ -123,7 +123,7 @@ export class GuestReservationsComponent implements OnInit {
   }
 
   goToHostProfile(hostId: number) {
-    this.router.navigate(['/host-profile', hostId, true])
+    this.router.navigate(['/host-profile', hostId])
   }
 
   goToAccommodation(accommodationId: number) {
