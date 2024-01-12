@@ -10,6 +10,8 @@ import {confirmPasswordValidator} from "../../accounts/register/password.validat
 import {Email} from "../../model/Email";
 import { ConnectableObservable } from 'rxjs';
 import {MessageService} from "primeng/api";
+import {Report} from "../../model/report-model";
+import {ReportService} from "../../reports/report.service";
 
 @Component({
   selector: 'app-host-profile',
@@ -22,8 +24,10 @@ export class HostProfileComponent implements OnInit {
   viewOnly: boolean = true;
   id: number;
   average_rating: number= 0;
+  hostReportVisible: boolean = false;
+  reportReason: string;
 
-  constructor(private route: ActivatedRoute, private authService: AuthService, private router: Router, private hostService: HostService, private reviewService: ReviewService, private messageService: MessageService) {
+  constructor(private route: ActivatedRoute, private authService: AuthService, private router: Router, private hostService: HostService, private reviewService: ReviewService, private messageService: MessageService, private reportService: ReportService) {
   }
 
   that = this;
@@ -94,5 +98,27 @@ export class HostProfileComponent implements OnInit {
       error: (err) => console.log(err)
     })
 
+  }
+
+  addHostReport(){
+    if (this.reportReason=="")
+      return;
+    let report: Report = {
+      id: -1,
+      reason: this.reportReason,
+      authorId: this.authService.getId() || -1,
+      reportedUserId: this.id,
+      date: new Date()
+    }
+    this.reportService.saveNewReport(report).subscribe({
+      next: (report) => console.log(report),
+      error: (err) => console.log(err)
+    })
+    this.hostReportVisible = false;
+    this.reportReason= "";
+  }
+
+  showHostReporting(){
+    this.hostReportVisible = true;
   }
 }
