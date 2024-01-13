@@ -14,7 +14,10 @@
                 icon="pi pi-sign-out"></button>
         <button pButton type="button" label="Edit profile" [routerLink]="['/edit-account', user.id]"
                 class="p-button-primary edit-profile"></button>
-
+      </div>
+      <div class="buttons" *ngIf="viewOnly">
+        <button pButton type="button" label="Report Host" (click)="showHostReporting()" class="p-button-primary"
+                icon="pi pi-megaphone"></button>
       </div>
     </div>
   </div>
@@ -49,4 +52,12 @@
     </div>
 
   </div>
+  <p-dialog header="Report your host" [(visible)]="hostReportVisible" [modal]="true" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
+    <div class="report_window">
+      <textarea rows="5" cols="30" pInputTextarea [autoResize]="true" [style]="{'width':'100%'}" placeholder="Write your reason for reporting" [(ngModel)]="reportReason"></textarea>
+      <div class="report-button">
+        <button pButton type="button" label="Submit" class="p-button-primary" (click)="addHostReport()"></button>
+      </div>
+    </div>
+  </p-dialog>
 </div>

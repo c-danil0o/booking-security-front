@@ -10,6 +10,7 @@ import { E } from '@angular/cdk/keycodes';
 import { AccountService } from '../services/account.service';
 import { NewPassword } from 'src/app/model/password-change-model';
 import { error } from '@angular/compiler-cli/src/transformers/util';
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-edit-account',
@@ -21,7 +22,7 @@ export class EditAccountComponent {
   editAccountForm: FormGroup;
   changePasswordForm: FormGroup;
 
-  constructor(private router: Router, private authService: AuthService, private route: ActivatedRoute, private accountService: AccountService, private hostService: HostService, private guestService: GuestService) {}
+  constructor(private router: Router, private authService: AuthService, private route: ActivatedRoute, private accountService: AccountService, private hostService: HostService, private guestService: GuestService, private messageService: MessageService) {}
 
 
   ngOnInit() {
@@ -159,7 +160,7 @@ export class EditAccountComponent {
   }
 
   onChangePassword(): void {
-    if(this.changePasswordForm.valid && this.changePasswordForm.value.newpassword === this.changePasswordForm.value.confirmedpassword) {
+    if(this.changePasswordForm.value.newpassword === this.changePasswordForm.value.confirmedpassword) {
       const newPassword: NewPassword = {
         email: this.account.email,
         oldPassword: this.changePasswordForm.value.oldpassword,
@@ -169,7 +170,13 @@ export class EditAccountComponent {
 
       this.accountService.changePassword(newPassword).subscribe(
         () => {
-          alert("Password updated successfully\nYou'll be logged out so you can login with new credentials")
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            key: 'bc',
+            detail: 'Password updated successfully\nYou\'ll be logged out so you can login with new credentials',
+            life: 2000
+          })
           this.authService.logout().subscribe({
             next: (_) => {
               localStorage.removeItem('user');
@@ -185,7 +192,13 @@ export class EditAccountComponent {
         }
       )
     } else {
-      alert('Incorrectly filled in data.\nPlease try again.');
+      this.messageService.add({
+        severity: 'fail',
+        summary: 'Fail',
+        key: 'bc',
+        detail: 'Incorrectly filled in data.\nPlease try again.',
+        life: 2000
+      })
 
       // print all invalid fields in the console
       this.editAccountForm.markAllAsTouched();

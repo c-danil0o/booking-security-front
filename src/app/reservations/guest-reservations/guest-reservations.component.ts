@@ -191,23 +191,23 @@ export class GuestReservationsComponent implements OnInit {
     this.host_rating_value = -1
   }
 
-  addHostReport(hostId: number){
-    if (this.reportReason=="")
-      return;
-    let report: Report = {
-      id: -1,
-      reason: this.reportReason,
-      authorId: this.guestId,
-      reportedUserId: hostId,
-      date: new Date()
-    }
-    this.reportService.saveNewReport(report).subscribe({
-      next: (report) => console.log(report),
-      error: (err) => console.log(err)
-    })
-    this.hostReportVisible = false;
-    this.reportReason= "";
-  }
+  // addHostReport(hostId: number){
+  //   if (this.reportReason=="")
+  //     return;
+  //   let report: Report = {
+  //     id: -1,
+  //     reason: this.reportReason,
+  //     authorId: this.guestId,
+  //     reportedUserId: hostId,
+  //     date: new Date()
+  //   }
+  //   this.reportService.saveNewReport(report).subscribe({
+  //     next: (report) => console.log(report),
+  //     error: (err) => console.log(err)
+  //   })
+  //   this.hostReportVisible = false;
+  //   this.reportReason= "";
+  // }
 
   showAccommodationModal() {
     this.accommodationReviewVisible = true;
