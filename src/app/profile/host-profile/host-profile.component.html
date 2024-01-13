@@ -7,7 +7,7 @@
         <div class="name_role"><span class="name">{{this.user.firstName + ' ' + this.user.lastName}}</span><span
           class="role">HOST</span></div>
 
-        <span class="city">{{user.address.city}}   <span class="pi pi-star rating-star">{{this.average_rating.toFixed(1)}}</span></span>
+        <span class="city">{{user.address.city}}   <span class="pi pi-star rating-star">{{!isNaN(this.average_rating) ? this.average_rating.toFixed(1) : 0}}</span></span>
       </div>
       <div class="buttons" *ngIf="!viewOnly">
         <button pButton type="button" label="Log Out" (click)="logOut()" class="p-button-text logout"

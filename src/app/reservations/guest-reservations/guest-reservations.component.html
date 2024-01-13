@@ -69,6 +69,8 @@
                               <button id="add-review-button" pButton type="button" label="Add review" class="p-button-primary option-button" (click)="showHostModal()" [disabled]="reservation.reservationStatus.toString() != 'Done'"></button>
                               <button pButton type="button" label="Remove" class="p-button-outlined option-button" (click)="removeHostReview(reservation.hostId)" [disabled]="reservation.reservationStatus.toString() != 'Done'"></button>
 
+
+
                             </div>
                              <p-dialog header="Add host review" [(visible)]="hostReviewVisible" [modal]="true" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
                               <div class="review-modal">

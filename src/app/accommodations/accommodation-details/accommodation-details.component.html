@@ -21,7 +21,6 @@
             <span class="guestNumber">
               {{accommodation.minGuests }}-{{ accommodation.maxGuests }} guests
             </span>
-            <span class="roomNumber"> {{ accommodation.roomNumber }} rooms </span>
           </div>
 
           <div class="description">{{ accommodation.description }}</div>
@@ -38,7 +37,7 @@
         </div>
 
         <div class="about-right">
-          <div class="host-text-icon">
+          <div class="host-text-icon" (click)="goToHostProfile(accommodation.host.id)">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               height="25"
@@ -62,7 +61,8 @@
 
             <button class="p-button-primary search_button" label="Reserve" pButton type="submit"></button>
           </form>
-          <button pButton class="add-favorites">Add to favorites</button>
+          <button pButton class="add-favorites" *ngIf="!isFavorite" (click)="addToFavorites(accommodation.id)">Add to favorites</button>
+          <button pButton class="add-favorites" *ngIf="isFavorite" (click)="removeFavorite(accommodation.id)">Remove favorite</button>
         </div>
       </div>
     </div>

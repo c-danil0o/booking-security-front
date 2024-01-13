@@ -49,4 +49,5 @@ export class ReviewService {
   reportReview(reviewId: number): Observable<Review>{
     return this.httpClient.patch<Review>(environment.apiHost + 'api/reviews/' + reviewId + '/report', null);
   }
+
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Guest} from "../../model/guest-model";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {BehaviorSubject, Observable} from "rxjs";
 import {Host} from "../../model/host-model";
 import {environment} from "../../../env/env";
@@ -25,6 +25,23 @@ export class GuestService {
 
   getFavorites(id: number): Observable<Accommodation[]>{
     return this.httpClient.get<Accommodation[]>(environment.apiHost+'api/guests/favorites/'+id);
+  }
+
+  addFavorite(accommodationId: number, guestId: number): Observable<void>{
+    return this.httpClient.get<void>(environment.apiHost + 'api/guests/add-favorite', {
+      params: new HttpParams().set('accommodationId', accommodationId).set('guestId', guestId)
+    })
+  }
+  removeFavorite(accommodationId: number, guestId: number): Observable<void>{
+    return this.httpClient.get<void>(environment.apiHost + 'api/guests/remove-favorite', {
+      params: new HttpParams().set('accommodationId', accommodationId).set('guestId', guestId)
+    })
+  }
+
+  checkFavorite(accommodationId: number, guestId: number): Observable<boolean>{
+    return this.httpClient.get<boolean>(environment.apiHost + 'api/guests/check-favorite', {
+      params: new HttpParams().set('accommodationId', accommodationId).set('guestId', guestId)
+    })
   }
 
   update(host: Host): Observable<Host>{

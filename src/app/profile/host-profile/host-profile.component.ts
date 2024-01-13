@@ -100,6 +100,9 @@ export class HostProfileComponent implements OnInit {
 
   }
 
+
+  protected readonly NaN = NaN;
+  protected readonly isNaN = isNaN;
   addHostReport(){
     if (this.reportReason=="")
       return;
