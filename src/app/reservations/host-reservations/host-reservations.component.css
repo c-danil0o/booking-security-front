@@ -57,6 +57,14 @@
   justify-content: space-between;
 }
 
+#clearButton{
+  margin-left: 15px;
+}
+
+#filterButton{
+  margin-right: 5px;
+}
+
 .header-card i {
   margin-top: 1.5em; /* Adjust the spacing between the icon and text */
   font-size: 1.5em; /* Adjust the icon size as needed */
@@ -78,4 +86,8 @@
   align-items: center;
   gap: 30px;
   margin-top: 10px;
+}
+
+.dates{
+  margin-right: 5px;
 }

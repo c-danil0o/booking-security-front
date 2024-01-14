@@ -40,7 +40,8 @@ export class GuestReservationsComponent implements OnInit {
   host_rating_value: number = -1;
   hostReview: string;
   reviewTooltip: string;
-  reportReason: string;
+  startDate: Date | null;
+  endDate: Date | null;
 
   constructor(private route: ActivatedRoute, private reservationService: ReservationService, private router: Router, private reviewService: ReviewService, private reportService: ReportService, private messageService: MessageService) {
   }
@@ -120,6 +121,7 @@ export class GuestReservationsComponent implements OnInit {
     } else {
       this.filteredReservations = this.reservations.filter(reservation => reservation.reservationStatus.toString() == this.selectedStatus);
     }
+    this.filterByDates();
   }
 
   goToHostProfile(hostId: number) {
@@ -251,6 +253,19 @@ export class GuestReservationsComponent implements OnInit {
         life: 2000
       })
     });
+  }
 
+  filterByDates(){
+    if(this.startDate==null || this.endDate==null){
+      return;
+    }
+    // @ts-ignore
+    this.filteredReservations = this.reservations.filter(reservation => reservation.startDate.toDateString()===this.startDate.toDateString() && reservation.endDate.toDateString()===this.endDate.toDateString() && (!this.selectedStatus || reservation.reservationStatus.toString() == this.selectedStatus));
+  }
+
+  clearDates(){
+    this.startDate = null;
+    this.endDate = null;
+    this.filterReservations();
   }
 }
