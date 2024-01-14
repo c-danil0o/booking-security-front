@@ -6,6 +6,7 @@ import {Table} from "primeng/table";
 import {SelectItem} from "primeng/api";
 import {Report} from "../../model/report-model";
 import {ReportService} from "../../reports/report.service";
+import {LocalDateTime} from "@js-joda/core";
 
 @Component({
   selector: 'app-host-reservations',
@@ -30,6 +31,8 @@ export class HostReservationsComponent implements OnInit {
   hostId: number;
   guestReportVisible: boolean = false;
   reportReason: string;
+  startDate: Date | null;
+  endDate: Date | null;
 
   constructor(private route: ActivatedRoute, private reservationService: ReservationService, private reportService: ReportService) {
   }
@@ -118,6 +121,7 @@ export class HostReservationsComponent implements OnInit {
     } else {
       this.filteredReservations = this.reservations.filter(reservation => reservation.reservationStatus.toString() == this.selectedStatus);
     }
+    this.filterByDates();
   }
 
   checkIfInPast(res: Reservation): boolean{
@@ -144,6 +148,20 @@ export class HostReservationsComponent implements OnInit {
     })
     this.guestReportVisible = false;
     this.reportReason= "";
+  }
+
+  filterByDates(){
+    if(this.startDate==null || this.endDate==null){
+      return;
+    }
+    // @ts-ignore
+    this.filteredReservations = this.reservations.filter(reservation => reservation.startDate.toDateString()===this.startDate.toDateString() && reservation.endDate.toDateString()===this.endDate.toDateString() && (!this.selectedStatus || reservation.reservationStatus.toString() == this.selectedStatus));
+  }
+
+  clearDates(){
+    this.startDate = null;
+    this.endDate = null;
+    this.filterReservations();
   }
 
 }

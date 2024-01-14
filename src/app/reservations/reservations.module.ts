@@ -11,6 +11,7 @@ import {DialogModule} from "primeng/dialog";
 import {InputTextareaModule} from "primeng/inputtextarea";
 import {RatingModule} from "primeng/rating";
 import {TooltipModule} from "primeng/tooltip";
+import {CalendarModule} from "primeng/calendar";
 
 
 
@@ -30,7 +31,8 @@ import {TooltipModule} from "primeng/tooltip";
         InputTextareaModule,
         ReactiveFormsModule,
         RatingModule,
-        TooltipModule
+        TooltipModule,
+        CalendarModule
     ]
 })
 export class ReservationsModule { }
