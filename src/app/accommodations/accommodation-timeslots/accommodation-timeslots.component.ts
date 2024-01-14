@@ -12,6 +12,7 @@ import {HostService} from "../../accounts/services/host.service";
 import {Email} from "../../model/Email";
 import {Host} from "../../model/host-model";
 import {convert} from "@js-joda/core";
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-accommodation-timeslots',
@@ -33,7 +34,7 @@ export class AccommodationTimeslotsComponent implements OnInit {
   accommodation: Accommodation;
   updating: boolean = false;
 
-  constructor(private route: ActivatedRoute, private accommodationService: AccommodationService, private formsService: FormsService, private authService: AuthService, private hostService: HostService, private router: Router) {
+  constructor(private route: ActivatedRoute, private accommodationService: AccommodationService, private formsService: FormsService, private authService: AuthService, private hostService: HostService, private router: Router, private messagService: MessageService) {
   }
 
   ngOnInit() {
@@ -53,11 +54,13 @@ export class AccommodationTimeslotsComponent implements OnInit {
           next: (data: Accommodation) => {
             this.accommodation = data;
             for (let i = 0; i < this.accommodation.availability.length; i++) {
-              this.accommodation.availability[i].startDate = new Date(this.accommodation.availability[i].startDate)
-              this.accommodation.availability[i].endDate = new Date(this.accommodation.availability[i].endDate)
-              if (!this.accommodation.availability[i].isOccupied) {
+              this.accommodation.availability[i].startDate = new Date(this.accommodation.availability[i].startDate+'Z')
+
+              this.accommodation.availability[i].endDate = new Date(this.accommodation.availability[i].endDate + 'Z')
+              if (!this.accommodation.availability[i].occupied) {
                 this.timeslots.push(this.accommodation.availability[i]);
               } else if (this.accommodation.availability[i].endDate.valueOf() >= Date.now().valueOf()) {
+                this.timeslots.push(this.accommodation.availability[i]);
                 this.occupied_timeslots.push(this.accommodation.availability[i])
               }
             }
@@ -95,31 +98,51 @@ export class AccommodationTimeslotsComponent implements OnInit {
 
   add() {
     const today: number = Date.now()
+    this.startDate = new Date(this.startDate + 'Z')
+    this.endDate = new Date(this.endDate + 'Z')
     if (this.startDate != null && this.endDate != null && this.price != 0) {
 
       if (today.valueOf() >= this.startDate.valueOf() || today.valueOf() >= this.endDate.valueOf() || this.startDate.valueOf() >= this.endDate.valueOf()) {
-        alert("Invalid dates!");
+        this.messagService.add({
+          severity: 'error',
+          summary: 'Error',
+          key: 'bc',
+          detail: 'Dates are not valid!',
+          life: 2000
+        })
       } else {
         if (this.updating) {
           for (let i = 0; i < this.occupied_timeslots.length; i++) {
-            if (this.occupied_timeslots[i].startDate.valueOf() <= this.endDate.valueOf() && this.occupied_timeslots[i].endDate.valueOf() >= this.startDate.valueOf()) {
-              alert("Dates overlap with occupied timeslots!")
+            if (this.occupied_timeslots[i].startDate.valueOf() < this.endDate.valueOf() && this.occupied_timeslots[i].endDate.valueOf() > this.startDate.valueOf()) {
+              this.messagService.add({
+                severity: 'error',
+                summary: 'Error',
+                key: 'bc',
+                detail: 'Dates overlap with occupied timeslots!',
+                life: 2000
+              })
               return
             }
           }
         }
         // verify and bind timeslots
         for (let i = 0; i < this.timeslots.length; i++) {
-          if (this.timeslots[i].startDate.valueOf() <= this.endDate.valueOf() && this.timeslots[i].endDate.valueOf() >= this.startDate.valueOf()) {
-            alert("Dates overlap with existing!")
+          if (this.timeslots[i].startDate.valueOf() < this.endDate.valueOf() && this.timeslots[i].endDate.valueOf() > this.startDate.valueOf()) {
+            this.messagService.add({
+              severity: 'error',
+              summary: 'Error',
+              key: 'bc',
+              detail: 'Dates overlap with existing!',
+              life: 2000
+            })
             return
           }
           if (this.price == this.timeslots[i].price){
-            if (this.startDate.valueOf() == this.timeslots[i].endDate.valueOf() + 86400000){
+            if (this.startDate.valueOf() == this.timeslots[i].endDate.valueOf()){
               this.timeslots[i].endDate = this.endDate;
               return
             }
-            if (this.endDate.valueOf() + 86400000 == this.timeslots[i].startDate.valueOf()){
+            if (this.endDate.valueOf() == this.timeslots[i].startDate.valueOf()){
               this.timeslots[i].startDate = this.startDate
               return
             }
@@ -132,16 +155,28 @@ export class AccommodationTimeslotsComponent implements OnInit {
           startDate: this.startDate,
           endDate: this.endDate,
           price: this.price,
-          isOccupied: false
+          occupied: false
         }
         this.lastId += 1;
         this.timeslots.push(timeslot)
+        console.log(this.timeslots)
 
       }
     }
   }
 
   remove(id: number) {
+    let ts = this.timeslots.find(ts => ts.id == id);
+    if (ts?.occupied){
+      this.messagService.add({
+        severity: 'error',
+        summary: 'Error',
+        key: 'bc',
+        detail: 'Cannot remove occupied timeslot!',
+        life: 2000
+      })
+      return;
+    }
     this.timeslots = this.timeslots.filter((e, i) => e.id !== id);
   }
 

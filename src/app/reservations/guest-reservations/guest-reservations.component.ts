@@ -39,7 +39,7 @@ export class GuestReservationsComponent implements OnInit {
   accommodation_rating_value: number = -1;
   host_rating_value: number = -1;
   hostReview: string;
-  reviewTooltip: string;
+  reviewTooltip: Map<number, string> = new Map;
   reportReason: string;
 
   constructor(private route: ActivatedRoute, private reservationService: ReservationService, private router: Router, private reviewService: ReviewService, private reportService: ReportService, private messageService: MessageService) {
@@ -56,6 +56,7 @@ export class GuestReservationsComponent implements OnInit {
       this.reservationService.getByGuestId(guestId).subscribe({
         next: (data: Reservation[]) => {
           data.forEach((reservation) => {
+            this.reviewTooltip.set(reservation.id, "");
             reservation.startDate = new Date(reservation.startDate)
             reservation.endDate = new Date(reservation.endDate)
           })
@@ -221,9 +222,9 @@ export class GuestReservationsComponent implements OnInit {
     this.hostReportVisible = true;
   }
 
-  sevenDaysPassed(endDate: Date): boolean {
+  sevenDaysPassed(endDate: Date, id: number): boolean {
     if (endDate.valueOf() + 604800000 < new Date().valueOf()) {
-      this.reviewTooltip = "7 days passed after reservation!"
+      this.reviewTooltip.set(id,"7 days passed after reservation!");
       return true;
     }
     return false;
