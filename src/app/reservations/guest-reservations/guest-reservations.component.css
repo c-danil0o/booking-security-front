@@ -116,3 +116,15 @@
 #add-review-button{
   margin-right: 2.5em;
 }
+
+.dates{
+  margin-right: 5px;
+}
+
+#filterButton{
+  margin-right: 5px;
+}
+
+#clearButton{
+  margin-left: 15px;
+}

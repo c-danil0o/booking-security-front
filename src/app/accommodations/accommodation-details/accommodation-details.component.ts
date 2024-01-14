@@ -245,12 +245,17 @@ export class AccommodationDetailsComponent implements OnInit {
       // creating reservation
       this.reservationService.createReservation(newReservation).subscribe(
         (reservationData: any) => {
-          alert('Reservation created successfully')
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            key: 'bc',
+            detail: 'Reservation created successfully!',
+            life: 2000
+          })
           this.router.navigate([''])
         },
         (error: any) => {
           console.error('Error creating reservation:', error);
-          alert('An error occurred')
         }
       );
     }
