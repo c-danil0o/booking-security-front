@@ -195,6 +195,21 @@
     width: 100%;
   }
 }
+.deadline_price{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.deadline{
+  color: #2d2d2d;
+  padding: 7px;
+  border: 1px solid #d9d9d9;
+  border-radius: 5px;
+  width: 40%;
+  margin: 4px;
+
+}
 
 .host-text-icon {
   border-radius: 15px;

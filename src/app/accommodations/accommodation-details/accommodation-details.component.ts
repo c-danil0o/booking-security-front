@@ -221,12 +221,11 @@ export class AccommodationDetailsComponent implements OnInit {
 
 
   onSubmit(): void {
-    this.onCheck(); // check if all is good first
     const userId = this.authService.getId();
     if (userId !== null) {
       let {startDate, endDate, guests} = this.reservation_form.value;
-      startDate.setHours(12, 0);
-      endDate.setHours(12, 0);
+      startDate = new Date(startDate + 'Z')
+      endDate = new Date(endDate + 'Z')
 
       let days = Math.floor((endDate - startDate) / (1000 * 60 * 60 * 24));
       console.log(JSON.stringify(startDate));
@@ -252,7 +251,7 @@ export class AccommodationDetailsComponent implements OnInit {
             detail: 'Reservation created successfully!',
             life: 2000
           })
-          this.router.navigate([''])
+          this.router.navigate(['/guest-reservations', this.authService.getId()])
         },
         (error: any) => {
           console.error('Error creating reservation:', error);
@@ -261,17 +260,18 @@ export class AccommodationDetailsComponent implements OnInit {
     }
   }
 
-  onCheck(): void {
+  onCheck(submit: boolean): void {
     if (this.reservation_form.valid) {
 
       let {startDate, endDate, guests} = this.reservation_form.value;
-      startDate.setHours(12, 0);
-      endDate.setHours(12, 0);
+      startDate = new Date(startDate + 'Z')
+      endDate = new Date(endDate + 'Z')
 
       let getAvailabilityPriceDetails: GetAvailabilityPrice = {
         accommodationId: this.accommodation.id,
         startDate: startDate,
-        endDate: endDate
+        endDate: endDate,
+        guests: guests
       }
 
       this.accommodationService.checkAvailabilityAndPrice(getAvailabilityPriceDetails).subscribe(
@@ -280,19 +280,41 @@ export class AccommodationDetailsComponent implements OnInit {
 
           if (available) {
             this.updatePrices(pricePerNight, totalPrice);
+            if (submit){
+              this.onSubmit();
+            }
+
           } else {
-            alert("Accommodation is not available for the selected date.");
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Warning',
+              key: 'bc',
+              detail: 'Accommodation is not available for selected dates!',
+              life: 2000
+            })
           }
         },
         (error: any) => {
           console.error('Error checking availability and price: ' + error.message);
-          alert('An error occurred while checking availability and price. Sorry for the inconvenience.');
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            key: 'bc',
+            detail: 'Server error!',
+            life: 2000
+          })
         }
       );
 
 
     } else {
-      alert('Form is invalid. Please check your inputs.');
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        key: 'bc',
+        detail: 'Reservation form is not valid!',
+        life: 2000
+      })
       // print all invalid fields in the console
       this.reservation_form.markAllAsTouched();
       for (const key of Object.keys(this.reservation_form.controls)) {
