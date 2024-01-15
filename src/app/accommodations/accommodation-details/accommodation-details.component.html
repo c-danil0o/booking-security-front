@@ -58,7 +58,7 @@
             </svg>
             {{  hostName }}
           </div>
-          <form (ngSubmit)="onSubmit()" *ngIf="isGuest" [formGroup]="reservation_form" class="form">
+          <form (ngSubmit)="onCheck(true)" *ngIf="isGuest" [formGroup]="reservation_form" class="form">
             <p-calendar [disabledDates]="disabledDates" [inputStyle]="{'height':'100%'}" [minDate]="minimumDate"
                         class="dates" dateFormat="dd.mm.yy" formControlName="startDate"
                         placeholder="Start date"></p-calendar>
@@ -66,7 +66,7 @@
                         formControlName="endDate" placeholder="End date"></p-calendar>
             <p-inputNumber [inputStyle]="{'width':'30%'}" [showButtons]="true" class="guests-input" formControlName="guests"
                            inputId="stacked" placeholder="Guests"></p-inputNumber>
-            <button (click)="onCheck()" class="check-price" pButton type="button"> Check</button>
+            <button (click)="onCheck(false)" class="check-price" pButton type="button"> Check</button>
 
             <span class="total-price-description"> Total Price : {{ totalPrice }} €</span>
             <span class="price-night-description"> Price Per Night : {{ pricePerNight }} €</span>

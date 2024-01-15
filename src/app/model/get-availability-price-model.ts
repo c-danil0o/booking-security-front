@@ -5,4 +5,5 @@ export interface GetAvailabilityPrice {
     accommodationId?: number;
     startDate: Date;
     endDate: Date;
+    guests: number;
 }
