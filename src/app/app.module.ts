@@ -21,6 +21,8 @@ import {GoogleMapsModule} from "@angular/google-maps";
 import {ToastModule} from "primeng/toast";
 import {ReviewsModule} from "./reviews/reviews.module";
 import {ReportsModule} from "./reports/reports.module";
+import {NotificationsModule} from "./notifications/notifications.module";
+import {DatePipe} from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -40,9 +42,10 @@ import {ReportsModule} from "./reports/reports.module";
         ConfirmDialogModule,
         DropdownModule, ToastModule,
         ReviewsModule,
-        ReportsModule
+        ReportsModule,
+        NotificationsModule
     ],
-  providers:[{provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true},ConfirmationService, MessageService],
+  providers:[{provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true},ConfirmationService, MessageService, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

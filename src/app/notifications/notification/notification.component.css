@@ -1,0 +1,11 @@
+.notifications-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.notification{
+  height: 100px;
+  width: 200px;
+  background: linear-gradient(180deg, #fff 0%, rgba(255, 255, 255, 0) 100%);
+  box-shadow: 0px 17.54878px 35.09756px 0px rgba(171, 190, 209, 0.3);
+}
