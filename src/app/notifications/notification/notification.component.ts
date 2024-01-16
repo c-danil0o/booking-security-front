@@ -18,21 +18,31 @@ import {DatePipe} from "@angular/common";
 export class NotificationComponent implements OnInit{
   notifications: Notification[];
   userId: number | null;
+  userRole: string;
   private stompClient: any;
   isLoaded: boolean = false;
   isCustomSocketOpened = false;
   notificationVisible: boolean = false;
+  notificationSettings: Map<string, boolean> = new Map<string, boolean>([
+    ['HOST_REVIEW_NOTIFICATION', false],
+    ['ACCOMMODATION_REVIEW_NOTIFICATION', false],
+    ['RESERVATION_CANCEL_NOTIFICATION', false],
+    ['RESERVATION_REQUEST_NOTIFICATION', false],
+    ['RESERVATION_RESPONSE_NOTIFICATION', false],
+  ]);
   constructor(private notificationsService: NotificationsService, private authService: AuthService, private messageService: MessageService, private datePipe: DatePipe) {
   }
 
   ngOnInit(): void {
     this.initializeWebSocketConnection()
     this.userId = this.authService.getId();
+    this.userRole = this.authService.getRole();
     if (this.userId != null){
       this.notificationsService.findByUserId(this.userId).subscribe({
         next: (notifications: Notification[]) => this.notifications = notifications,
         error: (err) => console.log(err)
       })
+     this.getSettings()
     }
 
   }
@@ -91,13 +101,29 @@ export class NotificationComponent implements OnInit{
     })
   }
 
-  openSettings() {
+  applySettings() {
+    let settings: string[] = []
+    for (let [key, value] of this.notificationSettings){
+      if (value)
+        settings.push(key)
+    }
+    this.notificationsService.applyNotificationSettings(settings, this.userId || -1).subscribe((m) => {
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Success',
+        key: 'bc',
+        detail: 'Notification settings updated!',
+        life: 2000
+      })
+    })
 
   }
 
-  onClose() {
-    this.messageService.clear("notification");
-    this.notificationVisible = false;
-
+  getSettings() {
+    this.notificationsService.getUserSettings(this.userId || -1).subscribe((settings) => {
+      for (let i = 0; i < settings.length; i++){
+        this.notificationSettings.set(settings[i], true);
+      }
+    });
   }
 }

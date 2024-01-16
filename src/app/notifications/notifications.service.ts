@@ -18,4 +18,10 @@ export class NotificationsService {
   removeNotification(id: number): Observable<void>{
     return this.httpClient.delete<void>(environment.apiHost + 'api/notifications/' + id);
   }
+  applyNotificationSettings(settings: string[], id: number): Observable<void>{
+    return this.httpClient.post<void>(environment.apiHost + 'api/notifications/settings/' + id, settings);
+  }
+  getUserSettings(id: number): Observable<string[]>{
+    return this.httpClient.get<string[]>(environment.apiHost + 'api/notifications/settings/get/' + id );
+  }
 }
