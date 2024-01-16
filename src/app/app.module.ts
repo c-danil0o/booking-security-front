@@ -21,6 +21,8 @@ import {GoogleMapsModule} from "@angular/google-maps";
 import {ToastModule} from "primeng/toast";
 import {ReviewsModule} from "./reviews/reviews.module";
 import {ReportsModule} from "./reports/reports.module";
+import {NgChartsModule} from "ng2-charts";
+import {AnalyticsModule} from "./analytics/analytics.module";
 
 @NgModule({
   declarations: [
@@ -40,7 +42,9 @@ import {ReportsModule} from "./reports/reports.module";
         ConfirmDialogModule,
         DropdownModule, ToastModule,
         ReviewsModule,
-        ReportsModule
+        ReportsModule,
+        NgChartsModule,
+        AnalyticsModule
     ],
   providers:[{provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true},ConfirmationService, MessageService],
   bootstrap: [AppComponent]
