@@ -8,6 +8,7 @@ import {Email} from "../../model/Email";
 import {Guest} from "../../model/guest-model";
 import {Accommodation} from "../../model/accommodation-model";
 import {AccountService} from "../../accounts/services/account.service";
+import {NotificationsService} from "../../notifications/notifications.service";
 
 @Component({
   selector: 'app-admin-profile',
@@ -17,7 +18,7 @@ import {AccountService} from "../../accounts/services/account.service";
 export class AdminProfileComponent implements OnInit{
   user: Account;
 
-  constructor(private authService: AuthService, private router: Router, private accountService: AccountService) {
+  constructor(private authService: AuthService, private router: Router, private accountService: AccountService, private notificationService: NotificationsService) {
   }
 
   ngOnInit(): void {
@@ -43,6 +44,7 @@ export class AdminProfileComponent implements OnInit{
       next: (_) => {
         localStorage.removeItem('user');
         this.authService.setUser();
+        this.notificationService.disconnectStompClient()
         this.router.navigate(['/login']);
       }
     })

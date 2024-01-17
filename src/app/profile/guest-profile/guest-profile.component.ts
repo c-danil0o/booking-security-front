@@ -12,6 +12,7 @@ import {Review} from "../../model/review-model";
 import {AccommodationService} from "../../accommodations/accommodation.service";
 import {Accommodation} from "../../model/accommodation-model";
 import {PaginatorState} from "primeng/paginator";
+import {NotificationsService} from "../../notifications/notifications.service";
 
 @Component({
   selector: 'app-guest-profile',
@@ -26,7 +27,7 @@ export class GuestProfileComponent implements OnInit{
   totalItems: number = 0
   favoritesLoaded: boolean = false;
 
-  constructor(private authService: AuthService, private router: Router, private guestService: GuestService, private accommodationService: AccommodationService) {
+  constructor(private authService: AuthService, private router: Router, private guestService: GuestService, private accommodationService: AccommodationService, private notificationsService: NotificationsService) {
   }
 
   ngOnInit(): void {
@@ -64,6 +65,7 @@ export class GuestProfileComponent implements OnInit{
       next: (_) => {
         localStorage.removeItem('user');
         this.authService.setUser();
+        this.notificationsService.disconnectStompClient();
         this.router.navigate(['/login']);
       }
     })

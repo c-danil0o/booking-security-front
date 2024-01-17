@@ -19,7 +19,7 @@ export class NotificationComponent implements OnInit{
   notifications: Notification[];
   userId: number | null;
   userRole: string;
-  private stompClient: any;
+  private stompClient: Stomp.Client;
   isLoaded: boolean = false;
   isCustomSocketOpened = false;
   notificationVisible: boolean = false;
@@ -51,11 +51,11 @@ export class NotificationComponent implements OnInit{
     this.stompClient = Stomp.over(ws);
     let that = this;
 
+    this.notificationsService.setStompClient(this.stompClient);
     this.stompClient.connect({}, function () {
       that.isLoaded = true;
       that.openSocket()
     });
-
   }
   openSocket() {
     if (this.isLoaded) {
