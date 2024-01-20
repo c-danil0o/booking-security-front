@@ -26,6 +26,7 @@ import {AdminProfileComponent} from "./profile/admin-profile/admin-profile.compo
 import {ApproveAccommodationsComponent} from "./accommodations/approve-accommodations/approve-accommodations.component";
 import {ApproveReviewsComponent} from "./reviews/approve-reviews/approve-reviews.component";
 import {ReportsViewComponent} from "./reports/reports-view/reports-view.component";
+import {YearAnalyticsComponent} from "./analytics/year-analytics/year-analytics.component";
 
 
 const routes: Routes = [
@@ -50,7 +51,8 @@ const routes: Routes = [
   {component: GuestProfileComponent, path:"guest-profile"},
   {component: EditAccommodationComponent, path:"edit-accommodation/:accId"},
   {component: ApproveReviewsComponent, path:"approve-reviews"},
-  {component: ReportsViewComponent, path:"reports-view"}
+  {component: ReportsViewComponent, path:"reports-view"},
+  {component: YearAnalyticsComponent, path:"analytics/:hostId"}
   ];
 
 @NgModule({
