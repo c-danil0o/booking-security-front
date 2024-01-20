@@ -35,7 +35,6 @@ module.exports = function (config) {
     reporters: ['progress', 'kjhtml'],
     browsers: ['Chrome'],
     restartOnFileChange: true,
-    autoWatch: true ,
-    singleRun: true,
+    autoWatch: true
   });
 };
