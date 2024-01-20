@@ -71,7 +71,7 @@
             <span class="total-price-description"> Total Price : {{ totalPrice }} €</span>
             <span class="price-night-description"> Price Per Night : {{ pricePerNight }} €</span>
 
-            <button class="p-button-primary search_button" label="Reserve" pButton type="submit"></button>
+            <button id="reserveButton" class="p-button-primary search_button" label="Reserve" pButton type="submit"></button>
           </form>
           <button (click)="addToFavorites(accommodation.id)" *ngIf="!isFavorite" class="add-favorites" pButton>Add to
             favorites

@@ -261,9 +261,8 @@ export class AccommodationDetailsComponent implements OnInit {
   }
 
   onCheck(submit: boolean): void {
-    if (this.reservation_form.valid) {
-
-      let {startDate, endDate, guests} = this.reservation_form.value;
+    let {startDate, endDate, guests} = this.reservation_form.value;
+    if (this.reservation_form.valid && startDate<endDate && guests>0 && guests>=this.accommodation.minGuests && guests<=this.accommodation.maxGuests) {
       startDate = new Date(startDate + 'Z')
       endDate = new Date(endDate + 'Z')
 
@@ -273,6 +272,7 @@ export class AccommodationDetailsComponent implements OnInit {
         endDate: endDate,
         guests: guests
       }
+      console.log("qm");
 
       this.accommodationService.checkAvailabilityAndPrice(getAvailabilityPriceDetails).subscribe(
         (gottenAvailabilityPrice: GottenAvailabilityPrice) => {
