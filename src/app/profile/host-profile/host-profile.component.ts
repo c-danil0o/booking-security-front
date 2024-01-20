@@ -12,6 +12,7 @@ import { ConnectableObservable } from 'rxjs';
 import {MessageService} from "primeng/api";
 import {Report} from "../../model/report-model";
 import {ReportService} from "../../reports/report.service";
+import {NotificationsService} from "../../notifications/notifications.service";
 
 @Component({
   selector: 'app-host-profile',
@@ -27,7 +28,7 @@ export class HostProfileComponent implements OnInit {
   hostReportVisible: boolean = false;
   reportReason: string;
 
-  constructor(private route: ActivatedRoute, private authService: AuthService, private router: Router, private hostService: HostService, private reviewService: ReviewService, private messageService: MessageService, private reportService: ReportService) {
+  constructor(private route: ActivatedRoute, private authService: AuthService, private router: Router, private hostService: HostService, private reviewService: ReviewService, private messageService: MessageService, private reportService: ReportService, private notificationService: NotificationsService) {
   }
 
   that = this;
@@ -76,6 +77,7 @@ export class HostProfileComponent implements OnInit {
       next: (_) => {
         localStorage.removeItem('user');
         this.authService.setUser();
+        this.notificationService.disconnectStompClient()
         this.router.navigate(['/login']);
       }
     })

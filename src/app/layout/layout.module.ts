@@ -10,6 +10,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CalendarModule} from "primeng/calendar";
 import {InputTextModule} from "primeng/inputtext";
 import {AccommodationsModule} from "../accommodations/accommodations.module";
+import {NotificationsModule} from "../notifications/notifications.module";
 
 
 @NgModule({
@@ -23,17 +24,18 @@ import {AccommodationsModule} from "../accommodations/accommodations.module";
     HeaderComponent,
     HomeComponent
   ],
-  imports: [
-    CommonModule,
-    ButtonModule,
-    RouterModule,
-    InputNumberModule,
-    ReactiveFormsModule,
-    CalendarModule,
-    InputTextModule,
-    FormsModule,
-    AccommodationsModule
-  ]
+    imports: [
+        CommonModule,
+        ButtonModule,
+        RouterModule,
+        InputNumberModule,
+        ReactiveFormsModule,
+        CalendarModule,
+        InputTextModule,
+        FormsModule,
+        AccommodationsModule,
+        NotificationsModule
+    ]
 })
 export class LayoutModule {
 }

@@ -1,0 +1,53 @@
+<p-button (click)="op.toggle($event)" [rounded]="true"
+          icon="pi pi-bell"></p-button>
+<p-overlayPanel #op  [style]="{ width: '650px' }">
+  <ng-template pTemplate="content">
+    <p-table  [scrollable]="true" [rows]="10" scrollHeight="500px" [value]="notifications" responsiveLayout="scroll" selectionMode="single">
+      <ng-template pTemplate="caption">
+        <div class="notifications-header">
+          <span>Notifications</span>
+          <button pButton type="button"  class="p-button-text"  icon="pi pi-cog" (click)="opSettings.toggle($event); op.toggle($event); getSettings()"></button>
+        </div>
+      </ng-template>
+
+
+      <ng-template let-notification pTemplate="body">
+        <tr>
+          <td>{{ notification.date | date: 'dd.MM.yyyy | HH:mm' }}</td>
+          <td>{{notification.message}}</td>
+          <td><p-button [rounded]="true" icon="pi pi-times" (onClick)="removeNotification(notification.id)"></p-button></td>
+        </tr>
+      </ng-template>
+    </p-table>
+
+  </ng-template>
+</p-overlayPanel>
+<p-overlayPanel #opSettings  [style]="{ width: '550px' }">
+  <ng-template pTemplate="content">
+    <div class="settings">
+      <div *ngIf="userRole == 'ROLE_Host'" class="setting">
+        <span>Host review notifications</span>
+        <p-inputSwitch [ngModel]="notificationSettings.get('HOST_REVIEW_NOTIFICATION')" (ngModelChange)="notificationSettings.set('HOST_REVIEW_NOTIFICATION', $event)"></p-inputSwitch>
+      </div>
+      <div *ngIf="userRole == 'ROLE_Host'" class="setting">
+        <span>Accommodation review notifications</span>
+        <p-inputSwitch [ngModel]="notificationSettings.get('ACCOMMODATION_REVIEW_NOTIFICATION')" (ngModelChange)="notificationSettings.set('ACCOMMODATION_REVIEW_NOTIFICATION', $event)"></p-inputSwitch>
+      </div>
+      <div *ngIf="userRole == 'ROLE_Host'" class="setting">
+        <span>Reservation request notifications</span>
+        <p-inputSwitch [ngModel]="notificationSettings.get('RESERVATION_REQUEST_NOTIFICATION')" (ngModelChange)="notificationSettings.set('RESERVATION_REQUEST_NOTIFICATION', $event)"></p-inputSwitch>
+      </div>
+      <div *ngIf="userRole == 'ROLE_Host'" class="setting">
+        <span>Cancel reservation notifications</span>
+        <p-inputSwitch [ngModel]="notificationSettings.get('RESERVATION_CANCEL_NOTIFICATION')" (ngModelChange)="notificationSettings.set('RESERVATION_CANCEL_NOTIFICATION', $event)"></p-inputSwitch>
+      </div>
+      <div *ngIf="userRole == 'ROLE_Guest'" class="setting">
+        <span>Reservation request notifications</span>
+        <p-inputSwitch [ngModel]="notificationSettings.get('RESERVATION_RESPONSE_NOTIFICATION')" (ngModelChange)="notificationSettings.set('RESERVATION_RESPONSE_NOTIFICATION', $event)"></p-inputSwitch>
+      </div>
+      <p-button label="Apply" class="p-button apply-button"  (onClick)="applySettings(); opSettings.toggle($event)"></p-button>
+    </div>
+  </ng-template>
+</p-overlayPanel>
+<p-toast position="top-center" key="notification"  [baseZIndex]="5000">
+</p-toast>

@@ -21,6 +21,8 @@ import {GoogleMapsModule} from "@angular/google-maps";
 import {ToastModule} from "primeng/toast";
 import {ReviewsModule} from "./reviews/reviews.module";
 import {ReportsModule} from "./reports/reports.module";
+import {NotificationsModule} from "./notifications/notifications.module";
+import {DatePipe} from "@angular/common";
 import {NgChartsModule} from "ng2-charts";
 import {AnalyticsModule} from "./analytics/analytics.module";
 
@@ -43,10 +45,11 @@ import {AnalyticsModule} from "./analytics/analytics.module";
         DropdownModule, ToastModule,
         ReviewsModule,
         ReportsModule,
+        NotificationsModule,
         NgChartsModule,
         AnalyticsModule
     ],
-  providers:[{provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true},ConfirmationService, MessageService],
+  providers:[{provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true},ConfirmationService, MessageService, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
