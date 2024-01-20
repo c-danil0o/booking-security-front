@@ -5,12 +5,12 @@ import {HttpClientTestingModule, HttpTestingController} from "@angular/common/ht
 import {
   mockReservation1
 } from '../mocks/reservation.service.mock';
+import {environment} from "../../env/env";
 
 describe('ReservationService', () => {
   let service: ReservationService;
   let httpController: HttpTestingController;
 
-  let url = 'localhost:8080/api';
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -35,7 +35,7 @@ describe('ReservationService', () => {
 
     const req = httpController.expectOne({
       method: 'POST',
-      url: `${url}/reservations`,
+      url: environment.apiHost + 'api/reservations',
     });
 
     req.flush(mockReservation1);
