@@ -45,9 +45,9 @@ export class ApproveAccommodationsComponent {
             severity: 'success',
             summary: 'Success',
             key: 'bc',
-            detail: 'Property approved successfully!',
+            detail: 'Property approved successfully',
             life: 2000
-          })
+          });
           this.refresh();
         },
         (error) => {
@@ -67,9 +67,10 @@ export class ApproveAccommodationsComponent {
             severity: 'success',
             summary: 'Success',
             key: 'bc',
-            detail: 'Property denied successfully!',
+            detail: 'Property denied successfully',
             life: 2000
-          })
+          });
+
           this.refresh();
         },
         (error) => {

@@ -15,7 +15,7 @@ export class SearchedAccommodationCardComponent {
   accommodation: SearchedAccommodation;
   @Output()
   clicked: EventEmitter<SearchedAccommodation> = new EventEmitter<SearchedAccommodation>();
-  constructor(private accommodationService: AccommodationService, private router: Router) {}  
+  constructor(private accommodationService: AccommodationService, private router: Router) {}
 
   onAccommodationClicked(): void{
 

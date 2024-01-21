@@ -16,7 +16,7 @@ import {Address} from "../../model/address-model";
 import {Host} from "../../model/host-model";
 import {GottenAvailabilityPrice} from "../../model/gotten-availability-price-model";
 import {of} from "rxjs";
-import { mockAccommodation } from "../../mocks/accommodation.mock";
+import {mockAccommodation} from "../../mocks/accommodation.mock";
 
 
 describe('AccommodationPageComponent', () => {
