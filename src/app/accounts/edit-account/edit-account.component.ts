@@ -80,7 +80,7 @@ export class EditAccountComponent {
       firstName: this.editAccountForm.value.firstname,
       lastName: this.editAccountForm.value.lastname,
       phone: this.editAccountForm.value.phone,
-      email: this.editAccountForm.value.email,
+      email: this.editAccountForm.controls['email'].value,
       address: {
         ...this.account.address,
         street: this.editAccountForm.value.street,
@@ -89,24 +89,44 @@ export class EditAccountComponent {
         country: this.editAccountForm.value.country
       }
     };
-    const updateService = this.authService.getRole().toUpperCase() === 'ROLE_HOST' ? this.hostService : this.guestService;
-    updateService.update(updatedAccountData).subscribe(
-      (responseAccount: any) => {
-        this.account = responseAccount;
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Success',
-          key: 'bc',
-          detail: 'Account successfully updated!',
-          life: 2000
-        });
-        this.formChanged = false;
-      },
-      error => {
-        alert("An error occurred while updating, we're sorry for inconvenience");
-        console.error(`Error updating account: ${error}`)
-      }
-    )
+    if (this.authService.getRole().toUpperCase() === 'ROLE_HOST'){
+      this.hostService.update(updatedAccountData).subscribe(
+        (responseAccount: any) => {
+          this.account = responseAccount;
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            key: 'bc',
+            detail: 'Account successfully updated!',
+            life: 2000
+          });
+          this.formChanged = false;
+        },
+        error => {
+          alert("An error occurred while updating, we're sorry for inconvenience");
+          console.error(`Error updating account: ${error}`)
+        }
+      )
+    }else{
+      this.guestService.update(updatedAccountData).subscribe(
+        (responseAccount: any) => {
+          this.account = responseAccount;
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            key: 'bc',
+            detail: 'Account successfully updated!',
+            life: 2000
+          });
+          this.formChanged = false;
+        },
+        error => {
+          alert("An error occurred while updating, we're sorry for inconvenience");
+          console.error(`Error updating account: ${error}`)
+        }
+      )
+    }
+
   }
   onSubmit(): void {
     console.log("clicked submit")

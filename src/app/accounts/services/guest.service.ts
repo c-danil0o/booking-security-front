@@ -44,8 +44,8 @@ export class GuestService {
     })
   }
 
-  update(host: Host): Observable<Host>{
-    return this.httpClient.put<Host>(environment.apiHost + 'api/hosts/update', host)
+  update(host: Guest): Observable<Guest>{
+    return this.httpClient.put<Guest>(environment.apiHost + 'api/guests/update', host)
   }
 
   deleteAccount(id: number): Observable<void> {
