@@ -41,8 +41,7 @@ const emptyHost: Host = {
   hostReviews: [],
   id: undefined,
   email: "",
-  isBlocked: false,
-  profilePictureUrl: ""
+  isBlocked: false
 };
 const emptyAccommodation: Accommodation = {
   id: 0,

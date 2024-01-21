@@ -7,7 +7,7 @@
 
     <div class="outer-main-section">
       <div class="inner-main-section">
-        <form class="fields" [formGroup]="editAccountForm" (ngSubmit)="onSubmit()">
+        <form *ngIf="loaded" class="fields" [formGroup]="editAccountForm" (ngSubmit)="onSubmit()">
           <h2>Basic info:</h2>
           <div class="outer-info-segment">
             <div class="inner-info-segment"> <ul> <li>First Name</li> </ul> </div>
@@ -21,12 +21,12 @@
 
           <div class="outer-info-segment">
             <div class="inner-info-segment"> <ul> <li>Email</li> </ul> </div>
-            <input type="email" class="info-input" value="{{ account.email }}" formControlName="email"/>
+            <input  type="email" class="info-input" value="{{ account.email }}" formControlName="email"/>
           </div>
 
           <div class="outer-info-segment">
             <div class="inner-info-segment"> <ul> <li>Country</li> </ul> </div>
-            <input type="email" class="info-input" value="{{ account.address?.country }}" formControlName="selectedCountry"/>
+            <input type="email" class="info-input" value="{{ account.address?.country }}" formControlName="country"/>
           </div>
 
           <div class="outer-info-segment">
@@ -51,7 +51,7 @@
 
 
           <div class="button-actions">
-            <button pButton type="submit" class="apply-button">Apply changes</button>
+            <button pButton type="submit" [disabled]="!formChanged" id="applyChangesButton" class="apply-button">Apply changes</button>
             <button pButton type="button" class="cancel-button" (click)="onCancel()">Cancel</button>
             <button pButton type="button" class="delete-button" (click)="onDelete()">Delete account</button>
           </div>
@@ -61,9 +61,9 @@
           <form class="password-fields" [formGroup]="changePasswordForm" (ngSubmit)="onChangePassword()">
             <span class="change-pass-text">Change password:</span>
 
-            <p-password class="change-password" placeholder="Old password" [toggleMask]="true" formControlName="oldpassword"/>
-            <p-password class="change-password" placeholder="New password" [toggleMask]="true" formControlName="newpassword"/>
-            <p-password class="change-password" placeholder="Confirm new password" [toggleMask]="true" formControlName="confirmedpassword"/>
+            <p-password class="change-password" [feedback]="false" placeholder="Old password" [toggleMask]="true" formControlName="oldpassword"/>
+            <p-password class="change-password" [feedback]="false" placeholder="New password" [toggleMask]="true" formControlName="newpassword"/>
+            <p-password class="change-password" [feedback]="false" placeholder="Confirm new password" [toggleMask]="true" formControlName="confirmedpassword"/>
             <button pButton type="submit" class="change-pass-button">Change</button>
           </form>
         </div>
