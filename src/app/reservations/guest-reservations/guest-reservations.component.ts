@@ -87,7 +87,6 @@ export class GuestReservationsComponent implements OnInit {
         },
         (error) => {
           console.error('Failed to cancel reservation:', error);
-          // alert('Failed to cancel reservation');
         });
     }
 

@@ -3,7 +3,7 @@ import {Reservation} from "../../model/reservation-model";
 import {ActivatedRoute} from "@angular/router";
 import {ReservationService} from "../reservation.service";
 import {Table} from "primeng/table";
-import {SelectItem} from "primeng/api";
+import {MessageService, SelectItem} from "primeng/api";
 import {Report} from "../../model/report-model";
 import {ReportService} from "../../reports/report.service";
 import {LocalDateTime} from "@js-joda/core";
@@ -34,7 +34,7 @@ export class HostReservationsComponent implements OnInit {
   startDate: Date | null;
   endDate: Date | null;
 
-  constructor(private route: ActivatedRoute, private reservationService: ReservationService, private reportService: ReportService) {
+  constructor(private route: ActivatedRoute, private reservationService: ReservationService, private reportService: ReportService, private messageService: MessageService) {
   }
 
   clear(table: Table) {
@@ -67,12 +67,17 @@ export class HostReservationsComponent implements OnInit {
       this.reservationService.approveReservation(id).subscribe(
         () => {
           console.log('Reservation approved successfully');
-          alert('Reservation approved successfully');
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            key: 'bc',
+            detail: 'Reservation approved successfully!',
+            life: 2000
+          })
           this.refresh();
         },
         (error) => {
           console.error('Failed to approve reservation:', error);
-          alert('Failed to approve reservation');
         }
       );
     }
@@ -84,13 +89,18 @@ export class HostReservationsComponent implements OnInit {
       this.reservationService.denyReservation(id).subscribe(
         () => {
           console.log('Reservation denied successfully');
-          alert('Reservation denied successfully');
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            key: 'bc',
+            detail: 'Reservation denied successfully!',
+            life: 2000
+          })
           this.refresh();
           // You can perform additional actions after approval if needed
         },
         (error) => {
           console.error('Failed to deny reservation:', error);
-          alert('Failed to deny reservation');
         });
     }
 
@@ -143,7 +153,16 @@ export class HostReservationsComponent implements OnInit {
       date: new Date()
     }
     this.reportService.saveNewReport(report).subscribe({
-      next: (report) => console.log(report),
+      next: (report) => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          key: 'bc',
+          detail: 'Report created successfully!',
+          life: 2000
+        })
+        console.log(report)
+      },
       error: (err) => console.log(err)
     })
     this.guestReportVisible = false;

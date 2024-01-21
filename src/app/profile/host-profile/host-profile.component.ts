@@ -116,7 +116,16 @@ export class HostProfileComponent implements OnInit {
       date: new Date()
     }
     this.reportService.saveNewReport(report).subscribe({
-      next: (report) => console.log(report),
+      next: (report) => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          key: 'bc',
+          detail: 'Report created successfully!',
+          life: 2000
+        })
+        console.log(report)
+      },
       error: (err) => console.log(err)
     })
     this.hostReportVisible = false;

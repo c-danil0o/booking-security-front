@@ -3,7 +3,7 @@ import {Host} from "../model/host-model";
 import {AccommodationStatus} from "../model/accommodation-status-model";
 
 const address: Address = {street: 'adad', city: 'dad', number: '123', country: 'adas', latitude: 2, longitude:2};
-const host: Host = {id:1, address: address, isBlocked: false, email: 'fsdfs', profilePictureUrl: 'sdfsdf' ,firstName: 'dasd', lastName: 'fsdsdf', phone: '123345', properties: [], hostReviews: []};
+const host: Host = {id:1, address: address, isBlocked: false, email: 'fsdfs' ,firstName: 'dasd', lastName: 'fsdsdf', phone: '123345', properties: [], hostReviews: []};
 const mockAccommodation = {
   id: 1,
   name: 'kumova soba',

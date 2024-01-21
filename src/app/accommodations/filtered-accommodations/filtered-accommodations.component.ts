@@ -7,6 +7,7 @@ import {SearchFormService} from "../../shared/search-form.service";
 import {SearchModel} from "../../model/search-model";
 import {CheckboxChangeEvent} from "primeng/checkbox";
 import {SearchedAccommodation} from "../../model/searched-accommodation-model";
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-filtered-accommodations',
@@ -32,7 +33,7 @@ export class FilteredAccommodationsComponent {
   startDate: Date;
   endDate: Date;
   guests: number;
-  constructor(private service: AccommodationService, private searchFormService: SearchFormService){
+  constructor(private service: AccommodationService, private searchFormService: SearchFormService, private messageService: MessageService){
   }
 
   ngOnInit(): void{
@@ -46,13 +47,13 @@ export class FilteredAccommodationsComponent {
     this.endDate = this.searchForm.endDate;
     this.guests = this.searchForm.guests;
 
-    const reservationDetails = { 
+    const reservationDetails = {
       startDate: this.startDate,
       endDate: this.endDate,
       guests: this.guests
     };
     this.service.setFilteredAccommodationDetails(reservationDetails);
-    
+
     this.service.searchAccommodations(this.searchForm).subscribe({
       next:(data: SearchedAccommodation[]) => {
         this.accommodations = data;
@@ -68,7 +69,13 @@ export class FilteredAccommodationsComponent {
     const today: number = Date.now();
     if (this.startDate != null && this.endDate != null) {
       if (today.valueOf() > this.startDate.valueOf() || today.valueOf() > this.endDate.valueOf() || this.startDate.valueOf() >= this.endDate.valueOf()) {
-        alert("Invalid dates!");
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          key: 'bc',
+          detail: 'Invalid dates!',
+          life: 2000
+        })
       }
       else {
         this.startDate.setHours(12,0);
@@ -88,15 +95,15 @@ export class FilteredAccommodationsComponent {
           },
           error: (_) => {console.log("error!")}
         })
-    
+
         // update details to be passed to accommodation details
-        const filteredAccommodationDetails = { 
+        const filteredAccommodationDetails = {
           startDate: this.startDate,
           endDate: this.endDate,
           guests: this.guests
         };
         this.service.setFilteredAccommodationDetails(filteredAccommodationDetails);
-        
+
       }
     }
   }
@@ -218,5 +225,5 @@ export class FilteredAccommodationsComponent {
 
     }
     this.filteredAccommodations = newAccommodatins;
-  }  
+  }
 }

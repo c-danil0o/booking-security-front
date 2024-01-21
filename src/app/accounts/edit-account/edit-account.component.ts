@@ -103,7 +103,6 @@ export class EditAccountComponent {
           this.formChanged = false;
         },
         error => {
-          alert("An error occurred while updating, we're sorry for inconvenience");
           console.error(`Error updating account: ${error}`)
         }
       )
@@ -121,7 +120,6 @@ export class EditAccountComponent {
           this.formChanged = false;
         },
         error => {
-          alert("An error occurred while updating, we're sorry for inconvenience");
           console.error(`Error updating account: ${error}`)
         }
       )
