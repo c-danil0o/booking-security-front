@@ -21,7 +21,7 @@ export class EditAccountComponent {
   account: any;
   editAccountForm: FormGroup;
   changePasswordForm: FormGroup;
-
+  formChanged: boolean = false;
   constructor(private router: Router, private authService: AuthService, private route: ActivatedRoute, private accountService: AccountService, private hostService: HostService, private guestService: GuestService, private messageService: MessageService) {}
 
 
@@ -29,16 +29,19 @@ export class EditAccountComponent {
     this.initializeEditAccountForm();
     this.initializeChangePasswordForm();
 
+
     this.route.params.subscribe(params => {
       const userId = params['id'];
       if (this.authService.getRole().toUpperCase() === 'ROLE_HOST') {
-        this.account = this.hostService.findById(userId).subscribe(data => {
+        this.hostService.findById(userId).subscribe(data => {
           this.account = data;
+          this.loaded = true;
           this.patchEditAccountForm();
         });
       } else {
-        this.account = this.guestService.findById(userId).subscribe(data => {
+       this.guestService.findById(userId).subscribe(data => {
           this.account = data;
+          this.loaded = true;
           this.patchEditAccountForm();
         });
       }
@@ -50,11 +53,11 @@ export class EditAccountComponent {
       firstname: new FormControl('', [Validators.required, Validators.max(30)]),
       lastname: new FormControl('', [Validators.required, Validators.max(30)]),
       phone: new FormControl('', [Validators.required, Validators.pattern("^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\\s\\./0-9]*$")]),
-      selectedCountry: new FormControl('', Validators.required),
       street: new FormControl('', Validators.required),
       city: new FormControl('', Validators.required),
       number: new FormControl('', Validators.required),
-      email: new FormControl('', [Validators.required, Validators.email]),
+      email: new FormControl({value: '', disabled: true}, [Validators.required, Validators.email],),
+      country: new FormControl('', [Validators.required])
     });
   }
 
@@ -69,60 +72,75 @@ export class EditAccountComponent {
 
   selectedCountry = {"name": "12", "code": "23"};
   protected readonly countries = countries;
+  loaded: boolean = false;
 
-  onSubmit(): void {
-    if(this.editAccountForm.valid) {
-      const updatedAccountData = {
-        ...this.account,
-        firstName: this.editAccountForm.value.firstname,
-        lastName: this.editAccountForm.value.lastname,
-        phone: this.editAccountForm.value.phone,
-        email: this.editAccountForm.value.email,
-        address: {
-          ...this.account.address,
-          street: this.editAccountForm.value.street,
-          city: this.editAccountForm.value.city,
-          number: this.editAccountForm.value.number,
-          // country: this.editAccountForm.value.country
-        }
-      };
-
-
-      const updateService = this.authService.getRole().toUpperCase() === 'ROLE_HOST' ? this.hostService : this.guestService;
-      if(this.account.email === updatedAccountData.email) {
-        updateService.update(updatedAccountData).subscribe(
-          () => {
-            this.account = updatedAccountData;
-            alert('Account updated successfully');
-          },
-          error => {
-            alert("An error occurred while updating, we're sorry for inconvenience");
-            console.error(`Error updating account: ${error}`)
-          }
-        )
-      } else {
-        this.authService.logout().subscribe({
-          next: (_) => {
-            localStorage.removeItem('user');
-            this.authService.setUser();
-          }
-        })
-        updateService.update(updatedAccountData).subscribe(
-          () => {
-            this.account = updatedAccountData;
-            alert('Account successfully updated. You will be logged out, so log in with new credentials.');
-            this.router.navigate(['/login']);
-          },
-          error => {
-            alert("An error occurred while updating, we're sorry for inconvenience");
-            console.error(`Error updating account: ${error}`)
-          }
-        )
+  updateAccount(){
+    const updatedAccountData = {
+      ...this.account,
+      firstName: this.editAccountForm.value.firstname,
+      lastName: this.editAccountForm.value.lastname,
+      phone: this.editAccountForm.value.phone,
+      email: this.editAccountForm.controls['email'].value,
+      address: {
+        ...this.account.address,
+        street: this.editAccountForm.value.street,
+        city: this.editAccountForm.value.city,
+        number: this.editAccountForm.value.number,
+        country: this.editAccountForm.value.country
       }
-    } else {
-      alert('Invalid data entered.\nPlease try again.');
+    };
+    if (this.authService.getRole().toUpperCase() === 'ROLE_HOST'){
+      this.hostService.update(updatedAccountData).subscribe(
+        (responseAccount: any) => {
+          this.account = responseAccount;
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            key: 'bc',
+            detail: 'Account successfully updated!',
+            life: 2000
+          });
+          this.formChanged = false;
+        },
+        error => {
+          alert("An error occurred while updating, we're sorry for inconvenience");
+          console.error(`Error updating account: ${error}`)
+        }
+      )
+    }else{
+      this.guestService.update(updatedAccountData).subscribe(
+        (responseAccount: any) => {
+          this.account = responseAccount;
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            key: 'bc',
+            detail: 'Account successfully updated!',
+            life: 2000
+          });
+          this.formChanged = false;
+        },
+        error => {
+          alert("An error occurred while updating, we're sorry for inconvenience");
+          console.error(`Error updating account: ${error}`)
+        }
+      )
+    }
 
-      // print all invalid fields in the console
+  }
+  onSubmit(): void {
+    console.log("clicked submit")
+    if(this.editAccountForm.valid) {
+      this.updateAccount();
+    } else {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        key: 'bc',
+        detail: 'Form is not valid!',
+        life: 2000
+      })
+
       this.editAccountForm.markAllAsTouched();
       for (const key of Object.keys(this.editAccountForm.controls)) {
         if (this.editAccountForm.controls[key].invalid) {
@@ -135,6 +153,7 @@ export class EditAccountComponent {
   onCancel(): void {
     this.editAccountForm.reset();
     this.patchEditAccountForm();
+    this.formChanged = false;
   }
 
   onDelete(): void {
@@ -148,12 +167,24 @@ export class EditAccountComponent {
       })
       deleteService.deleteAccount(this.account.id).subscribe(
         () => {
-          alert("Account successfully deleted");
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            key: 'bc',
+            detail: 'Account successfully deleted!!',
+            life: 2000
+          })
           this.router.navigate(['/']);
         },
         error => {
           console.log("Error deleting account " + JSON.stringify(error))
-          alert("An error has occurred while trying to delete your account, we're sorry for inconvenience");
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            key: 'bc',
+            detail: 'Error deleting account!',
+            life: 2000
+          })
         }
       )
     }
@@ -186,15 +217,14 @@ export class EditAccountComponent {
           })
         },
         error => {
-          alert("An error occurred while changing password, we're sorry for inconvenience");
           console.log("Error: " + error);
           console.error(`Error changing password: ${error}`)
         }
       )
     } else {
       this.messageService.add({
-        severity: 'fail',
-        summary: 'Fail',
+        severity: 'error',
+        summary: 'Error',
         key: 'bc',
         detail: 'Incorrectly filled in data.\nPlease try again.',
         life: 2000
@@ -215,11 +245,15 @@ export class EditAccountComponent {
       firstname: this.account.firstName,
       lastname: this.account.lastName,
       phone: this.account.phone,
-      selectedCountry: this.account.address.country,
       street: this.account.address.street,
       city: this.account.address.city,
       number: this.account.address.number,
       email: this.account.email,
+      country: this.account.address.country
+    })
+    this.editAccountForm.valueChanges.subscribe(() => {
+      console.log("changed")
+      this.formChanged = true;
     })
   }
 }
