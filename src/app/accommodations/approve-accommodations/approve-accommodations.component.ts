@@ -6,6 +6,7 @@ import {Table} from "primeng/table";
 import {Accommodation} from "../../model/accommodation-model";
 import {Reservation} from "../../model/reservation-model";
 import {AccommodationStatus} from "../../model/accommodation-status-model";
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-approve-accommodations',
@@ -16,7 +17,7 @@ export class ApproveAccommodationsComponent {
   accommodations: HostProperty[];
   loading: boolean = true;
 
-  constructor(private route: ActivatedRoute, private accommodationService: AccommodationService) {
+  constructor(private route: ActivatedRoute, private accommodationService: AccommodationService, private messageService: MessageService) {
   }
 
   clear(table: Table) {
@@ -40,12 +41,17 @@ export class ApproveAccommodationsComponent {
       this.accommodationService.approveAccommodation(id).subscribe(
         () => {
           console.log('Property approved successfully');
-          alert('Property approved successfully');
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            key: 'bc',
+            detail: 'Property approved successfully',
+            life: 2000
+          });
           this.refresh();
         },
         (error) => {
           console.error('Failed to approve Property:', error);
-          alert('Failed to approve Property');
         }
       );
     }
@@ -57,12 +63,17 @@ export class ApproveAccommodationsComponent {
       this.accommodationService.denyAccommodation(id).subscribe(
         () => {
           console.log('Property denied successfully');
-          alert('Property denied successfully');
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            key: 'bc',
+            detail: 'Property denied successfully',
+            life: 2000
+          });
           this.refresh();
         },
         (error) => {
           console.error('Failed to deny Property:', error);
-          alert('Failed to deny Property');
         }
       );
     }

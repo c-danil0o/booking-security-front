@@ -1,7 +1,11 @@
-import {GottenAvailabilityPrice} from "../model/gotten-availability-price-model";
 
-const startDate: Date = new Date(2024,2,10);
-const endDate: Date = new Date(2024,2,15);
+
+
+
+// @ts-ignore
+const startDate= new Date(2024,2,10);
+// @ts-ignore
+const endDate = new Date(2024,2,15);
 
 const mockAvailabilityPrice ={
   accommodationId: 1,

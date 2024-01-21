@@ -223,7 +223,13 @@ export class AccommodationTimeslotsComponent implements OnInit {
 
 
     } else {
-      alert("cancellation deadline required!")
+      this.messagService.add({
+        severity: 'error',
+        summary: 'Error',
+        key: 'bc',
+        detail: 'Cancellation deadline required!',
+        life: 2000
+      });
     }
 
   }
