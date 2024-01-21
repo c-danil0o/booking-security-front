@@ -47,10 +47,10 @@ export class EditAccommodationComponent {
       newAmenity: new FormControl(''),
       minGuests: new FormControl(0, [Validators.required, Validators.min(1)]),
       maxGuests: new FormControl(0, [Validators.required, Validators.max(20), Validators.min(1)]),
-      country: new FormControl('', Validators.required),
-      street: new FormControl('', Validators.required),
-      city: new FormControl('', Validators.required),
-      number: new FormControl('', Validators.required),
+      country: new FormControl({value: '0' ,disabled: true}, Validators.required),
+      street: new FormControl({value: '0' ,disabled: true}, Validators.required),
+      city: new FormControl({value: '0' ,disabled: true}, Validators.required),
+      number: new FormControl({value: '0' ,disabled: true}, Validators.required),
       description: new FormControl('', Validators.required),
 
     }, [])
@@ -122,10 +122,10 @@ export class EditAccommodationComponent {
     if (this.new_accommodation_form.valid && this.new_accommodation_form.controls["minGuests"].value <= this.new_accommodation_form.controls["maxGuests"].value) {
       console.log('valid')
       this.accommodation.address = {
-        country: this.new_accommodation_form.value.country,
-        street: this.new_accommodation_form.value.street,
-        number: this.new_accommodation_form.value.number,
-        city: this.new_accommodation_form.value.city,
+        country: this.new_accommodation_form.controls['country'].value,
+        street: this.new_accommodation_form.controls['street'].value,
+        number: this.new_accommodation_form.controls['number'].value,
+        city: this.new_accommodation_form.controls['city'].value,
         latitude: this.lat,
         longitude: this.long
       }
@@ -163,10 +163,12 @@ export class EditAccommodationComponent {
 
   GetData($event: Address) {
     console.log($event);
-    this.new_accommodation_form.controls['street'].setValue($event.street);
-    this.new_accommodation_form.controls['number'].setValue($event.number);
-    this.new_accommodation_form.controls['city'].setValue($event.city);
-    this.new_accommodation_form.controls['country'].setValue($event.country);
+    this.new_accommodation_form.patchValue({
+      street: $event.street,
+      number: $event.number,
+      city: $event.city,
+      country: $event.country
+    })
     if ($event.latitude != null) {
       this.lat = $event.latitude
     }

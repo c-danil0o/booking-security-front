@@ -70,6 +70,7 @@ export class ApproveAccommodationsComponent {
             detail: 'Property denied successfully',
             life: 2000
           });
+
           this.refresh();
         },
         (error) => {
