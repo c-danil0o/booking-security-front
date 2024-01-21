@@ -26,8 +26,8 @@ export class AccommodationTimeslotsComponent implements OnInit {
   timeslots: Timeslot[] = [];
   occupied_timeslots: Timeslot[] = [];
   lastId: number = 0;
-  isPricePerGuest: boolean;
-  isAutoApproval: boolean;
+  isPricePerGuest: boolean = false;
+  isAutoApproval: boolean = false;
   cancellationDeadline: number;
   form1Data: AccommodationForm1Model;
   hostId: number | undefined;

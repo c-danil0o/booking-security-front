@@ -73,7 +73,7 @@
 
             <button id="reserveButton" class="p-button-primary search_button" label="Reserve" pButton type="submit"></button>
           </form>
-          <button (click)="addToFavorites(accommodation.id)" *ngIf="!isFavorite" class="add-favorites" pButton>Add to
+          <button (click)="addToFavorites(accommodation.id)" *ngIf="!isFavorite && isGuest" class="add-favorites" pButton>Add to
             favorites
           </button>
           <button (click)="removeFavorite(accommodation.id)" *ngIf="isFavorite" class="add-favorites" pButton>Remove
