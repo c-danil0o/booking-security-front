@@ -24,6 +24,9 @@ module.exports = function (config) {
     jasmineHtmlReporter: {
       suppressAll: true // removes the duplicated traces
     },
+    files:[
+      require('path').join(__dirname, 'src/window-global-fix.js')
+    ],
     coverageReporter: {
       dir: require('path').join(__dirname, './coverage/booking-client'),
       subdir: '.',
@@ -35,7 +38,6 @@ module.exports = function (config) {
     reporters: ['progress', 'kjhtml'],
     browsers: ['Chrome'],
     restartOnFileChange: true,
-    autoWatch: true ,
-    singleRun: true,
+    autoWatch: true
   });
 };
