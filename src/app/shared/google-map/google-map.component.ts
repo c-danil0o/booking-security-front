@@ -123,20 +123,9 @@ export class GoogleMapComponent implements AfterViewInit{
       this.openInfoWindow(this.mapMarker);
       this.changeDetector.detectChanges();
       this.map.zoom = 20;
-
-      // this.markerOptions = {
-      //   draggable: false,
-      //   animation: google.maps.Animation.DROP,
-      // };
     }
 
   }
-
-
-
-
-
-
 
 openInfoWindow(marker: MapMarker) {
     // this is called when the marker is clicked.
