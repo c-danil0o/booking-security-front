@@ -26,4 +26,28 @@ export class ReviewService {
   findByHostId(id: number): Observable<Review[]>{
     return this.httpClient.get<Review[]>(environment.apiHost + 'api/reviews/host?hostId=' + id)
   }
+  saveNewReview(review: Review): Observable<Review>{
+    return this.httpClient.post<Review>(environment.apiHost + 'api/reviews', review);
+  }
+
+  getUnapproved(): Observable<Review[]>{
+    return this.httpClient.get<Review[]>(environment.apiHost + 'api/reviews/unapproved');
+  }
+  approveReview(id: number): Observable<Review>{
+    return this.httpClient.patch<Review>(environment.apiHost + 'api/reviews/'+ id + '/approve', null);
+  }
+  deleteReview(id: number): Observable<any>{
+    return this.httpClient.delete(environment.apiHost + 'api/reviews/' + id);
+  }
+  deleteHostReview(hostId: number, userId: number): Observable<any>{
+    return this.httpClient.delete(environment.apiHost + 'api/reviews/deletehost/' +hostId + '/' + userId);
+  }
+
+  deleteAccommodationReview(accommodationId: number, userId: number): Observable<any>{
+    return this.httpClient.delete(environment.apiHost + 'api/reviews/deleteacc/' +accommodationId + '/' + userId);
+  }
+  reportReview(reviewId: number): Observable<Review>{
+    return this.httpClient.patch<Review>(environment.apiHost + 'api/reviews/' + reviewId + '/report', null);
+  }
+
 }

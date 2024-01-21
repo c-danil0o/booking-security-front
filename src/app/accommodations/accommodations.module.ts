@@ -28,6 +28,7 @@ import { SearchedAccommodationCardComponent } from './searched-accommodation-car
 import {GalleriaModule} from "primeng/galleria";
 import { EditAccommodationComponent } from './edit-accommodation/edit-accommodation.component';
 import { ApproveAccommodationsComponent } from './approve-accommodations/approve-accommodations.component';
+import {RatingModule} from "primeng/rating";
 
 
 
@@ -50,8 +51,8 @@ import { ApproveAccommodationsComponent } from './approve-accommodations/approve
     FilteredAccommodationsComponent,
     EditAccommodationComponent
   ],
-  imports: [
-    CommonModule, RouterModule, HttpClientModule, CardModule, PaginatorModule, InputTextModule, ListboxModule, ReactiveFormsModule, CheckboxModule, FileUploadModule, StyleClassModule, SharedModule, InputTextareaModule, CalendarModule, TableModule, InputSwitchModule, SliderModule, GalleriaModule
-  ]
+    imports: [
+        CommonModule, RouterModule, HttpClientModule, CardModule, PaginatorModule, InputTextModule, ListboxModule, ReactiveFormsModule, CheckboxModule, FileUploadModule, StyleClassModule, SharedModule, InputTextareaModule, CalendarModule, TableModule, InputSwitchModule, SliderModule, GalleriaModule, RatingModule
+    ]
 })
 export class AccommodationsModule { }

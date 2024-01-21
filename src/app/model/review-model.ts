@@ -1,4 +1,5 @@
 import {User} from "./user-model";
+import {ReviewStatus} from "./review-status-model";
 
 
 export interface Review {
@@ -6,6 +7,9 @@ export interface Review {
     grade: number;
     comment: string;
     author: User;
-    approved: boolean;
+    status: ReviewStatus
+    date: Date;
+    accommodationId?: number;
+    hostId?: number;
 
 }

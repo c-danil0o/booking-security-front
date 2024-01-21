@@ -14,6 +14,11 @@
     background-color: white;
     box-shadow: 0px 17.54878px 35.09756px 0px rgba(171, 190, 209, 0.3);
 }
+.row-double{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
 
 .central-panel{
     margin: 20px auto;
@@ -47,7 +52,53 @@
 }
 .option-button{
     font-size: 12px;
+
 }
+.clickable-p{
+  padding: 5px;
+  border: 1px solid;
+  border-radius: 5px;
+  background-color: rgba(245, 189, 79, 0.14);
+  cursor: pointer;
+}
+
+.report_window{
+  display: flex;
+  flex-direction: column;
+}
+
+.report-button{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  margin-top: 10px;
+}
+
+.review-modal{
+  display: flex;
+}
+.buttons-row{
+  display: flex;
+  gap: 5px;
+}
+.review-modal-rating{
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+.review-modal-rating-star{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  gap: 10px;
+}
+
+
 .flex{
     display: flex;
     justify-content: space-between;
@@ -60,4 +111,20 @@
 
 .filter label{
     margin-right: 2.5em;
+}
+
+#add-review-button{
+  margin-right: 2.5em;
+}
+
+.dates{
+  margin-right: 5px;
+}
+
+#filterButton{
+  margin-right: 5px;
+}
+
+#clearButton{
+  margin-left: 15px;
 }

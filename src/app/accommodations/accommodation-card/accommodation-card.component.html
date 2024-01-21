@@ -16,7 +16,7 @@
 
       <span class="pi pi-star"></span>
       <div class="accommodation-data">
-        {{ accommodation.averageGrade }}
+        {{ accommodation.averageGrade.toFixed(1) }}
       </div>
 
     </div>
@@ -26,6 +26,7 @@
       type="button"
       [routerLink]="['/accommodation-details', accommodation.id]"
     >
+
       <span class="apartment-details">Details</span>
       <span class="arrow pi pi-arrow-right"></span>
     </button>

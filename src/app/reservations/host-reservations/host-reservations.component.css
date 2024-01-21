@@ -14,7 +14,11 @@
   background-color: white;
   box-shadow: 0px 17.54878px 35.09756px 0px rgba(171, 190, 209, 0.3);
 }
-
+.row-double{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .central-panel{
   margin: 20px auto;
   width: 100%;
@@ -53,6 +57,14 @@
   justify-content: space-between;
 }
 
+#clearButton{
+  margin-left: 15px;
+}
+
+#filterButton{
+  margin-right: 5px;
+}
+
 .header-card i {
   margin-top: 1.5em; /* Adjust the spacing between the icon and text */
   font-size: 1.5em; /* Adjust the icon size as needed */
@@ -60,4 +72,22 @@
 
 .filter label{
   margin-right: 2.5em;
+}
+
+.report_window{
+  display: flex;
+  flex-direction: column;
+}
+
+.report-button{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  margin-top: 10px;
+}
+
+.dates{
+  margin-right: 5px;
 }

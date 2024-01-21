@@ -3,5 +3,5 @@ export interface Timeslot{
   startDate: Date;
   endDate: Date;
   price: number;
-  isOccupied?: boolean;
+  occupied?: boolean;
 }

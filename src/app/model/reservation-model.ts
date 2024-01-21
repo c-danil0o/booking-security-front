@@ -9,8 +9,12 @@ export interface Reservation{
   endDate:Date;
   price:number;
   accommodationName: string;
+  accommodationId: number;
+  hostId: number;
+  guestId: number;
   guestEmail: string;
   hostEmail: string
   reservationStatus:ReservationStatus;
   numberOfGuests: number;
+  guestTimesCancelled: number;
 }

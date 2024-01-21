@@ -1,0 +1,155 @@
+
+<div class="properties-wrapper">
+  <div class="header-card">
+    <span class="pi pi-chart-bar icon"></span>
+    <span class="title">Analytics</span>
+  </div>
+  <div class="central-panel">
+    <div class="yearChart">
+      <h2>Years Analytics</h2>
+      <div class="input">
+        <div>
+          <label class="labels">Select year:</label>
+          <p-dropdown [options]="yearOptions" [(ngModel)]="selectedYear" placeholder="2024" (onChange)="changeYear()"></p-dropdown>
+        </div>
+        <div>
+          <label class="labels">Select chart type:</label>
+          <p-dropdown [options]="chartTypes" [(ngModel)]="selectedChartType" placeholder="bar" (onChange)="changeChartType()"></p-dropdown>
+        </div>
+        <div>
+          <label class="labels">Select which accommodation:</label>
+          <p-dropdown [options]="accommodations" [(ngModel)]="selectedAccommodation" [placeholder]="accommodationsAnalysis[0].name" (onChange)="findAnalytics()"></p-dropdown>
+        </div>
+        <button pButton type="button" label="Export to pdf" class="p-button-outlined" (click)="exportYearAnalyticsToPdf()"></button>
+
+      </div>
+      <div class="charts">
+
+        <canvas baseChart
+          class="chart"
+          id="yearEarningsChart"
+          [datasets]="chartEarningsData"
+          [type]="chartType"
+          [legend]="chartLegend"
+          [labels]="chartLabels"
+        >
+        </canvas>
+        <canvas
+          baseChart
+          class="chart"
+          id="yearReservationsChart"
+          [datasets]="chartReservationsData"
+          [type]="chartType"
+          [legend]="chartLegend"
+          [labels]="chartLabels"
+        >
+        </canvas>
+      </div>
+      <div class="tables">
+        <table class="table" id="table1">
+          <tr>
+            <th class="cell" *ngFor="let label of chartLabels">{{ label }}</th>
+          </tr>
+          <tr
+            *ngFor="let d of chartEarningsData; let i = index"
+            [class]="'line-' + i"
+          >
+            <td class="cell" *ngFor="let label of chartLabels; let j = index">
+              {{ d && d.data[j] }}
+            </td>
+          </tr>
+        </table>
+        <table class="table" id="table2">
+          <tr>
+            <th class="cell" *ngFor="let label of chartLabels">{{ label }}</th>
+          </tr>
+          <tr
+            *ngFor="let d of chartReservationsData; let i = index"
+            [class]="'line-' + i"
+          >
+            <td class="cell" *ngFor="let label of chartLabels; let j = index">
+              {{ d && d.data[j] }}
+            </td>
+          </tr>
+        </table>
+      </div>
+
+    </div>
+    <div class="timeSlotChart">
+      <h2>See analytics for some period</h2>
+      <div class="input">
+
+
+        <div>
+          <label class="labels">Enter Start Date:</label>
+          <p-calendar [inputStyle]="{'height':'100%'}"  class="dates" placeholder="Start date"
+                      dateFormat="dd.mm.yy" [(ngModel)]="startDate"></p-calendar>
+        </div>
+        <div>
+          <label class="labels">Enter End Date:</label>
+          <p-calendar class="dates" placeholder="End date" dateFormat="dd.mm.yy" [(ngModel)]="endDate"></p-calendar>
+        </div>
+        <button pButton type="button" label="Submit" class="p-button-primary option-button" (click)="getPeriodAnalytics()"></button>
+        <button pButton type="button" label="Export to pdf" class="p-button-outlined" (click)="exportPeriodAnalyticsToPdf()"></button>
+
+      </div>
+      <div class="charts">
+
+        <canvas
+          baseChart
+          class="chart"
+          id="periodEarningsChart"
+          [datasets]="periodEarningsChartData"
+          [labels]="periodLabels"
+          [type]="pieChartType"
+          [plugins]="pieChartPlugins"
+          [options]="pieChartEarningsOptions"
+        >
+        </canvas>
+        <canvas
+          baseChart
+          class="chart"
+          id="periodReservationsChart"
+          [datasets]="periodReservationsChartData"
+          [labels]="periodLabels"
+          [type]="pieChartType"
+          [plugins]="pieChartPlugins"
+          [options]="pieChartReservationsOptions"
+        >
+        </canvas>
+      </div>
+      <div class="tables">
+        <table class="table" id="table11">
+          <tr>
+            <th class="cell" *ngFor="let label of periodLabels">{{ label }}</th>
+          </tr>
+          <tr
+            *ngFor="let d of periodEarningsChartData; let i = index"
+            [class]="'line-' + i"
+          >
+            <td class="cell" *ngFor="let label of periodLabels; let j = index">
+              {{ d && d.data[j] }}
+            </td>
+          </tr>
+        </table>
+        <table class="table" id="table22">
+          <tr>
+            <th class="cell" *ngFor="let label of periodLabels">{{ label }}</th>
+          </tr>
+          <tr
+            *ngFor="let d of periodReservationsChartData; let i = index"
+            [class]="'line-' + i"
+          >
+            <td class="cell" *ngFor="let label of periodLabels; let j = index">
+              {{ d && d.data[j] }}
+            </td>
+          </tr>
+        </table>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+

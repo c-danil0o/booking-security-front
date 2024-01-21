@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {Router} from "@angular/router";
 import {AccommodationService} from "../../accommodations/accommodation.service";
 import {FormsService} from "../../shared/forms.service";
 import {SearchFormService} from "../../shared/search-form.service";
 import {SearchModel} from "../../model/search-model";
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-home',
@@ -16,29 +17,41 @@ export class HomeComponent {
   endDate: Date;
   guests: number;
 
-  constructor(private router: Router, private searchFormService: SearchFormService) {
+  constructor(private router: Router, private searchFormService: SearchFormService, private messageService: MessageService) {
   }
 
 
-  next(){
+  next() {
     const today: number = Date.now()
-    if (this.startDate != null && this.endDate != null){
+    if (this.startDate != null && this.endDate != null && this.place != '') {
       if (today.valueOf() > this.startDate.valueOf() || today.valueOf() > this.endDate.valueOf() || this.startDate.valueOf() >= this.endDate.valueOf()) {
-        alert("Invalid dates!");
-      }
-      else{
-        this.startDate.setHours(12,0);
-        this.endDate.setHours(12,0);
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Warning',
+          key: 'bc',
+          detail: 'Invalid dates!',
+          life: 2000
+        })
+      } else {
+        this.startDate.setHours(12, 0);
+        this.endDate.setHours(12, 0);
         const model: SearchModel = {
-          place:this.place,
-          startDate:this.startDate,
-          endDate:this.endDate,
-          guests:this.guests
+          place: this.place,
+          startDate: this.startDate,
+          endDate: this.endDate,
+          guests: this.guests
         }
         this.searchFormService.setForms(model);
-        console.log("navigate");
         this.router.navigate(['/filtered-accommodations']);
       }
+    }else{
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Warning',
+        key: 'bc',
+        detail: 'Location and date range fields are required!',
+        life: 2000
+      })
     }
 
 

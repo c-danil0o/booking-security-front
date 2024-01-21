@@ -30,6 +30,10 @@ export class AccountService {
     return this.httpClient.post<Account>(environment.apiHost + 'api/accounts/email', email)
   }
 
+  findById(id: number): Observable<Account>{
+    return this.httpClient.post<Account>(environment.apiHost + 'api/accounts/', id)
+  }
+
   register(account: NewAccount): Observable<any>{
     return this.httpClient.post(environment.apiHost + 'api/register', account, {
       responseType: "text",
@@ -51,5 +55,9 @@ export class AccountService {
 
   deleteAccount(id: number): Observable<void> {
     return this.httpClient.delete<void>(environment.apiHost+ 'api/accounts/' + id);
+  }
+
+  blockAccount(id: number): Observable<void>{
+    return this.httpClient.patch<void>(environment.apiHost+'api/accounts/'+id+"/block",null);
   }
 }

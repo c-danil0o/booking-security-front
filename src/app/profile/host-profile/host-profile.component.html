@@ -7,40 +7,58 @@
         <div class="name_role"><span class="name">{{this.user.firstName + ' ' + this.user.lastName}}</span><span
           class="role">HOST</span></div>
 
-        <span class="city">{{user.address.city}}</span>
+        <span class="city">{{user.address.city}}   <span class="pi pi-star rating-star">{{!isNaN(this.average_rating) ? this.average_rating.toFixed(1) : 0}}</span></span>
       </div>
-      <div class="buttons">
+      <div class="buttons" *ngIf="!viewOnly">
         <button pButton type="button" label="Log Out" (click)="logOut()" class="p-button-text logout"
                 icon="pi pi-sign-out"></button>
         <button pButton type="button" label="Edit profile" [routerLink]="['/edit-account', user.id]"
                 class="p-button-primary edit-profile"></button>
-
+      </div>
+      <div class="buttons" *ngIf="viewOnly">
+        <button pButton type="button" label="Report Host" (click)="showHostReporting()" class="p-button-primary"
+                icon="pi pi-megaphone"></button>
       </div>
     </div>
   </div>
   <div class="central-panel" *ngIf="user">
-    <div class="option-buttons">
+    <div class="option-buttons" *ngIf="!viewOnly">
       <button pButton type="button" label="My Properties" [routerLink]="['/host-properties', user.id]" class="p-button-primary option-button"></button>
       <button pButton type="button" [routerLink]="['/host-reservations', user.id]" routerLinkActive="active" label="Reservations" class="p-button-primary option-button"></button>
       <button pButton type="button" label="Reports" class="p-button-primary option-button"></button>
+      <button pButton type="button" label="Analytics" [routerLink]="['/analytics', user.id]" class="p-button-primary option-button"></button>
 
     </div>
-    <span class="reviews-text">Recent reviews:</span>
+    <span class="reviews-text">Reviews:</span>
     <div class="reviews" *ngIf="reviewsLoaded">
-      <div class="comment-text  " *ngIf="user.hostReviews.length === 0">No reviews</div>
+      <div class="comment-text  " *ngIf="user.hostReviews?.length === 0">No reviews</div>
       <div class="review" *ngFor="let review of user.hostReviews">
         <div class="header-review">
           <img alt="commenter" height="80" width="80" src="assets/reviewer.jpg" class="reviewer-photo">
-          <span class="comment-author">{{review.author.firstName + ' ' + review.author.lastName}}</span>
+          <div class="header-review-author">
+            <span class="comment-author">{{review.author.firstName + ' ' + review.author.lastName}}</span>
+            <span class="comment-date"> {{review.date |  date : 'dd.MM.yyyy HH:mm'}}</span>
+
+
+          </div>
         </div>
         <div class="comment-text">{{review.comment}}</div>
         <div class="spacer"></div>
+        <div class="comment-date"></div>
         <div class="comment-footer">
-          <p-rating [attr.stars]="review.grade"></p-rating>
-          <button pButton type="button" label="Report" class="p-button-primary option-button"></button>
+          <p-rating [cancel]="false"  [(ngModel)]="review.grade" [readonly]="true"></p-rating>
+          <button *ngIf="!viewOnly" pButton type="button" label="Report" class="p-button-primary option-button" (click)="reportReview(review.id)"></button>
         </div>
       </div>
     </div>
 
   </div>
+  <p-dialog header="Report your host" [(visible)]="hostReportVisible" [modal]="true" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
+    <div class="report_window">
+      <textarea rows="5" cols="30" pInputTextarea [autoResize]="true" [style]="{'width':'100%'}" placeholder="Write your reason for reporting" [(ngModel)]="reportReason"></textarea>
+      <div class="report-button">
+        <button pButton type="button" label="Submit" class="p-button-primary" (click)="addHostReport()"></button>
+      </div>
+    </div>
+  </p-dialog>
 </div>

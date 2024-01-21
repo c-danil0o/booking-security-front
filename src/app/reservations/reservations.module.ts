@@ -4,9 +4,14 @@ import { HostReservationsComponent } from './host-reservations/host-reservations
 import {TableModule} from "primeng/table";
 import {InputTextModule} from "primeng/inputtext";
 import {ButtonModule} from "primeng/button";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {DropdownModule} from "primeng/dropdown";
 import { GuestReservationsComponent } from './guest-reservations/guest-reservations.component';
+import {DialogModule} from "primeng/dialog";
+import {InputTextareaModule} from "primeng/inputtextarea";
+import {RatingModule} from "primeng/rating";
+import {TooltipModule} from "primeng/tooltip";
+import {CalendarModule} from "primeng/calendar";
 
 
 
@@ -15,13 +20,19 @@ import { GuestReservationsComponent } from './guest-reservations/guest-reservati
     HostReservationsComponent,
     GuestReservationsComponent
   ],
-  imports: [
-    CommonModule,
-    TableModule,
-    InputTextModule,
-    ButtonModule,
-    FormsModule,
-    DropdownModule
-  ]
+    imports: [
+        CommonModule,
+        TableModule,
+        InputTextModule,
+        ButtonModule,
+        FormsModule,
+        DropdownModule,
+        DialogModule,
+        InputTextareaModule,
+        ReactiveFormsModule,
+        RatingModule,
+        TooltipModule,
+        CalendarModule
+    ]
 })
 export class ReservationsModule { }

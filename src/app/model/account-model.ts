@@ -5,6 +5,4 @@ export interface Account {
     email: string;
    // password: string;
     isBlocked: boolean;
-    profilePictureUrl: string;
-
 }
