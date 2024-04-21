@@ -27,6 +27,8 @@
       <button pButton type="button" [routerLink]="['/host-reservations', user.id]" routerLinkActive="active" label="Reservations" class="p-button-primary option-button"></button>
       <button pButton type="button" label="Reports" class="p-button-primary option-button"></button>
       <button pButton type="button" label="Analytics" [routerLink]="['/analytics', user.id]" class="p-button-primary option-button"></button>
+      <button pButton type="button" label="Request certificate" (click)="requestCertificate()" class="p-button-primary option-button"></button>
+      <button pButton type="button" label="Download certificate" (click)="downloadCertificate()" class="p-button-primary option-button"></button>
 
     </div>
     <span class="reviews-text">Reviews:</span>
