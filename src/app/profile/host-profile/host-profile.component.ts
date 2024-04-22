@@ -17,6 +17,8 @@ import {CertificateService} from "../../shared/certificate.service";
 import {CSR} from "../../model/CSR";
 import {Browser} from "leaflet";
 import win = Browser.win;
+import { SignedCertificate } from 'src/app/model/SignedCertificate';
+import { CertificateDownload } from 'src/app/model/Certificate-download';
 
 @Component({
   selector: 'app-host-profile',
@@ -170,6 +172,23 @@ export class HostProfileComponent implements OnInit {
   }
 
   downloadCertificate() {
-    window.location.href = "https://localhost:8081/certificate/download/" + this.user.alias;
+    this.certificateService.downloadCertificate(this.user.alias || "").subscribe({
+      next: (data: SignedCertificate) => {
+        this.certificateService.checkCertificate(data).subscribe({
+          next: (data: CertificateDownload) => {
+            console.log(data);
+            this.downloadFile(data.certificate);
+          }
+        })
+      },
+      error: (err) => console.log(err)
+    })
   }
-}
+
+  downloadFile(content: string) {
+    const blob = new Blob([content], { type: 'text/plain' });
+    const link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+    link.download = "certificate.pem";
+    link.click();
+}}
