@@ -12,7 +12,7 @@ export class CertificateService {
 
 
   sendCertificateRequest(request: CSR): Observable<boolean>{
-    return this.httpClient.post<boolean>("http://localhost:8081/request", request);
+    return this.httpClient.post<boolean>("https://localhost:8081/request", request);
   }
 
 

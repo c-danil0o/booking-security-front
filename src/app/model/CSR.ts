@@ -1,4 +1,5 @@
 export interface CSR{
+  accountId?: number;
   requestId?: number;
   firstName?: string;
   lastName?: string;

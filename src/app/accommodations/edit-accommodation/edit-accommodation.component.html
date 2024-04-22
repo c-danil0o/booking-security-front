@@ -24,7 +24,7 @@
             <input class="new_amenity" type="text" pInputText placeholder="Add amenity" formControlName="newAmenity" (keyup.enter)="addAmenity($any($event).target.value)"/>
           </div>
           <span class="amenities">Photos:</span>
-          <p-fileUpload class="file_upload" [files]="uploadedFiles" (onError)="onError($event)" (onSend)="onSend($event)"  (onUpload)="onUpload($event)" [multiple]="true"   name="file" [style]="{'width': '100%'}" url="http://localhost:8080/upload"  accept="image/*" [maxFileSize]="10000000">
+          <p-fileUpload class="file_upload" [files]="uploadedFiles" (onError)="onError($event)" (onSend)="onSend($event)"  (onUpload)="onUpload($event)" [multiple]="true"   name="file" [style]="{'width': '100%'}" url="https://localhost:8080/upload"  accept="image/*" [maxFileSize]="10000000">
             <ng-template pTemplate="content">
               <ul *ngIf="images.length">
                 <li class="image_li" *ngFor="let file of images"><img [src]="file.url" height="80px" width="80px"/> {{ file.name }} <p-button icon="pi pi-times" [rounded]="true" [text]="true" severity="danger" (onClick)="removeImage(file.name)"></p-button> </li>

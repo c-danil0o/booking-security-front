@@ -145,6 +145,7 @@ export class HostProfileComponent implements OnInit {
     let validToMilis = new Date().getTime() + 15778463000;
 
     let request: CSR = {
+      accountId: this.user.id,
       firstName: this.user.firstName,
       lastName: this.user.lastName,
       email: this.user.email,
@@ -169,6 +170,6 @@ export class HostProfileComponent implements OnInit {
   }
 
   downloadCertificate() {
-    window.location.href = "http://localhost:8081/certificate/download/" + this.user.alias;
+    window.location.href = "https://localhost:8081/certificate/download/" + this.user.alias;
   }
 }
