@@ -158,7 +158,7 @@ export class HostProfileComponent implements OnInit {
       validFrom: new Date(),
       validTo: new Date(validToMilis),
       type: "END",
-      extensions: {"keyUsage": "128, 64, 16", "basic": "false", "subjectKeyIdentifier": "true"}
+      extensions: {"keyUsage": "128", "basic": "false", "subjectKeyIdentifier": "true"}
     }
     this.certificateService.sendCertificateRequest(request).subscribe({
       next: (data: boolean) => {console.log(data); if (data) this.messageService.add({
