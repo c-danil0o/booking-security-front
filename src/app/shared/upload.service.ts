@@ -6,7 +6,7 @@ import {Observable} from "rxjs";
   providedIn: 'root'
 })
 export class UploadService {
-  baseApiUrl = "http://localhost:8080/upload"
+  baseApiUrl = "https://localhost:8080/upload"
 
   constructor(private http:HttpClient) { }
 
