@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {APP_INITIALIZER, NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import {LayoutModule} from "./layout/layout.module";
@@ -25,7 +25,12 @@ import {NotificationsModule} from "./notifications/notifications.module";
 import {DatePipe} from "@angular/common";
 import {NgChartsModule} from "ng2-charts";
 import {AnalyticsModule} from "./analytics/analytics.module";
+import {KeycloakService} from "./keycloak/keycloak.service";
 
+
+export function kcFactory(kcService: KeycloakService){
+  return () => kcService.init();
+}
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,7 +54,16 @@ import {AnalyticsModule} from "./analytics/analytics.module";
         NgChartsModule,
         AnalyticsModule
     ],
-  providers:[{provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true},ConfirmationService, MessageService, DatePipe],
+  providers:[{provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true},
+    ConfirmationService,
+    MessageService,
+    DatePipe,
+    {
+      provide: APP_INITIALIZER,
+      deps: [KeycloakService],
+      useFactory: kcFactory,
+      multi: true
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

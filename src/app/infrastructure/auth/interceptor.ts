@@ -9,10 +9,11 @@ import {catchError, EMPTY, Observable, of, throwError} from 'rxjs';
 import {AuthService} from "./auth.service";
 import {Router} from "@angular/router";
 import {MessageService} from "primeng/api";
+import {KeycloakService} from "../../keycloak/keycloak.service";
 
 @Injectable()
 export class Interceptor implements HttpInterceptor {
-  constructor(private authService: AuthService, private router: Router, private messageService: MessageService) {
+  constructor(private authService: AuthService, private router: Router, private messageService: MessageService, private keycloakService: KeycloakService) {
   }
 
   intercept(
@@ -20,7 +21,8 @@ export class Interceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     console.log("intercepting: ", req)
-    const accessToken: any = localStorage.getItem('user');
+    const accessToken = this.keycloakService.keycloak.token;
+    // const accessToken: any = localStorage.getItem('user');
     if (req.headers.get('skip')) return next.handle(req).pipe(catchError(err => {
       console.log("checking for errors!", err)
       const error = (err.error ? err.error.message : null) || err.statusText;

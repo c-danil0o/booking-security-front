@@ -1,9 +1,9 @@
 
 
 export interface User {
-  accountId: number;
+  accountId?: number;
   firstName?: string;
   lastName?: string;
   email?: string;
-
+  token?: string;
 }
