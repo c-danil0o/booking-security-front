@@ -64,7 +64,7 @@ export class Interceptor implements HttpInterceptor {
       switch (err.status) {
         case 401: {
           // token expired -> goto login, dont return error
-          this.logOut()
+          // this.logOut()
           return of(error);      // <-- return observable using `of`
         }
         case 418:{

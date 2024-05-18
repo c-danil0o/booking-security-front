@@ -63,6 +63,7 @@
             "sslCert": "keystore/bookingssl.crt"
           },
           "builder": "@angular-devkit/build-angular:dev-server",
+          "port": "4201",
           "configurations": {
             "production": {
               "browserTarget": "booking-client:build:production"
