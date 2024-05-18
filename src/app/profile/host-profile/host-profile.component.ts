@@ -1,24 +1,25 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {AuthService} from "../../infrastructure/auth/auth.service";
-import {ActivatedRoute, Router} from "@angular/router";
-import {Host} from "../../model/host-model";
-import {HostService} from "../../accounts/services/host.service";
-import {Review} from "../../model/review-model";
-import {ReviewService} from "../../reviews/review.service";
-import {error} from "@angular/compiler-cli/src/transformers/util";
-import {confirmPasswordValidator} from "../../accounts/register/password.validator";
-import {Email} from "../../model/Email";
-import {ConnectableObservable} from 'rxjs';
-import {MessageService} from "primeng/api";
-import {Report} from "../../model/report-model";
-import {ReportService} from "../../reports/report.service";
-import {NotificationsService} from "../../notifications/notifications.service";
-import {CertificateService} from "../../shared/certificate.service";
-import {CSR} from "../../model/CSR";
-import {Browser} from "leaflet";
+import { Component, Input, OnInit } from '@angular/core';
+import { AuthService } from "../../infrastructure/auth/auth.service";
+import { ActivatedRoute, Router } from "@angular/router";
+import { Host } from "../../model/host-model";
+import { HostService } from "../../accounts/services/host.service";
+import { Review } from "../../model/review-model";
+import { ReviewService } from "../../reviews/review.service";
+import { error } from "@angular/compiler-cli/src/transformers/util";
+import { confirmPasswordValidator } from "../../accounts/register/password.validator";
+import { Email } from "../../model/Email";
+import { ConnectableObservable } from 'rxjs';
+import { MessageService } from "primeng/api";
+import { Report } from "../../model/report-model";
+import { ReportService } from "../../reports/report.service";
+import { NotificationsService } from "../../notifications/notifications.service";
+import { CertificateService } from "../../shared/certificate.service";
+import { CSR } from "../../model/CSR";
+import { Browser } from "leaflet";
 import win = Browser.win;
 import { SignedCertificate } from 'src/app/model/SignedCertificate';
 import { CertificateDownload } from 'src/app/model/Certificate-download';
+import { KeycloakService } from 'src/app/infrastructure/auth/keycloak.service';
 
 @Component({
   selector: 'app-host-profile',
@@ -34,7 +35,7 @@ export class HostProfileComponent implements OnInit {
   hostReportVisible: boolean = false;
   reportReason: string;
 
-  constructor(private route: ActivatedRoute, private certificateService: CertificateService, private authService: AuthService, private router: Router, private hostService: HostService, private reviewService: ReviewService, private messageService: MessageService, private reportService: ReportService, private notificationService: NotificationsService) {
+  constructor(private route: ActivatedRoute, private certificateService: CertificateService, private keycloakService: KeycloakService, private router: Router, private hostService: HostService, private reviewService: ReviewService, private messageService: MessageService, private reportService: ReportService, private notificationService: NotificationsService) {
   }
 
   that = this;
@@ -42,9 +43,9 @@ export class HostProfileComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.id = +params['hostId'];
-      if (this.authService.getId() == this.id) {
-        this.viewOnly = false;
-      }
+      // if (this.keycloakService.profile?.username == this.id) {
+      //   this.viewOnly = false;
+      // }
       this.hostService.findById(this.id).subscribe({
         next: (data: Host) => {
           this.user = data;
@@ -79,14 +80,7 @@ export class HostProfileComponent implements OnInit {
 
 
   logOut(): void {
-    this.authService.logout().subscribe({
-      next: (_) => {
-        localStorage.removeItem('user');
-        this.authService.setUser();
-        this.notificationService.disconnectStompClient()
-        this.router.navigate(['/login']);
-      }
-    })
+    this.keycloakService.logout();
   }
 
   protected readonly confirmPasswordValidator = confirmPasswordValidator;
@@ -118,7 +112,8 @@ export class HostProfileComponent implements OnInit {
     let report: Report = {
       id: -1,
       reason: this.reportReason,
-      authorId: this.authService.getId() || -1,
+      // authorId: this.authService.getId() || -1,
+      authorId: -1,
       reportedUserId: this.id,
       date: new Date()
     }
@@ -158,16 +153,18 @@ export class HostProfileComponent implements OnInit {
       validFrom: new Date(),
       validTo: new Date(validToMilis),
       type: "END",
-      extensions: {"keyUsage": "128", "basic": "false", "subjectKeyIdentifier": "true"}
+      extensions: { "keyUsage": "128", "basic": "false", "subjectKeyIdentifier": "true" }
     }
     this.certificateService.sendCertificateRequest(request).subscribe({
-      next: (data: boolean) => {console.log(data); if (data) this.messageService.add({
-        severity: 'success',
-        summary: 'Success',
-        key: 'bc',
-        detail: 'Request sent successfully!',
-        life: 2000
-      })}
+      next: (data: boolean) => {
+        console.log(data); if (data) this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          key: 'bc',
+          detail: 'Request sent successfully!',
+          life: 2000
+        })
+      }
     })
   }
 
@@ -191,4 +188,5 @@ export class HostProfileComponent implements OnInit {
     link.href = window.URL.createObjectURL(blob);
     link.download = "certificate.pem";
     link.click();
-}}
+  }
+}
