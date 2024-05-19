@@ -27,33 +27,33 @@ import { ApproveAccommodationsComponent } from "./accommodations/approve-accommo
 import { ApproveReviewsComponent } from "./reviews/approve-reviews/approve-reviews.component";
 import { ReportsViewComponent } from "./reports/reports-view/reports-view.component";
 import { YearAnalyticsComponent } from "./analytics/year-analytics/year-analytics.component";
-import { AuthGuard } from './infrastructure/auth/guard/auth.guard';
+import { authGuard } from './infrastructure/auth/guard/auth-guard';
 
 
 const routes: Routes = [
-  { component: HomeComponent, path: "", canActivate: [AuthGuard] },
+  { component: HomeComponent, path: ""},
   { component: LoginComponent, path: "login" },
   { component: RegisterComponent, path: "register" },
-  { component: AccommodationListComponent, path: "accommodation-list" },
+  { component: AccommodationListComponent, path: "accommodation-list", canActivate: [authGuard]  },
   { component: FilteredAccommodationsComponent, path: "filtered-accommodations" },
   { component: AccommodationDetailsComponent, path: "accommodation-details/:accommodationId" },
-  { component: EditAccountComponent, path: "edit-account/:id" },
+  { component: EditAccountComponent, path: "edit-account/:id", canActivate: [authGuard] },
   { component: EmailSentComponent, path: "email-sent" },
   { component: RegistrationConfirmComponent, path: "registration-confirmation" },
-  { component: HostProfileComponent, path: "host-profile/:hostId" },
-  { component: AdminProfileComponent, path: "admin-profile" },
-  { component: HostPropertiesComponent, path: "host-properties/:hostId" },
-  { component: ApproveAccommodationsComponent, path: "approve-accommodation" },
-  { component: NewAccommodationComponent, path: "new-accommodation" },
-  { component: AccommodationTimeslotsComponent, path: "accommodation-timeslots/:accId" },
-  { component: HostProfileComponent, path: "host-profile" },
-  { component: GuestReservationsComponent, path: "guest-reservations/:guestId" },
-  { component: HostReservationsComponent, path: "host-reservations/:hostId" },
-  { component: GuestProfileComponent, path: "guest-profile" },
-  { component: EditAccommodationComponent, path: "edit-accommodation/:accId" },
-  { component: ApproveReviewsComponent, path: "approve-reviews" },
-  { component: ReportsViewComponent, path: "reports-view" },
-  { component: YearAnalyticsComponent, path: "analytics/:hostId" }
+  { component: HostProfileComponent, path: "host-profile/:hostId"},
+  { component: AdminProfileComponent, path: "admin-profile", canActivate: [authGuard] },
+  { component: HostPropertiesComponent, path: "host-properties/:hostId" , canActivate: [authGuard] },
+  { component: ApproveAccommodationsComponent, path: "approve-accommodation", canActivate: [authGuard]  },
+  { component: NewAccommodationComponent, path: "new-accommodation", canActivate: [authGuard]  },
+  { component: AccommodationTimeslotsComponent, path: "accommodation-timeslots/:accId", canActivate: [authGuard]  },
+  { component: HostProfileComponent, path: "host-profile", canActivate: [authGuard]  },
+  { component: GuestReservationsComponent, path: "guest-reservations/:guestId", canActivate: [authGuard]  },
+  { component: HostReservationsComponent, path: "host-reservations/:hostId", canActivate: [authGuard]  },
+  { component: GuestProfileComponent, path: "guest-profile", canActivate: [authGuard]  },
+  { component: EditAccommodationComponent, path: "edit-accommodation/:accId", canActivate: [authGuard]  },
+  { component: ApproveReviewsComponent, path: "approve-reviews", canActivate: [authGuard]  },
+  { component: ReportsViewComponent, path: "reports-view", canActivate: [authGuard]  },
+  { component: YearAnalyticsComponent, path: "analytics/:hostId", canActivate: [authGuard]  }
 ];
 
 @NgModule({

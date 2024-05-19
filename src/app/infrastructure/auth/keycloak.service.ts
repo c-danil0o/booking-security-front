@@ -1,7 +1,7 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import Keycloak from 'keycloak-js'
-import {UserProfile} from './model/user-profile';
-import {DebuggerType} from "html2canvas/dist/types/core/debugger";
+import { UserProfile } from './model/user-profile';
+import { DebuggerType } from "html2canvas/dist/types/core/debugger";
 import * as buffer from "node:buffer";
 
 @Injectable({
@@ -34,7 +34,7 @@ export class KeycloakService {
 
   async init() {
     const autenticated = await this.keycloak?.init({
-      onLoad: 'login-required'
+      // onLoad: 'login-required'
     });
 
     if (autenticated) {
@@ -49,7 +49,7 @@ export class KeycloakService {
   }
 
   logout() {
-    return this.keycloak?.logout({redirectUri: 'https://localhost:4201'});
+    return this.keycloak?.logout({ redirectUri: 'https://localhost:4201' });
   }
 
   getRole(): string | null {
@@ -85,8 +85,8 @@ export class KeycloakService {
     return undefined;
   }
 
-  isLoggedIn(): boolean {
-    return !this.keycloak?.isTokenExpired();
+  isLoggedIn(): boolean | undefined {
+    return this.keycloak?.authenticated;
   }
 
 }
