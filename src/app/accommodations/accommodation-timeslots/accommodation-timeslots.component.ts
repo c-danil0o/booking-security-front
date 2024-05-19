@@ -7,12 +7,12 @@ import {FormsService} from "../../shared/forms.service";
 import {AccommodationForm1Model} from "../../model/accommodation-form1-model";
 import {Timeslot} from "../../model/timeslot-model";
 import {New_accommodation} from "../../model/new_accommodation-model";
-import {AuthService} from "../../infrastructure/auth/auth.service";
 import {HostService} from "../../accounts/services/host.service";
 import {Email} from "../../model/Email";
 import {Host} from "../../model/host-model";
 import {convert} from "@js-joda/core";
 import {MessageService} from "primeng/api";
+import {KeycloakService} from "../../infrastructure/auth/keycloak.service";
 
 @Component({
   selector: 'app-accommodation-timeslots',
@@ -34,7 +34,7 @@ export class AccommodationTimeslotsComponent implements OnInit {
   accommodation: Accommodation;
   updating: boolean = false;
 
-  constructor(private route: ActivatedRoute, private accommodationService: AccommodationService, private formsService: FormsService, private authService: AuthService, private hostService: HostService, private router: Router, private messagService: MessageService) {
+  constructor(private route: ActivatedRoute, private accommodationService: AccommodationService, private formsService: FormsService, private keycloakService: KeycloakService, private hostService: HostService, private router: Router, private messagService: MessageService) {
   }
 
   ngOnInit() {
@@ -182,12 +182,7 @@ export class AccommodationTimeslotsComponent implements OnInit {
 
   send() {
     if (this.cancellationDeadline) {
-      const hostEmail: string | null = this.authService.getEmail();
-      if (hostEmail != null) {
-        const email: Email = {
-          email: hostEmail
-        }
-        this.hostService.findByEmail(email).subscribe({
+        this.hostService.findById(this.keycloakService.getId()).subscribe({
           next: (data: Host) => {
             this.hostId = data.id;
             this.timeslots.forEach((timeslot) => timeslot.id = undefined)
@@ -219,7 +214,6 @@ export class AccommodationTimeslotsComponent implements OnInit {
           error: (_) => console.log("error getting host ")
         })
 
-      }
 
 
     } else {

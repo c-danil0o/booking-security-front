@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AuthService } from "../../infrastructure/auth/auth.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Host } from "../../model/host-model";
 import { HostService } from "../../accounts/services/host.service";

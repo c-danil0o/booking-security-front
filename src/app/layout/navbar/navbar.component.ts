@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from "../../infrastructure/auth/auth.service";
 import { Router } from "@angular/router";
-import { MessageService } from "primeng/api";
 import { KeycloakService } from 'src/app/infrastructure/auth/keycloak.service';
 
 @Component({

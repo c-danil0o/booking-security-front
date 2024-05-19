@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {Guest} from "../../model/guest-model";
-import {AuthService} from "../../infrastructure/auth/auth.service";
 import {Router} from "@angular/router";
 import {confirmPasswordValidator} from "../../accounts/register/password.validator";
 import {HostService} from "../../accounts/services/host.service";
@@ -13,6 +12,7 @@ import {AccommodationService} from "../../accommodations/accommodation.service";
 import {Accommodation} from "../../model/accommodation-model";
 import {PaginatorState} from "primeng/paginator";
 import {NotificationsService} from "../../notifications/notifications.service";
+import {KeycloakService} from "../../infrastructure/auth/keycloak.service";
 
 @Component({
   selector: 'app-guest-profile',
@@ -27,17 +27,11 @@ export class GuestProfileComponent implements OnInit{
   totalItems: number = 0
   favoritesLoaded: boolean = false;
 
-  constructor(private authService: AuthService, private router: Router, private guestService: GuestService, private accommodationService: AccommodationService, private notificationsService: NotificationsService) {
+  constructor(private keycloakService: KeycloakService, private router: Router, private guestService: GuestService, private accommodationService: AccommodationService, private notificationsService: NotificationsService) {
   }
 
   ngOnInit(): void {
-    const user_email: string | null = this.authService.getEmail();
-    console.log(this.user);
-    if (user_email != null) {
-      const email: Email = {
-        email: user_email
-      }
-      this.guestService.findByEmail(email).subscribe({
+      this.guestService.findById(this.keycloakService.getId()).subscribe({
         next: (data: Guest) => {
           this.user = data;
           if (this.user.id!=undefined){
@@ -57,18 +51,10 @@ export class GuestProfileComponent implements OnInit{
           console.log("error getting guest by email")
         }
       })
-    }
   }
 
   logOut(): void {
-    this.authService.logout().subscribe({
-      next: (_) => {
-        localStorage.removeItem('user');
-        this.authService.setUser();
-        this.notificationsService.disconnectStompClient();
-        this.router.navigate(['/login']);
-      }
-    })
+    this.keycloakService.logout();
   }
 
   onPageChange($event: PaginatorState) {

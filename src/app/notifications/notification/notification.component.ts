@@ -3,12 +3,12 @@ import {TableRowSelectEvent} from "primeng/table";
 import {OverlayPanel} from "primeng/overlaypanel";
 import {Notification} from "../../model/notification-model";
 import {NotificationsService} from "../notifications.service";
-import {AuthService} from "../../infrastructure/auth/auth.service";
 import {MessageService} from "primeng/api";
 import * as Stomp from 'stompjs';
 import SockJS from 'sockjs-client';
 import {environment} from "../../../env/env";
 import {DatePipe} from "@angular/common";
+import {KeycloakService} from "../../infrastructure/auth/keycloak.service";
 
 @Component({
   selector: 'app-notification',
@@ -30,13 +30,13 @@ export class NotificationComponent implements OnInit{
     ['RESERVATION_REQUEST_NOTIFICATION', false],
     ['RESERVATION_RESPONSE_NOTIFICATION', false],
   ]);
-  constructor(private notificationsService: NotificationsService, private authService: AuthService, private messageService: MessageService, private datePipe: DatePipe) {
+  constructor(private notificationsService: NotificationsService, private keycloakService: KeycloakService, private messageService: MessageService, private datePipe: DatePipe) {
   }
 
   ngOnInit(): void {
     this.initializeWebSocketConnection()
-    this.userId = this.authService.getId();
-    this.userRole = this.authService.getRole();
+    this.userId = this.keycloakService.getId();
+    this.userRole = this.keycloakService.getRole() || "";
     if (this.userId != null){
       this.notificationsService.findByUserId(this.userId).subscribe({
         next: (notifications: Notification[]) => this.notifications = notifications,

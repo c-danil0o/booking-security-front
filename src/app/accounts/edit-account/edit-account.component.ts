@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule, Routes } from '@angular/router';
-import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { HostService } from '../services/host.service';
 import { GuestService } from '../services/guest.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -11,6 +10,7 @@ import { AccountService } from '../services/account.service';
 import { NewPassword } from 'src/app/model/password-change-model';
 import { error } from '@angular/compiler-cli/src/transformers/util';
 import {MessageService} from "primeng/api";
+import {KeycloakService} from "../../infrastructure/auth/keycloak.service";
 
 @Component({
   selector: 'app-edit-account',
@@ -22,7 +22,7 @@ export class EditAccountComponent {
   editAccountForm: FormGroup;
   changePasswordForm: FormGroup;
   formChanged: boolean = false;
-  constructor(private router: Router, private authService: AuthService, private route: ActivatedRoute, private accountService: AccountService, private hostService: HostService, private guestService: GuestService, private messageService: MessageService) {}
+  constructor(private router: Router, private keycloakService: KeycloakService, private route: ActivatedRoute, private accountService: AccountService, private hostService: HostService, private guestService: GuestService, private messageService: MessageService) {}
 
 
   ngOnInit() {
@@ -32,7 +32,7 @@ export class EditAccountComponent {
 
     this.route.params.subscribe(params => {
       const userId = params['id'];
-      if (this.authService.getRole().toUpperCase() === 'ROLE_HOST') {
+      if (this.keycloakService.getRole()?.toUpperCase() === 'HOST') {
         this.hostService.findById(userId).subscribe(data => {
           this.account = data;
           this.loaded = true;
@@ -89,7 +89,7 @@ export class EditAccountComponent {
         country: this.editAccountForm.value.country
       }
     };
-    if (this.authService.getRole().toUpperCase() === 'ROLE_HOST'){
+    if (this.keycloakService.getRole()?.toUpperCase() === 'HOST'){
       this.hostService.update(updatedAccountData).subscribe(
         (responseAccount: any) => {
           this.account = responseAccount;
@@ -156,13 +156,8 @@ export class EditAccountComponent {
 
   onDelete(): void {
     if(confirm('Are you sure you want to delete your account?')) {
-      const deleteService = this.authService.getRole().toUpperCase() === 'ROLE_HOST' ? this.hostService : this.guestService;
-      this.authService.logout().subscribe({
-        next: (_) => {
-          localStorage.removeItem('user');
-          this.authService.setUser();
-        }
-      })
+      const deleteService = this.keycloakService.getRole()?.toUpperCase() === 'HOST' ? this.hostService : this.guestService;
+      this.keycloakService.logout();
       deleteService.deleteAccount(this.account.id).subscribe(
         () => {
           this.messageService.add({
@@ -206,13 +201,7 @@ export class EditAccountComponent {
             detail: 'Password updated successfully\nYou\'ll be logged out so you can login with new credentials',
             life: 2000
           })
-          this.authService.logout().subscribe({
-            next: (_) => {
-              localStorage.removeItem('user');
-              this.authService.setUser();
-              this.router.navigate(['/login']);
-            }
-          })
+          this.keycloakService.logout();
         },
         error => {
           console.log("Error: " + error);

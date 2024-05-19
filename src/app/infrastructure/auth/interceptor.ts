@@ -6,7 +6,6 @@ import {
   HttpInterceptor,
 } from '@angular/common/http';
 import { catchError, EMPTY, Observable, of, throwError } from 'rxjs';
-import { AuthService } from "./auth.service";
 import { Router } from "@angular/router";
 import { MessageService } from "primeng/api";
 import { KeycloakService } from './keycloak.service';
@@ -28,7 +27,7 @@ export class Interceptor implements HttpInterceptor {
       switch (err.status) {
         case 401: {
           // token expired -> goto login, dont return error
-          // this.logOut()
+          this.keycloakService.logout()
           return of(error);      // <-- return observable using `of`
         }
         case 418: {
@@ -65,7 +64,7 @@ export class Interceptor implements HttpInterceptor {
       switch (err.status) {
         case 401: {
           // token expired -> goto login, dont return error
-          // this.logOut()
+          this.keycloakService.logout()
           return of(error);      // <-- return observable using `of`
         }
         case 418: {

@@ -66,7 +66,7 @@ export class KeycloakService {
   }
 
 
-  getId(): number | undefined {
+  getId(): number {
     if (this.keycloak.tokenParsed != null) {
       var uuid = this.keycloak.tokenParsed.sub?.replace(/-/g, "");
 
@@ -74,7 +74,7 @@ export class KeycloakService {
       return Number(hex);
 
     }
-    return undefined;
+    return -1;
   }
 
 

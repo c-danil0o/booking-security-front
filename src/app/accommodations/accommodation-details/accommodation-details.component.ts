@@ -10,7 +10,6 @@ import {PhotoService} from "../../shared/photo.service";
 import {Host} from "../../model/host-model";
 import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
 import {Timeslot} from "../../model/timeslot-model";
-import {AuthService} from 'src/app/infrastructure/auth/auth.service';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ReservationService} from 'src/app/reservations/reservation.service';
 import {New_reservation} from 'src/app/model/new_reservation-model';
@@ -20,6 +19,7 @@ import {GetAvailabilityPrice} from 'src/app/model/get-availability-price-model';
 import {GottenAvailabilityPrice} from 'src/app/model/gotten-availability-price-model';
 import {error} from '@angular/compiler-cli/src/transformers/util';
 import {MessageService} from "primeng/api";
+import {KeycloakService} from "../../infrastructure/auth/keycloak.service";
 
 
 interface Image {
@@ -72,7 +72,7 @@ const emptyAccommodation: Accommodation = {
 
 
 export class AccommodationDetailsComponent implements OnInit {
-  isGuest: boolean = this.authService.getRole() == "ROLE_Guest";
+  isGuest: boolean = this.keycloakService.getRole() == "Guest";
   accommodation: Accommodation = emptyAccommodation;
   hostName: string
   viewOnly: boolean = true;
@@ -104,7 +104,7 @@ export class AccommodationDetailsComponent implements OnInit {
   activeTimeslots: Timeslot[] = [];
 
 
-  constructor(private sanitizer: DomSanitizer, private messageService: MessageService, private route: ActivatedRoute, private accommodationService: AccommodationService, private reviewService: ReviewService, private photoService: PhotoService, private authService: AuthService, private reservationService: ReservationService, private guestService: GuestService, private router: Router) {
+  constructor(private sanitizer: DomSanitizer, private messageService: MessageService, private route: ActivatedRoute, private accommodationService: AccommodationService, private reviewService: ReviewService, private photoService: PhotoService, private keycloakService: KeycloakService, private reservationService: ReservationService, private guestService: GuestService, private router: Router) {
   }
 
   ngOnInit() {
@@ -121,7 +121,7 @@ export class AccommodationDetailsComponent implements OnInit {
         next: (data: Accommodation) => {
           this.accommodation = data
           this.accommodationLoaded = true;
-          if (this.accommodation.host.id == this.authService.getId()) {
+          if (this.accommodation.host.id == this.keycloakService.getId()) {
             this.viewOnly = false;
           }
           this.activeTimeslots = this.accommodation.availability;
@@ -146,7 +146,7 @@ export class AccommodationDetailsComponent implements OnInit {
           }
 
           if (this.isGuest) {
-            this.guestService.checkFavorite(this.accommodation.id, this.authService.getId() || -1).subscribe((fav) => this.isFavorite = fav );
+            this.guestService.checkFavorite(this.accommodation.id, this.keycloakService.getId() || -1).subscribe((fav) => this.isFavorite = fav );
             // info about searched dates and guest number
             this.accommodationService.getSearchedAccommodationDetails().subscribe((searchDetails) => {
               if (searchDetails) {
@@ -220,7 +220,7 @@ export class AccommodationDetailsComponent implements OnInit {
 
 
   onSubmit(): void {
-    const userId = this.authService.getId();
+    const userId = this.keycloakService.getId();
     if (userId !== null) {
       let {startDate, endDate, guests} = this.reservation_form.value;
       startDate = new Date(startDate + 'Z')
@@ -250,7 +250,7 @@ export class AccommodationDetailsComponent implements OnInit {
             detail: 'Reservation created successfully!',
             life: 2000
           })
-          this.router.navigate(['/guest-reservations', this.authService.getId()])
+          this.router.navigate(['/guest-reservations', this.keycloakService.getId()])
         },
         (error: any) => {
           console.error('Error creating reservation:', error);
@@ -349,7 +349,7 @@ export class AccommodationDetailsComponent implements OnInit {
   }
 
   addToFavorites(accommodationId: number) {
-    this.guestService.addFavorite(accommodationId, this.authService.getId()||-1).subscribe({
+    this.guestService.addFavorite(accommodationId, this.keycloakService.getId()||-1).subscribe({
       next: (review) => {
         this.messageService.add({
           severity: 'success',
@@ -364,7 +364,7 @@ export class AccommodationDetailsComponent implements OnInit {
   }})}
 
   removeFavorite(id: number) {
-    this.guestService.removeFavorite(id, this.authService.getId()||-1).subscribe({
+    this.guestService.removeFavorite(id, this.keycloakService.getId()||-1).subscribe({
       next: (review) => {
         this.messageService.add({
           severity: 'success',
