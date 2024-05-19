@@ -5,10 +5,7 @@ import { Host } from "../../model/host-model";
 import { HostService } from "../../accounts/services/host.service";
 import { Review } from "../../model/review-model";
 import { ReviewService } from "../../reviews/review.service";
-import { error } from "@angular/compiler-cli/src/transformers/util";
 import { confirmPasswordValidator } from "../../accounts/register/password.validator";
-import { Email } from "../../model/Email";
-import { ConnectableObservable } from 'rxjs';
 import { MessageService } from "primeng/api";
 import { Report } from "../../model/report-model";
 import { ReportService } from "../../reports/report.service";
@@ -42,10 +39,10 @@ export class HostProfileComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.id = +params['hostId'];
-      // if (this.keycloakService.profile?.username == this.id) {
-      //   this.viewOnly = false;
-      // }
+      this.id = params['hostId'];
+      if (this.keycloakService.getId() == this.id) {
+        this.viewOnly = false;
+      }
       this.hostService.findById(this.id).subscribe({
         next: (data: Host) => {
           this.user = data;
@@ -112,8 +109,7 @@ export class HostProfileComponent implements OnInit {
     let report: Report = {
       id: -1,
       reason: this.reportReason,
-      // authorId: this.authService.getId() || -1,
-      authorId: -1,
+      authorId: this.keycloakService.getId() || -1,
       reportedUserId: this.id,
       date: new Date()
     }

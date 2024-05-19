@@ -1,34 +1,26 @@
-import {Component, OnInit} from '@angular/core';
-import {AuthService} from "../../infrastructure/auth/auth.service";
-import {Router} from "@angular/router";
-import {MessageService} from "primeng/api";
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from "../../infrastructure/auth/auth.service";
+import { Router } from "@angular/router";
+import { MessageService } from "primeng/api";
+import { KeycloakService } from 'src/app/infrastructure/auth/keycloak.service';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements OnInit{
-  role: string = '';
-  id: number | null = -1;
-  constructor(private authService: AuthService, private router: Router) {
+export class NavbarComponent implements OnInit {
+  role: string | null;
+  id: number | undefined;
+  constructor(private keycloakService: KeycloakService, private router: Router) {
   }
   ngOnInit(): void {
-    this.authService.userState.subscribe((result) => {
-      this.role = result;
-      this.id = this.authService.getId();
-      console.log(this.role);
-    })
+    this.role = this.keycloakService.getRole();
+    this.id = this.keycloakService.getId();
   }
 
   logOut(): void {
-    this.authService.logout().subscribe({
-      next: (_) => {
-        localStorage.removeItem('user');
-        this.authService.setUser();
-        this.router.navigate(['/login']);
-      }
-    })
+    this.keycloakService.logout();
   }
 
 

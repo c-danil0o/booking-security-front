@@ -11,7 +11,7 @@ export class LoginComponent implements OnInit {
 
   }
   async ngOnInit(): Promise<void> {
-    // await this.keycloakService.init();
-    // await this.keycloakService.login();
+    await this.keycloakService.init();
+    await this.keycloakService.login();
   }
 }

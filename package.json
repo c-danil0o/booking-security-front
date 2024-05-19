@@ -25,6 +25,7 @@
     "@googlemaps/js-api-loader": "^1.16.2",
     "@js-joda/core": "^5.6.1",
     "@types/google-maps": "^3.2.6",
+    "@types/node": "^20.12.12",
     "chart.js": "^4.4.1",
     "chartjs-plugin-annotation": "^3.0.1",
     "chartjs-plugin-datalabels": "^2.2.0",

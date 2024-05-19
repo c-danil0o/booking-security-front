@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {Reservation} from "../../model/reservation-model";
-import {ActivatedRoute} from "@angular/router";
-import {ReservationService} from "../reservation.service";
-import {Table} from "primeng/table";
-import {MessageService, SelectItem} from "primeng/api";
-import {Report} from "../../model/report-model";
-import {ReportService} from "../../reports/report.service";
-import {LocalDateTime} from "@js-joda/core";
+import { Component, OnInit } from '@angular/core';
+import { Reservation } from "../../model/reservation-model";
+import { ActivatedRoute } from "@angular/router";
+import { ReservationService } from "../reservation.service";
+import { Table } from "primeng/table";
+import { MessageService, SelectItem } from "primeng/api";
+import { Report } from "../../model/report-model";
+import { ReportService } from "../../reports/report.service";
+import { LocalDateTime } from "@js-joda/core";
 
 @Component({
   selector: 'app-host-reservations',
@@ -19,13 +19,13 @@ export class HostReservationsComponent implements OnInit {
   filteredReservations: Reservation[];
   selectedStatus: string = '';
   statusOptions: SelectItem[] = [
-    {label: 'All', value: null},
-    {label: 'Approved', value: 'Approved'},
-    {label: 'Pending', value: 'Pending'},
-    {label: 'Denied', value: 'Denied'},
-    {label: 'Active', value: 'Active'},
-    {label: 'Done', value: 'Done'},
-    {label: 'Canceled', value: 'Canceled'},
+    { label: 'All', value: null },
+    { label: 'Approved', value: 'Approved' },
+    { label: 'Pending', value: 'Pending' },
+    { label: 'Denied', value: 'Denied' },
+    { label: 'Active', value: 'Active' },
+    { label: 'Done', value: 'Done' },
+    { label: 'Canceled', value: 'Canceled' },
     // Add more status options as needed
   ];
   hostId: number;
@@ -43,7 +43,7 @@ export class HostReservationsComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
-      const hostId = +params["hostId"];
+      const hostId = params["hostId"];
       this.hostId = hostId;
       console.log(hostId)
       this.reservationService.getByHostId(hostId).subscribe({
@@ -134,16 +134,16 @@ export class HostReservationsComponent implements OnInit {
     this.filterByDates();
   }
 
-  checkIfInPast(res: Reservation): boolean{
+  checkIfInPast(res: Reservation): boolean {
     return res.startDate.valueOf() < Date.now().valueOf();
   }
 
-  showGuestReporting(){
+  showGuestReporting() {
     this.guestReportVisible = true;
   }
 
-  addGuestReport(guestId: number){
-    if (this.reportReason=="")
+  addGuestReport(guestId: number) {
+    if (this.reportReason == "")
       return;
     let report: Report = {
       id: -1,
@@ -166,18 +166,18 @@ export class HostReservationsComponent implements OnInit {
       error: (err) => console.log(err)
     })
     this.guestReportVisible = false;
-    this.reportReason= "";
+    this.reportReason = "";
   }
 
-  filterByDates(){
-    if(this.startDate==null || this.endDate==null){
+  filterByDates() {
+    if (this.startDate == null || this.endDate == null) {
       return;
     }
     // @ts-ignore
-    this.filteredReservations = this.reservations.filter(reservation => reservation.startDate.toDateString()===this.startDate.toDateString() && reservation.endDate.toDateString()===this.endDate.toDateString() && (!this.selectedStatus || reservation.reservationStatus.toString() == this.selectedStatus));
+    this.filteredReservations = this.reservations.filter(reservation => reservation.startDate.toDateString() === this.startDate.toDateString() && reservation.endDate.toDateString() === this.endDate.toDateString() && (!this.selectedStatus || reservation.reservationStatus.toString() == this.selectedStatus));
   }
 
-  clearDates(){
+  clearDates() {
     this.startDate = null;
     this.endDate = null;
     this.filterReservations();
