@@ -22,4 +22,7 @@ export class NavbarComponent implements OnInit {
   }
 
 
+  openRegisterPage() {
+    this.keycloakService.register();
+  }
 }

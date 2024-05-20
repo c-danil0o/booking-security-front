@@ -8,7 +8,7 @@
   <div class="buttons">
     <button *ngIf="role == null" pButton [routerLink]="['/login']" type="button" label="Login"
       class="p-button-outlined login_button"></button>
-    <button *ngIf="role == null" pButton type="button" [routerLink]="['/register']" routerLinkActive="active"
+    <button *ngIf="role == null" pButton type="button" (click)="openRegisterPage()" routerLinkActive="active"
       label="Register" class="p-button register_button"></button>
     <app-notification *ngIf="role != null"></app-notification>
     <button *ngIf="role != null && role=='Host'" pButton type="button" [routerLink]="['/host-profile',id]"

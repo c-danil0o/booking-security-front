@@ -48,6 +48,10 @@ export class KeycloakService {
     return this.keycloak?.login();
   }
 
+  register() {
+    return this.keycloak.register({redirectUri: 'https://localhost:4201/register'});
+  }
+
   logout() {
     return this.keycloak?.logout({ redirectUri: 'https://localhost:4201' });
   }
