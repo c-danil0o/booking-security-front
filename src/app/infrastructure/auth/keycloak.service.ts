@@ -15,6 +15,7 @@ export class KeycloakService {
 
   private _profile: UserProfile | undefined;
 
+  accountConfirmed: boolean = true;
   get keycloak() {
     if (!this._keycloak) {
 
@@ -84,6 +85,13 @@ export class KeycloakService {
   }
 
 
+  async refreshToken(){
+    try {
+      await this.keycloak.updateToken(30);
+    } catch (error) {
+      console.error('Failed to refresh token:', error);
+    }
+  }
   getGuid() {
     if (this.keycloak.tokenParsed != null) {
       return this.keycloak.tokenParsed.sub;

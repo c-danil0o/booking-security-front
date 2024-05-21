@@ -20,6 +20,7 @@ export class Interceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     console.log("intercepting: ", req)
+    this.keycloakService.refreshToken();
     const accessToken: any = this.keycloakService.keycloak.token;
     if (req.headers.get('skip')) return next.handle(req).pipe(catchError(err => {
       console.log("checking for errors!", err)

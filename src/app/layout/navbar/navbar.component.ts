@@ -10,7 +10,7 @@ import { KeycloakService } from 'src/app/infrastructure/auth/keycloak.service';
 export class NavbarComponent implements OnInit {
   role: string | null;
   id: number | undefined;
-  constructor(private keycloakService: KeycloakService, private router: Router) {
+  constructor(protected keycloakService: KeycloakService, private router: Router) {
   }
   ngOnInit(): void {
     this.role = this.keycloakService.getRole();

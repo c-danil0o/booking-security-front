@@ -1,11 +1,11 @@
 <div class="navbar">
   <div class="spacer"></div>
-  <div class="logo" [routerLink]="['']">
+  <div class="logo" [routerLink]="['']" *ngIf="this.keycloakService.accountConfirmed">
     <span class="logo_icon pi pi-map"></span>
     <span class="logo_text">Booking</span>
   </div>
   <div class="spacer"></div>
-  <div class="buttons">
+  <div class="buttons" *ngIf="this.keycloakService.accountConfirmed">
     <button *ngIf="role == null" pButton [routerLink]="['/login']" type="button" label="Login"
       class="p-button-outlined login_button"></button>
     <button *ngIf="role == null" pButton type="button" (click)="openRegisterPage()" routerLinkActive="active"

@@ -21,6 +21,7 @@ export class RegisterComponent implements OnInit {
   constructor(private router: Router, private accountService: AccountService, private keycloakService: KeycloakService) {
   }
   ngOnInit() {
+    this.keycloakService.accountConfirmed = false;
     this.user_id = this.keycloakService.getId();
     console.log(this.user_id);
     this.registerForm = new FormGroup({
@@ -60,6 +61,7 @@ export class RegisterComponent implements OnInit {
       this.accountService.register(account).subscribe({
         next: (response: NewAccount) => {
           console.log(response)
+          this.keycloakService.accountConfirmed = true;
           this.router.navigate(['/'])
         }
       })
