@@ -74,6 +74,13 @@ export class GuestProfileComponent implements OnInit{
   onAccommodationClicked($event: Accommodation) {
 
   }
+
+  tryInvalidOperation() {
+
+    this.accommodationService.denyAccommodation(2).subscribe({
+      next: (value) => console.log(value)
+    });
+  }
 }
 
 

@@ -31,6 +31,7 @@ export class RegisterComponent implements OnInit {
       street: new FormControl('', Validators.required),
       city: new FormControl('', Validators.required),
       number: new FormControl('', Validators.required),
+      account_type: new FormControl('', Validators.required)
 
 
     }, [confirmPasswordValidator])
@@ -50,17 +51,16 @@ export class RegisterComponent implements OnInit {
         city: this.registerForm.value.city,
       }
       const account: NewAccount = {
-        id: this.user_id,
         firstName: this.registerForm.value.firstname,
         lastName: this.registerForm.value.lastname,
         phone: this.registerForm.value.phone,
-        address: address,
-        role: "Guest"
+        role: this.registerForm.value.account_type,
+        address: address
       }
       this.accountService.register(account).subscribe({
         next: (response: NewAccount) => {
           console.log(response)
-          this.router.navigate(['/'])
+          this.router.navigate(['email-sent'])
         }
       })
     } else {

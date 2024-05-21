@@ -3,6 +3,8 @@ import Keycloak from 'keycloak-js'
 import { UserProfile } from './model/user-profile';
 import { DebuggerType } from "html2canvas/dist/types/core/debugger";
 import * as buffer from "node:buffer";
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +31,7 @@ export class KeycloakService {
     return this._profile;
   }
 
-  constructor() {
+  constructor(private httpClient: HttpClient) {
   }
 
   async init() {
@@ -49,7 +51,7 @@ export class KeycloakService {
   }
 
   register() {
-    return this.keycloak.register({redirectUri: 'https://localhost:4201/register'});
+    return this.keycloak?.register({ redirectUri: 'https://localhost:4201/register' });
   }
 
   logout() {
@@ -74,7 +76,7 @@ export class KeycloakService {
     if (this.keycloak.tokenParsed != null) {
       var uuid = this.keycloak.tokenParsed.sub?.replace(/-/g, "");
 
-      var hex = "0x" + uuid?.slice(0, uuid.length / 2);
+      var hex = "0x" + uuid?.slice(0, uuid.length / 2 - 3);
       return Number(hex);
 
     }
@@ -92,5 +94,9 @@ export class KeycloakService {
   isLoggedIn(): boolean | undefined {
     return this.keycloak?.authenticated;
   }
+  private headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+  });
+
 
 }

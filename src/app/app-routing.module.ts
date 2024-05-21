@@ -7,7 +7,6 @@ import { RegisterComponent } from "./accounts/register/register.component";
 import { AccommodationListComponent } from './accommodations/accommodation-list/accommodation-list.component';
 import { EditAccountComponent } from './accounts/edit-account/edit-account.component';
 import { AccommodationDetailsComponent } from "./accommodations/accommodation-details/accommodation-details.component";
-import { RegistrationConfirmComponent } from "./accounts/registration-confirm/registration-confirm.component";
 import { EmailSentComponent } from "./accounts/email-sent/email-sent.component";
 import { HostProfileComponent } from "./profile/host-profile/host-profile.component";
 import { HostPropertiesComponent } from "./profile/host-properties/host-properties.component";
@@ -39,7 +38,6 @@ const routes: Routes = [
   { component: AccommodationDetailsComponent, path: "accommodation-details/:accommodationId" },
   { component: EditAccountComponent, path: "edit-account/:id", canActivate: [authGuard] },
   { component: EmailSentComponent, path: "email-sent" },
-  { component: RegistrationConfirmComponent, path: "registration-confirmation" },
   { component: HostProfileComponent, path: "host-profile/:hostId"},
   { component: AdminProfileComponent, path: "admin-profile", canActivate: [authGuard] },
   { component: HostPropertiesComponent, path: "host-properties/:hostId" , canActivate: [authGuard] },

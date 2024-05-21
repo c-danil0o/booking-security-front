@@ -1,9 +1,8 @@
-import {Address} from "./address-model";
+import { Address } from "./address-model";
 
 
-export interface NewAccount{
-  email: string,
-  password: string,
+export interface NewAccount {
+  id: number;
   firstName: string;
   lastName: string;
   phone: string;
