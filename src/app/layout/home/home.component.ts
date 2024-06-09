@@ -1,23 +1,36 @@
-import {Component} from '@angular/core';
-import {Router} from "@angular/router";
-import {AccommodationService} from "../../accommodations/accommodation.service";
-import {FormsService} from "../../shared/forms.service";
-import {SearchFormService} from "../../shared/search-form.service";
-import {SearchModel} from "../../model/search-model";
-import {MessageService} from "primeng/api";
+import { Component, OnInit } from '@angular/core';
+import { Router } from "@angular/router";
+import { AccommodationService } from "../../accommodations/accommodation.service";
+import { FormsService } from "../../shared/forms.service";
+import { SearchFormService } from "../../shared/search-form.service";
+import { SearchModel } from "../../model/search-model";
+import { MessageService } from "primeng/api";
+import { KeycloakService } from 'src/app/infrastructure/auth/keycloak.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   place: string;
   startDate: Date;
   endDate: Date;
   guests: number;
 
-  constructor(private router: Router, private searchFormService: SearchFormService, private messageService: MessageService) {
+  constructor(private keycloakService: KeycloakService, private router: Router, private searchFormService: SearchFormService, private messageService: MessageService) {
+  }
+  ngOnInit(): void {
+
+    const userId = this.keycloakService.getId();
+    if (userId != -1) {
+      this.keycloakService.checkIfUserExists(userId).subscribe({
+        next: (value: boolean) => {
+          if (!value) this.router.navigate(['/register']);
+        }
+      })
+    }
+
   }
 
 
@@ -44,7 +57,7 @@ export class HomeComponent {
         this.searchFormService.setForms(model);
         this.router.navigate(['/filtered-accommodations']);
       }
-    }else{
+    } else {
       this.messageService.add({
         severity: 'error',
         summary: 'Warning',

@@ -5,6 +5,7 @@ import { DebuggerType } from "html2canvas/dist/types/core/debugger";
 import * as buffer from "node:buffer";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from 'src/env/env';
 
 @Injectable({
   providedIn: 'root'
@@ -72,6 +73,11 @@ export class KeycloakService {
     return null;
   }
 
+  checkIfUserExists(userId: number): Observable<boolean> {
+    return this.httpClient.get<boolean>(environment.apiHost + 'api/accounts/check/' + userId);
+  }
+
+
 
   getId(): number {
     if (this.keycloak.tokenParsed != null) {
@@ -85,7 +91,7 @@ export class KeycloakService {
   }
 
 
-  async refreshToken(){
+  async refreshToken() {
     try {
       await this.keycloak.updateToken(30);
     } catch (error) {
